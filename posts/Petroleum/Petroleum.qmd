@@ -1,0 +1,59 @@
+---
+title: "Petroleum"
+author: "Jorge Luiz Mendes"
+date: "2022-06-30"
+categories: [analysis,new,code,ANP]
+image: "image1.png"
+description: "Panorama nacional a respeito do petróleo"
+---
+
+# Objetivo 
+
+Analisar a produção e comercialização de petróleo no mercado brasileiro.
+
+## Bibliotecas
+
+```{r,message=FALSE}
+library(tidyverse)
+library(magrittr)
+library(plyr)
+```
+
+## Carregando Dados
+
+```{r, message=FALSE}
+dados <- readr::read_csv2("https://www.gov.br/anp/pt-br/centrais-de-conteudo/publicacoes/anuario-estatistico/arquivos-anuario-estatistico-2021-metadados-pdf-e-dados-abertos-csv/secao-2-industria-nacional-do-petroleo-e-do-gas-natural/dados-abertos-csv/anuario-2021-dados_abertos-tabela2-28.csv")
+
+head(dados)
+
+```
+
+Nome das Colunas
+
+```{r}
+colnames(dados)
+```
+
+Renomeando as Colunas
+
+```{r}
+dados <- plyr::rename(dados,
+  c("REFINARIA" = "refinaria",
+  "MUNICÍPIO (UF)" = "municipio",
+  "INÍCIO DE OPERAÇÃO" ="ano",
+  "CAPACIDADE NOMINAL"= "capacidade")
+  )
+head(dados)
+```
+
+```{r}
+dados %>% filter(capacidade >= 200000) %>% 
+  ggplot() +
+    geom_col(
+    mapping = aes(x = municipio,y =capacidade, fill = municipio)
+    )+
+    theme(axis.text.x=element_blank()) +
+    ggtitle("Cidades com Maior Capacidade de Refino")
+      
+        
+```

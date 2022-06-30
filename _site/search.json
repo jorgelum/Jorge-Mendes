@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Jorge Mendes",
+    "section": "",
+    "text": "analysis\n\n\nnew\n\n\ncode\n\n\nANP\n\n\n\n\nPanorama nacional a respeito do petróleo\n\n\n\n\n\n\nJun 30, 2022\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nJun 30, 2022\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nJun 27, 2022\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this blog"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Welcome To My Blog",
+    "section": "",
+    "text": "Since this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "posts/Petroleum/Petroleum.html",
+    "href": "posts/Petroleum/Petroleum.html",
+    "title": "Petroleum",
+    "section": "",
+    "text": "Analisar a produção e comercialização de petróleo no mercado brasileiro.\n\n\n\nlibrary(tidyverse)\nlibrary(magrittr)\nlibrary(plyr)\n\n\n\n\n\ndados <- readr::read_csv2(\"https://www.gov.br/anp/pt-br/centrais-de-conteudo/publicacoes/anuario-estatistico/arquivos-anuario-estatistico-2021-metadados-pdf-e-dados-abertos-csv/secao-2-industria-nacional-do-petroleo-e-do-gas-natural/dados-abertos-csv/anuario-2021-dados_abertos-tabela2-28.csv\")\n\nhead(dados)\n\n# A tibble: 6 x 4\n  REFINARIA             `MUNICÍPIO (UF)`     `INÍCIO DE OPERA~ `CAPACIDADE NOMI~\n  <chr>                 <chr>                            <dbl>             <dbl>\n1 Replan - Refinaria d~ Paulínia (SP)                     1972           433996 \n2 Rlam - Refinaria Lan~ São Francisco do Co~              1950           377388 \n3 Revap - Refinaria He~ São José dos Campos~              1980           251592.\n4 Reduc - Refinaria Du~ Duque de Caxias (RJ)              1961           251592.\n5 Repar - Refinaria Pr~ Araucária (PR)                    1977           213854.\n6 Refap - Refinaria Al~ Canoas (RS)                       1968           220143.\n\n\nNome das Colunas\n\ncolnames(dados)\n\n[1] \"REFINARIA\"          \"MUNICÍPIO (UF)\"     \"INÍCIO DE OPERAÇÃO\"\n[4] \"CAPACIDADE NOMINAL\"\n\n\nRenomeando as Colunas\n\ndados <- plyr::rename(dados,\n  c(\"REFINARIA\" = \"refinaria\",\n  \"MUNICÍPIO (UF)\" = \"municipio\",\n  \"INÍCIO DE OPERAÇÃO\" =\"ano\",\n  \"CAPACIDADE NOMINAL\"= \"capacidade\")\n  )\nhead(dados)\n\n# A tibble: 6 x 4\n  refinaria                                   municipio           ano capacidade\n  <chr>                                       <chr>             <dbl>      <dbl>\n1 Replan - Refinaria de Paulínia              Paulínia (SP)      1972    433996 \n2 Rlam - Refinaria Landulpho Alves            São Francisco do~  1950    377388 \n3 Revap - Refinaria Henrique Lage             São José dos Cam~  1980    251592.\n4 Reduc - Refinaria Duque de Caxias           Duque de Caxias ~  1961    251592.\n5 Repar - Refinaria Presidente Getúlio Vargas Araucária (PR)     1977    213854.\n6 Refap - Refinaria Alberto Pasqualini S.A.   Canoas (RS)        1968    220143.\n\n\n\ndados %>% filter(capacidade >= 200000) %>% \n  ggplot() +\n    geom_col(\n    mapping = aes(x = municipio,y =capacidade, fill = municipio)\n    )+\n    theme(axis.text.x=element_blank()) +\n    ggtitle(\"Cidades com Maior Capacidade de Refino\")"
+  }
+]
