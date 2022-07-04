@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jorge Luiz Mendes">
-<meta name="dcterms.date" content="2022-06-30">
-<meta name="description" content="Panorama nacional a respeito do petróleo">
+<meta name="dcterms.date" content="2022-07-04">
+<meta name="description" content="Panorama a respeito do petróleo e biblioteca ggplot">
 
 <title>Jorge Mendes - Petroleum</title>
 <style>
@@ -142,7 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="nav-link" href="../../about.html">About</a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/"><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/jorgelum/Jorge-Mendes"><i class="bi bi-github" role="img">
 </i> 
  </a>
   </li>  
@@ -164,7 +164,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <h1 class="title">Petroleum</h1>
                   <div>
         <div class="description">
-          Panorama nacional a respeito do petróleo
+          Panorama a respeito do petróleo e biblioteca ggplot
         </div>
       </div>
                           <div class="quarto-categories">
@@ -189,7 +189,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">June 30, 2022</p>
+        <p class="date">July 4, 2022</p>
       </div>
     </div>
       
@@ -206,79 +206,411 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
+<section id="introdução" class="level1">
+<h1>Introdução</h1>
+<p>O petróleo é um recurso extremamente necessário, presente em diversos setores da economia (indústria, agricultura, combustíveis, e etc).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="image1.png" class="img-fluid figure-img" width="188"></p>
+</figure>
+</div>
+<p>[Link do Ícone](<a href="https://www.flaticon.com/br/icones-gratis/barril-de-oleo" title="barril de óleo ícones">Barril de óleo ícones criados por mangsaabguru - Flaticon</a>)</p>
+</section>
 <section id="objetivo" class="level1">
 <h1>Objetivo</h1>
-<p>Analisar a produção e comercialização de petróleo no mercado brasileiro.</p>
+<p>Analisar a produção de petróleo no Brasil. Para essa tarefa foram coletados dados da <a href="https://www.gov.br/anp/pt-br">Agência Nacional do Petróleo</a> (ANP). A proposta é gerar diversos tipos de visualização com a biblioteca ggplot.</p>
 <section id="bibliotecas" class="level2">
 <h2 class="anchored" data-anchor-id="bibliotecas">Bibliotecas</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gghighlight)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plyr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(geobr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+E para que servem essas bibliotecas?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>O <a href="https://www.tidyverse.org">Tidyverse</a> é um conjunto de bibliotecas muito útil que pode ser carregada rapidamente.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://oliviergimenez.github.io/intro_tidyverse/assets/img/01_tidyverse_data_science.png" class="img-fluid figure-img" alt="https://oliviergimenez.github.io/intro_tidyverse" width="483"></p>
+</figure>
+</div>
+<ul>
+<li><p>readr: Importar/Carregar dados;</p></li>
+<li><p>dplyr(tidyr, tibble, plyr): Manipulação e transformação de dados;</p></li>
+<li><p>ggplot: Visualização de dados;</p></li>
+<li><p>magrittr: Operador Pipe(“O velho %&gt;%”) facilita a escrita do código. Também existe o novo pipe (“|&gt;”) nativo nas versões atuais do RStudio;</p></li>
+<li><p>knitr: Ajuda a formatar tabelas.</p></li>
+</ul>
+</div>
 </div>
 </section>
-<section id="carregando-dados" class="level2">
-<h2 class="anchored" data-anchor-id="carregando-dados">Carregando Dados</h2>
+<section id="visão-geral" class="level2">
+<h2 class="anchored" data-anchor-id="visão-geral">Visão Geral</h2>
+<p>Quais países possuem as maiores reservas de petróleo?</p>
+<p>Carregando os dados.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(<span class="st">"https://www.gov.br/anp/pt-br/centrais-de-conteudo/publicacoes/anuario-estatistico/arquivos-anuario-estatistico-2021-metadados-pdf-e-dados-abertos-csv/secao-2-industria-nacional-do-petroleo-e-do-gas-natural/dados-abertos-csv/anuario-2021-dados_abertos-tabela2-28.csv"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dados)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 x 4
-  REFINARIA             `MUNICÍPIO (UF)`     `INÍCIO DE OPERA~ `CAPACIDADE NOMI~
-  &lt;chr&gt;                 &lt;chr&gt;                            &lt;dbl&gt;             &lt;dbl&gt;
-1 Replan - Refinaria d~ Paulínia (SP)                     1972           433996 
-2 Rlam - Refinaria Lan~ São Francisco do Co~              1950           377388 
-3 Revap - Refinaria He~ São José dos Campos~              1980           251592.
-4 Reduc - Refinaria Du~ Duque de Caxias (RJ)              1961           251592.
-5 Repar - Refinaria Pr~ Araucária (PR)                    1977           213854.
-6 Refap - Refinaria Al~ Canoas (RS)                       1968           220143.</code></pre>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Reserva_internacional <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(<span class="st">"https://www.gov.br/anp/pt-br/centrais-de-conteudo/publicacoes/anuario-estatistico/arquivos-anuario-estatistico-2021-metadados-pdf-e-dados-abertos-csv/secao-1-panorama-internacional/dados-abertos-csv/anuario-2021-dados_abertos-tabela1-1.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<p>Nome das Colunas</p>
+<p>Plotando o Gráfico.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(dados)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "REFINARIA"          "MUNICÍPIO (UF)"     "INÍCIO DE OPERAÇÃO"
-[4] "CAPACIDADE NOMINAL"</code></pre>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Reserva_internacional <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ANO <span class="sc">==</span><span class="dv">2020</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="st">`</span><span class="at">VALOR DA RESERVA</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span><span class="st">`</span><span class="at">VALOR DA RESERVA</span><span class="st">`</span>,<span class="at">y =</span><span class="fu">reorder</span>(PAÍS,<span class="st">`</span><span class="at">VALOR DA RESERVA</span><span class="st">`</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> BLOCO,<span class="at">label =</span><span class="st">`</span><span class="at">VALOR DA RESERVA</span><span class="st">`</span> ) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>          <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"orange"</span>,<span class="st">"seagreen3"</span>)) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">labs</span>(<span class="at">x =</span><span class="st">"Bilhões de Barris"</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">ggtitle</span>(<span class="st">"As 10 Maiores Reservas de Petróleo em 2020"</span>) <span class="sc">+</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>          <span class="fu">geom_label</span>(<span class="at">size =</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Petroleum_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Renomeando as Colunas</p>
+<p>A OPEP (Organização dos Países Exportadores de Petróleo) é uma organização que tem por objetivo regular a produção do petróleo para dar estabilidade no mercado internacionall.</p>
+<p>Quem são maiores produtores?</p>
+<p>Carregando os dados.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> plyr<span class="sc">::</span><span class="fu">rename</span>(dados,</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"REFINARIA"</span> <span class="ot">=</span> <span class="st">"refinaria"</span>,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MUNICÍPIO (UF)"</span> <span class="ot">=</span> <span class="st">"municipio"</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"INÍCIO DE OPERAÇÃO"</span> <span class="ot">=</span><span class="st">"ano"</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CAPACIDADE NOMINAL"</span><span class="ot">=</span> <span class="st">"capacidade"</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dados)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 x 4
-  refinaria                                   municipio           ano capacidade
-  &lt;chr&gt;                                       &lt;chr&gt;             &lt;dbl&gt;      &lt;dbl&gt;
-1 Replan - Refinaria de Paulínia              Paulínia (SP)      1972    433996 
-2 Rlam - Refinaria Landulpho Alves            São Francisco do~  1950    377388 
-3 Revap - Refinaria Henrique Lage             São José dos Cam~  1980    251592.
-4 Reduc - Refinaria Duque de Caxias           Duque de Caxias ~  1961    251592.
-5 Repar - Refinaria Presidente Getúlio Vargas Araucária (PR)     1977    213854.
-6 Refap - Refinaria Alberto Pasqualini S.A.   Canoas (RS)        1968    220143.</code></pre>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Producao_internacional <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(<span class="st">"https://www.gov.br/anp/pt-br/centrais-de-conteudo/publicacoes/anuario-estatistico/arquivos-anuario-estatistico-2021-metadados-pdf-e-dados-abertos-csv/secao-1-panorama-internacional/dados-abertos-csv/anuario-2021-dados_abertos-tabela1-2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
+<p>Plotando o Gráfico.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> <span class="fu">filter</span>(capacidade <span class="sc">&gt;=</span> <span class="dv">200000</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>(</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> municipio,<span class="at">y =</span>capacidade, <span class="at">fill =</span> municipio)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">+</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Cidades com Maior Capacidade de Refino"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a> Producao_internacional <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ANO <span class="sc">==</span> <span class="dv">2020</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(PRODUÇÃO)) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">x =</span>PRODUÇÃO ,<span class="at">y =</span><span class="fu">reorder</span>(PAÍS,PRODUÇÃO),<span class="at">fill=</span>BLOCO, <span class="at">label =</span> PRODUÇÃO) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>           <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"orange"</span>,<span class="st">"seagreen3"</span>)) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">labs</span>(<span class="at">x =</span><span class="st">"Milhares de Barris por Dia"</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">ggtitle</span>(<span class="st">"Os 10 Maiores Produtores de Petróleo em 2020"</span>) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>          <span class="fu">geom_label</span>(<span class="at">size =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Petroleum_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-
-
+<p>Embora o Brasil não tenha as maiores reservas de petróleo, ele pertence ao grupo dos maiores produtores.</p>
+<p>Agora podemos analizar a produção anual de petróleo do Brasil.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Texto com quebra de linha</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Texto <span class="ot">&lt;-</span> <span class="fu">paste</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">strwrap</span>(<span class="st">"Aumento da extração de petróleo do Pré-Sal no ano de 2015"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>          <span class="dv">20</span>),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>Producao_internacional <span class="sc">%&gt;%</span> <span class="fu">filter</span>(PAÍS <span class="sc">==</span><span class="st">"Brasil"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">aes</span>(<span class="at">x =</span> ANO,<span class="at">y=</span>PRODUÇÃO) <span class="sc">+</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span><span class="fl">1.2</span>,<span class="at">colour =</span> <span class="st">"grey"</span> ) <span class="sc">+</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">breaks =</span><span class="fu">c</span>(<span class="dv">2011</span>,<span class="dv">2012</span>,<span class="dv">2013</span>,<span class="dv">2014</span>,<span class="dv">2015</span>,<span class="dv">2016</span>,<span class="dv">2017</span>,<span class="dv">2018</span>,<span class="dv">2019</span>,<span class="dv">2020</span>)) <span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Milhares de Barris por dia"</span>) <span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Textos</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>,<span class="at">x =</span> <span class="dv">2012</span> ,<span class="at">y =</span><span class="dv">2800</span>,<span class="at">size =</span> <span class="dv">6</span>,</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"BRASIL"</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>,<span class="at">colour =</span> <span class="st">"green"</span>) <span class="sc">+</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>,<span class="at">x =</span> <span class="dv">2018</span> ,<span class="at">y =</span><span class="dv">2300</span>,<span class="at">size =</span> <span class="dv">5</span>,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> Texto, <span class="at">fontface =</span> <span class="st">"bold"</span>,<span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="co">#destacar um ponto</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gghighlight</span>(</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    ANO <span class="sc">==</span><span class="dv">2015</span>,</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">label_key =</span> PRODUÇÃO,</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    <span class="co">#unhighlighted_colour = "grey",</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">label_params =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="fl">3.5</span>,</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>                        <span class="at">face =</span> <span class="st">"bold"</span>,</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>                        <span class="at">fill =</span> <span class="st">"red"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Could not calculate the predicate for layer 3, layer 4; ignored</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Ignoring unknown parameters: face</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Petroleum_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Quem foram os maiores consumidores em 2020?</p>
+<p>Carregando os dados.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>consumo_internacional <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(<span class="st">"https://www.gov.br/anp/pt-br/centrais-de-conteudo/publicacoes/anuario-estatistico/arquivos-anuario-estatistico-2021-metadados-pdf-e-dados-abertos-csv/secao-1-panorama-internacional/dados-abertos-csv/anuario-2021-dados_abertos-tabela1-3.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Usando o pacote knitr para formatar tabelas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>consumo_internacional <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ANO <span class="sc">==</span><span class="dv">2020</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="st">`</span><span class="at">CONSUMO DE PETRÓLEO</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"País"</span>,<span class="st">"Consumo de Petróleo (mil barris por dia)"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">País</th>
+<th style="text-align: right;">Consumo de Petróleo (mil barris por dia)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Estados Unidos</td>
+<td style="text-align: right;">17178</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">14225</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Índia</td>
+<td style="text-align: right;">4669</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Arábia Saudita</td>
+<td style="text-align: right;">3544</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Japão</td>
+<td style="text-align: right;">3268</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rússia</td>
+<td style="text-align: right;">3238</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Coreia do Sul</td>
+<td style="text-align: right;">2560</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Brasil</td>
+<td style="text-align: right;">2323</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Canadá</td>
+<td style="text-align: right;">2282</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Alemanha</td>
+<td style="text-align: right;">2045</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>E no Brasil? Quais estados tem reserva de petróleo?</p>
+<p>Carregando dados</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>Br_Reservas <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(<span class="st">"https://www.gov.br/anp/pt-br/centrais-de-conteudo/publicacoes/anuario-estatistico/arquivos-anuario-estatistico-2021-metadados-pdf-e-dados-abertos-csv/secao-2-industria-nacional-do-petroleo-e-do-gas-natural/dados-abertos-csv/anuario-2021-dados_abertos-tabela2-3.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Aqui iremos somar as reservas marítimas e terrestres.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Vamos agrupar total das reservas(terra e mar)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Total_estados <span class="ot">&lt;-</span> Br_Reservas <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ANO <span class="sc">==</span> <span class="dv">2020</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">UNIDADES DA FEDERAÇÃO</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">Total =</span><span class="st">`</span><span class="at">RESERVAS TOTAIS DE PETRÓLEO (EM MILHÕES DE BARRIS)</span><span class="st">`</span>),</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">Count=</span> <span class="fu">n</span>()</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#renomeando as colunas</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  plyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">replace =</span><span class="fu">c</span>(<span class="st">"sum(Total = `RESERVAS TOTAIS DE PETRÓLEO (EM MILHÕES DE BARRIS)`)"</span><span class="ot">=</span><span class="st">"Total"</span>,<span class="st">"UNIDADES DA FEDERAÇÃO"</span> <span class="ot">=</span> <span class="st">"name_state"</span>))</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a> <span class="co">#Renomeando alguns itens</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>Total_estados<span class="sc">$</span>name_state[Total_estados<span class="sc">$</span>name_state <span class="sc">==</span><span class="st">"Paraná5"</span>] <span class="ot">&lt;-</span> <span class="st">"Paraná"</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>Total_estados<span class="sc">$</span>name_state[Total_estados<span class="sc">$</span>name_state <span class="sc">==</span><span class="st">"Rio de Janeiro3"</span>] <span class="ot">&lt;-</span> <span class="st">"Rio De Janeiro"</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>Total_estados<span class="sc">$</span>name_state[Total_estados<span class="sc">$</span>name_state <span class="sc">==</span><span class="st">"Santa Catarina6"</span>] <span class="ot">&lt;-</span> <span class="st">"Santa Catarina"</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>Total_estados<span class="sc">$</span>name_state[Total_estados<span class="sc">$</span>name_state <span class="sc">==</span><span class="st">"São Paulo4"</span>] <span class="ot">&lt;-</span> <span class="st">"São Paulo"</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>Total_estados<span class="sc">$</span>name_state[Total_estados<span class="sc">$</span>name_state <span class="sc">==</span><span class="st">"Rio Grande do Norte"</span>] <span class="ot">&lt;-</span> <span class="st">"Rio Grande Do Norte"</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Formatando a tabela</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>Total <span class="ot">&lt;-</span>Total_estados <span class="sc">%&gt;%</span> </span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"UF"</span>,<span class="st">"Total"</span>))</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>Total</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">UF</th>
+<th style="text-align: right;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Alagoas</td>
+<td style="text-align: right;">4.040435e+00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Amazonas</td>
+<td style="text-align: right;">5.153600e+01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bahia</td>
+<td style="text-align: right;">2.938644e+02</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ceará</td>
+<td style="text-align: right;">2.428873e-01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Espírito Santo</td>
+<td style="text-align: right;">1.314880e+03</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Maranhão</td>
+<td style="text-align: right;">2.139806e-01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Paraná</td>
+<td style="text-align: right;">0.000000e+00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rio De Janeiro</td>
+<td style="text-align: right;">1.603287e+04</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rio Grande Do Norte</td>
+<td style="text-align: right;">2.662763e+02</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Santa Catarina</td>
+<td style="text-align: right;">0.000000e+00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">São Paulo</td>
+<td style="text-align: right;">2.079593e+03</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sergipe</td>
+<td style="text-align: right;">1.947730e+02</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Podemos apresentar os resultado na forma de mapa</p>
+<p>A biblioteca geobr nos force uma malha de pontos que podemos usar para construir mapas.</p>
+<p>Carregando os dados de 2017.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Mapa <span class="ot">&lt;-</span>geobr<span class="sc">::</span><span class="fu">read_state</span>(<span class="at">year =</span> <span class="dv">2017</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |===                                                                   |   4%
+  |                                                                            
+  |=====                                                                 |   7%
+  |                                                                            
+  |========                                                              |  11%
+  |                                                                            
+  |==========                                                            |  15%
+  |                                                                            
+  |=============                                                         |  19%
+  |                                                                            
+  |================                                                      |  22%
+  |                                                                            
+  |==================                                                    |  26%
+  |                                                                            
+  |=====================                                                 |  30%
+  |                                                                            
+  |=======================                                               |  33%
+  |                                                                            
+  |==========================                                            |  37%
+  |                                                                            
+  |=============================                                         |  41%
+  |                                                                            
+  |===============================                                       |  44%
+  |                                                                            
+  |==================================                                    |  48%
+  |                                                                            
+  |====================================                                  |  52%
+  |                                                                            
+  |=======================================                               |  56%
+  |                                                                            
+  |=========================================                             |  59%
+  |                                                                            
+  |============================================                          |  63%
+  |                                                                            
+  |===============================================                       |  67%
+  |                                                                            
+  |=================================================                     |  70%
+  |                                                                            
+  |====================================================                  |  74%
+  |                                                                            
+  |======================================================                |  78%
+  |                                                                            
+  |=========================================================             |  81%
+  |                                                                            
+  |============================================================          |  85%
+  |                                                                            
+  |==============================================================        |  89%
+  |                                                                            
+  |=================================================================     |  93%
+  |                                                                            
+  |===================================================================   |  96%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+</div>
+</div>
+<p>Agora podemos unir as tabelas</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># um pequeno malabarismo para plotar o mapa completo</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>v1 <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"Rio Grande Do Sul"</span>,<span class="st">"Minas Gerais"</span>,<span class="st">"Mato Grosso Do Sul"</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Mato Grosso"</span>,<span class="st">"Goiás"</span>,<span class="st">"Distrito Federal"</span>,<span class="st">"Piauí"</span>,<span class="st">"Paraíba"</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Pernambuco"</span>,<span class="st">"Rondônia"</span>,<span class="st">"Acre"</span>,<span class="st">"Roraima"</span>,<span class="st">"Pará"</span>,<span class="st">"Amapá"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Tocantins"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>v2 <span class="ot">&lt;-</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">15</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># selecionar as colunas de interesse</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>Total_estados <span class="ot">&lt;-</span> Total_estados <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#adicionando linhas ao dataframe</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>linhas <span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">name_state =</span>v1,<span class="at">Total =</span> v2)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>Total_estados <span class="ot">&lt;-</span> <span class="fu">rbind</span>(Total_estados,linhas)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Finalmente unindo as tabelas </span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>Estados <span class="ot">&lt;-</span> <span class="fu">merge</span>(Mapa, Total_estados, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"name_state"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Plotando o Gráfico.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>  Estados <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill=</span>Total), <span class="at">color=</span> <span class="st">"black"</span>, <span class="at">size=</span>.<span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">subtitle=</span><span class="st">"Reservas Totais Estimadas em 2020"</span>, <span class="at">size=</span><span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"Oranges"</span>,<span class="at">direction=</span><span class="dv">1</span>, </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">name=</span><span class="st">"Milhões de Barris"</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Petroleum_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </section>
+</section>
+<section id="conclusão" class="level1">
+<h1>Conclusão</h1>
+<p>A biblioteca ggplot é poderosa. Ela permite fazer vários tipos de edição no gráfico, gerando diversas visualizações com muita facilidade.</p>
+</section>
+<section id="referências" class="level1">
+<h1>Referências</h1>
+<ul>
+<li><p><a href="https://livro.curso-r.com">Curso R</a></p></li>
+<li><p><a href="https://beamilz.com">Beatriz Milz</a></p></li>
+<li><p><a href="https://oliviergimenez.github.io/intro_tidyverse/#1">Olivier Gimenez</a></p></li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->

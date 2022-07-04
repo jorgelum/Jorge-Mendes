@@ -1,59 +1,260 @@
 ---
 title: "Petroleum"
 author: "Jorge Luiz Mendes"
-date: "2022-06-30"
+date: "2022-07-04"
 categories: [analysis,new,code,ANP]
 image: "image1.png"
-description: "Panorama nacional a respeito do petróleo"
+description: "Panorama a respeito do petróleo e biblioteca ggplot"
 ---
 
-# Objetivo 
+# Introdução
 
-Analisar a produção e comercialização de petróleo no mercado brasileiro.
+O petróleo é um recurso extremamente necessário, presente em diversos setores da economia (indústria, agricultura, combustíveis, e etc).
+
+![](image1.png){fig-align="center" width="188"}
+
+[Link do Ícone](<a href="https://www.flaticon.com/br/icones-gratis/barril-de-oleo" title="barril de óleo ícones">Barril de óleo ícones criados por mangsaabguru - Flaticon</a>)
+
+# Objetivo
+
+Analisar a produção de petróleo no Brasil. Para essa tarefa foram coletados dados da [Agência Nacional do Petróleo](https://www.gov.br/anp/pt-br) (ANP). A proposta é gerar diversos tipos de visualização com a biblioteca ggplot.
 
 ## Bibliotecas
 
 ```{r,message=FALSE}
 library(tidyverse)
+library(gghighlight)
 library(magrittr)
 library(plyr)
-```
+library(knitr)
+library(geobr)
 
-## Carregando Dados
-
-```{r, message=FALSE}
-dados <- readr::read_csv2("https://www.gov.br/anp/pt-br/centrais-de-conteudo/publicacoes/anuario-estatistico/arquivos-anuario-estatistico-2021-metadados-pdf-e-dados-abertos-csv/secao-2-industria-nacional-do-petroleo-e-do-gas-natural/dados-abertos-csv/anuario-2021-dados_abertos-tabela2-28.csv")
-
-head(dados)
 
 ```
 
-Nome das Colunas
+::: callout-note
+## E para que servem essas bibliotecas?
+
+O [Tidyverse](https://www.tidyverse.org) é um conjunto de bibliotecas muito útil que pode ser carregada rapidamente.
+
+![](https://oliviergimenez.github.io/intro_tidyverse/assets/img/01_tidyverse_data_science.png){fig-alt="https://oliviergimenez.github.io/intro_tidyverse" fig-align="center" width="483"}
+
+-   readr: Importar/Carregar dados;
+
+-   dplyr(tidyr, tibble, plyr): Manipulação e transformação de dados;
+
+-   ggplot: Visualização de dados;
+
+-   magrittr: Operador Pipe("O velho %\>%") facilita a escrita do código. Também existe o novo pipe ("\|\>") nativo nas versões atuais do RStudio;
+
+-   knitr: Ajuda a formatar tabelas.
+:::
+
+## Visão Geral
+
+Quais países possuem as maiores reservas de petróleo?
+
+Carregando os dados.
+
+```{r,message=FALSE}
+Reserva_internacional <- readr::read_csv2("https://www.gov.br/anp/pt-br/centrais-de-conteudo/publicacoes/anuario-estatistico/arquivos-anuario-estatistico-2021-metadados-pdf-e-dados-abertos-csv/secao-1-panorama-internacional/dados-abertos-csv/anuario-2021-dados_abertos-tabela1-1.csv")
+```
+
+Plotando o Gráfico.
 
 ```{r}
-colnames(dados)
-```
-
-Renomeando as Colunas
-
-```{r}
-dados <- plyr::rename(dados,
-  c("REFINARIA" = "refinaria",
-  "MUNICÍPIO (UF)" = "municipio",
-  "INÍCIO DE OPERAÇÃO" ="ano",
-  "CAPACIDADE NOMINAL"= "capacidade")
-  )
-head(dados)
-```
-
-```{r}
-dados %>% filter(capacidade >= 200000) %>% 
-  ggplot() +
-    geom_col(
-    mapping = aes(x = municipio,y =capacidade, fill = municipio)
-    )+
-    theme(axis.text.x=element_blank()) +
-    ggtitle("Cidades com Maior Capacidade de Refino")
-      
+Reserva_internacional %>% filter(ANO ==2020) %>% 
+  arrange(desc(`VALOR DA RESERVA`)) %>% slice(1:10) %>% 
+    ggplot() +
+        aes(x =`VALOR DA RESERVA`,y =reorder(PAÍS,`VALOR DA RESERVA`),
+            fill = BLOCO,label =`VALOR DA RESERVA` ) +
+    geom_col() +
+          scale_fill_manual(values = c("orange","seagreen3")) +
+          labs(x ="Bilhões de Barris", y = "") +
+          
+          ggtitle("As 10 Maiores Reservas de Petróleo em 2020") +
+          geom_label(size =3)
         
 ```
+
+A OPEP (Organização dos Países Exportadores de Petróleo) é uma organização que tem por objetivo regular a produção do petróleo para dar estabilidade no mercado internacionall.
+
+Quem são maiores produtores?
+
+Carregando os dados.
+
+```{r,message=FALSE}
+Producao_internacional <- readr::read_csv2("https://www.gov.br/anp/pt-br/centrais-de-conteudo/publicacoes/anuario-estatistico/arquivos-anuario-estatistico-2021-metadados-pdf-e-dados-abertos-csv/secao-1-panorama-internacional/dados-abertos-csv/anuario-2021-dados_abertos-tabela1-2.csv")
+
+
+```
+
+Plotando o Gráfico.
+
+```{r}
+ Producao_internacional %>% filter(ANO == 2020) %>% 
+  arrange(desc(PRODUÇÃO)) %>% slice(1:10) %>%   
+  ggplot() +
+      aes(x =PRODUÇÃO ,y =reorder(PAÍS,PRODUÇÃO),fill=BLOCO, label = PRODUÇÃO) +
+        
+      geom_col() +
+           scale_fill_manual(values = c("orange","seagreen3")) +
+          labs(x ="Milhares de Barris por Dia", y = "") +
+          
+          ggtitle("Os 10 Maiores Produtores de Petróleo em 2020") +
+          geom_label(size = 3)
+        
+        
+```
+
+Embora o Brasil não tenha as maiores reservas de petróleo, ele pertence ao grupo dos maiores produtores.
+
+Agora podemos analizar a produção anual de petróleo do Brasil.
+
+```{r, message=FALSE}
+#Texto com quebra de linha
+Texto <- paste(
+  strwrap("Aumento da extração de petróleo do Pré-Sal no ano de 2015",
+          20),
+  collapse = "\n")
+
+Producao_internacional %>% filter(PAÍS =="Brasil") %>% 
+  ggplot() +
+   aes(x = ANO,y=PRODUÇÃO) +
+ 
+  geom_line(size =1.2,colour = "grey" ) +
+    scale_x_continuous(
+      breaks =c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020)) +
+  labs(y = "Milhares de Barris por dia") +
+  
+  geom_point(size = 3, colour = "black") +
+  
+  #Textos
+  annotate("text",x = 2012 ,y =2800,size = 6,
+           label = "BRASIL", fontface = "bold",colour = "green") +
+  annotate("text",x = 2018 ,y =2300,size = 5,
+           label = Texto, fontface = "bold",colour = "red") +
+   
+  #destacar um ponto
+  gghighlight(
+    ANO ==2015,
+    label_key = PRODUÇÃO,
+    #unhighlighted_colour = "grey",
+    label_params = list(size = 3.5,
+                        face = "bold",
+                        fill = "red"))
+  
+  
+  
+
+
+```
+
+Quem foram os maiores consumidores em 2020?
+
+Carregando os dados.
+
+```{r, message=FALSE}
+consumo_internacional <- readr::read_csv2("https://www.gov.br/anp/pt-br/centrais-de-conteudo/publicacoes/anuario-estatistico/arquivos-anuario-estatistico-2021-metadados-pdf-e-dados-abertos-csv/secao-1-panorama-internacional/dados-abertos-csv/anuario-2021-dados_abertos-tabela1-3.csv")
+
+```
+
+Usando o pacote knitr para formatar tabelas.
+
+```{r}
+consumo_internacional %>% 
+  filter(ANO ==2020) %>% select(2:3) %>%  
+  arrange(desc(`CONSUMO DE PETRÓLEO`)) %>% slice(1:10) %>% 
+  head(10) %>% 
+  knitr::kable(col.names = c("País","Consumo de Petróleo (mil barris por dia)"))
+```
+
+E no Brasil? Quais estados tem reserva de petróleo?
+
+Carregando dados
+
+```{r, message=FALSE}
+Br_Reservas <- readr::read_csv2("https://www.gov.br/anp/pt-br/centrais-de-conteudo/publicacoes/anuario-estatistico/arquivos-anuario-estatistico-2021-metadados-pdf-e-dados-abertos-csv/secao-2-industria-nacional-do-petroleo-e-do-gas-natural/dados-abertos-csv/anuario-2021-dados_abertos-tabela2-3.csv")
+```
+
+Aqui iremos somar as reservas marítimas e terrestres.
+
+```{r}
+#Vamos agrupar total das reservas(terra e mar)
+Total_estados <- Br_Reservas %>% filter(ANO == 2020) %>% 
+  group_by(`UNIDADES DA FEDERAÇÃO`) %>% 
+  dplyr::summarise(
+    sum(
+      Total =`RESERVAS TOTAIS DE PETRÓLEO (EM MILHÕES DE BARRIS)`),
+      Count= n()
+    ) %>% 
+  #renomeando as colunas
+  plyr::rename(replace =c("sum(Total = `RESERVAS TOTAIS DE PETRÓLEO (EM MILHÕES DE BARRIS)`)"="Total","UNIDADES DA FEDERAÇÃO" = "name_state"))
+ #Renomeando alguns itens
+Total_estados$name_state[Total_estados$name_state =="Paraná5"] <- "Paraná"
+Total_estados$name_state[Total_estados$name_state =="Rio de Janeiro3"] <- "Rio De Janeiro"
+Total_estados$name_state[Total_estados$name_state =="Santa Catarina6"] <- "Santa Catarina"
+Total_estados$name_state[Total_estados$name_state =="São Paulo4"] <- "São Paulo"
+Total_estados$name_state[Total_estados$name_state =="Rio Grande do Norte"] <- "Rio Grande Do Norte"
+#Formatando a tabela
+Total <-Total_estados %>% 
+  select(1:2) %>% kable(col.names = c("UF","Total"))
+
+Total
+
+```
+
+Podemos apresentar os resultado na forma de mapa
+
+A biblioteca geobr nos force uma malha de pontos que podemos usar para construir mapas.
+
+Carregando os dados de 2017.
+
+```{r,message=FALSE}
+Mapa <-geobr::read_state(year = 2017)
+```
+
+Agora podemos unir as tabelas
+
+```{r}
+# um pequeno malabarismo para plotar o mapa completo
+v1 <-c("Rio Grande Do Sul","Minas Gerais","Mato Grosso Do Sul",
+       "Mato Grosso","Goiás","Distrito Federal","Piauí","Paraíba",
+       "Pernambuco","Rondônia","Acre","Roraima","Pará","Amapá",
+       "Tocantins")
+v2 <-rep(0,15)
+# selecionar as colunas de interesse
+Total_estados <- Total_estados %>% select(1:2)
+
+#adicionando linhas ao dataframe
+linhas <-data.frame(name_state =v1,Total = v2)
+
+Total_estados <- rbind(Total_estados,linhas)
+
+#Finalmente unindo as tabelas 
+Estados <- merge(Mapa, Total_estados, by = c("name_state"))
+```
+
+Plotando o Gráfico.
+
+```{r}
+  Estados %>% ggplot() +
+    geom_sf(aes(fill=Total), color= "black", size=.15) +
+      labs(subtitle="Reservas Totais Estimadas em 2020", size=8) +
+      scale_fill_distiller(palette = "Oranges",direction=1, 
+                           name="Milhões de Barris") +
+      theme_minimal() 
+     
+```
+
+# Conclusão
+
+A biblioteca ggplot é poderosa. Ela permite fazer vários tipos de edição no gráfico, gerando diversas visualizações com muita facilidade.
+
+# Referências
+
+-   [Curso R](https://livro.curso-r.com)
+
+-   [Beatriz Milz](https://beamilz.com)
+
+-   [Olivier Gimenez](https://oliviergimenez.github.io/intro_tidyverse/#1)
