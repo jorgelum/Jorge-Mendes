@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Jorge Mendes",
-    "section": "",
-    "text": "analysis\n\n\nnew\n\n\ncode\n\n\nANP\n\n\n\n\nPanorama a respeito do petróleo e biblioteca ggplot\n\n\n\n\n\n\nJul 4, 2022\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\nNo matching items"
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -14,18 +7,11 @@
     "text": "About this blog"
   },
   {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Jorge Mendes",
     "section": "",
-    "text": "1 + 1\n\n[1] 2"
-  },
-  {
-    "objectID": "posts/welcome/index.html",
-    "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
-    "section": "",
-    "text": "Since this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+    "text": "analysis\n\n\nnew\n\n\ncode\n\n\nANP\n\n\n\n\nPanorama a respeito do petróleo e biblioteca ggplot\n\n\n\n\n\n\nJul 4, 2022\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/Petroleum/Petroleum.html",
@@ -40,20 +26,6 @@
     "title": "Petroleum",
     "section": "Bibliotecas",
     "text": "Bibliotecas\n\nlibrary(tidyverse)\nlibrary(gghighlight)\nlibrary(magrittr)\nlibrary(plyr)\nlibrary(knitr)\nlibrary(geobr)\n\n\n\n\n\n\n\nE para que servem essas bibliotecas?\n\n\n\nO Tidyverse é um conjunto de bibliotecas muito útil que pode ser carregada rapidamente.\n\n\n\n\n\n\nreadr: Importar/Carregar dados;\ndplyr(tidyr, tibble, plyr): Manipulação e transformação de dados;\nggplot: Visualização de dados;\nmagrittr: Operador Pipe(“O velho %>%”) facilita a escrita do código. Também existe o novo pipe (“|>”) nativo nas versões atuais do RStudio;\nknitr: Ajuda a formatar tabelas."
-  },
-  {
-    "objectID": "posts/Petroleum/Petroleum.html#carregando-dados",
-    "href": "posts/Petroleum/Petroleum.html#carregando-dados",
-    "title": "Petroleum",
-    "section": "Carregando Dados",
-    "text": "Carregando Dados\n\ndados <- readr::read_csv2(\"https://www.gov.br/anp/pt-br/centrais-de-conteudo/publicacoes/anuario-estatistico/arquivos-anuario-estatistico-2021-metadados-pdf-e-dados-abertos-csv/secao-2-industria-nacional-do-petroleo-e-do-gas-natural/dados-abertos-csv/anuario-2021-dados_abertos-tabela2-9.csv\")\n\n#Simplicar nome das colunas diminui tempo de escrita e diminui probalidade de erro com caracteres especiais \n\ndados <- plyr::rename(dados,\n  c(\"LOCALIZAÇÃO\" = \"Local\",\n    \"ANO\"= \"Ano\",\n    \"PRODUÇÃO DE PETRÓLEO (MIL BARRIS)\" =\"Quantidade\"\n    )\n  )\n#Biblioteca knitr auxilia na formatação de tabelas.\n\ndados %>% head() %>% \n  knitr::kable(col.names = c(\"UF\", \"Local\",\"Ano\",\"Quantiadade(Mil Barris)\"))\n\n\n\n\nUF\nLocal\nAno\nQuantiadade(Mil Barris)\n\n\n\n\nSão Paulo\nMar\n2011\n13984\n\n\nCeará\nTerra\n2011\n567\n\n\nRio Grande do Norte\nMar\n2011\n2808\n\n\nEspírito Santo\nTerra\n2011\n5179\n\n\nBahia\nMar\n2011\n247\n\n\nBahia\nTerra\n2011\n15776\n\n\n\n\n\n\n#Estado <- list(\"Bahia\",\"Espírito Santo\",\"Sergipe\")\ndados  %>% filter(Ano == 2020) %>%  \n    ggplot() +\n    geom_col(mapping = aes(x = Quantidade,y = UF, fill = Local),\n    ) +\n    #theme(axis.text.x=element_blank()) +\n    ggtitle(\"Cidades com Maior Capacidade de Refino\")"
-  },
-  {
-    "objectID": "posts/Petroleum/Petroleum.html#e-para-que-servem-essas-bibliotecas-expanda",
-    "href": "posts/Petroleum/Petroleum.html#e-para-que-servem-essas-bibliotecas-expanda",
-    "title": "Petroleum",
-    "section": "E para que servem essas bibliotecas? Expanda",
-    "text": "E para que servem essas bibliotecas? Expanda\nO Tidyverse é um conjunto de bibliotecas muito útil que pode ser carregada rapidamente.\n\n\n\n\n\n\nAs Maiores Reservas Internanionais\n\n\n\n\n\n\n\nCarregando os dados\n\n\nReserva_internacional <- readr::read_csv2(\"https://www.gov.br/anp/pt-br/centrais-de-conteudo/publicacoes/anuario-estatistico/arquivos-anuario-estatistico-2021-metadados-pdf-e-dados-abertos-csv/secao-1-panorama-internacional/dados-abertos-csv/anuario-2021-dados_abertos-tabela1-1.csv\")\n\n\nReserva_internacional %>% filter(ANO ==2020) %>% \n  arrange(desc(`VALOR DA RESERVA`)) %>% slice(1:10) %>% \n    ggplot() +\n        aes(x =`VALOR DA RESERVA`,y =reorder(PAÍS,`VALOR DA RESERVA`),\n            fill = BLOCO,label =`VALOR DA RESERVA` ) +\n    geom_col() +\n          scale_fill_manual(values = c(\"orange\",\"seagreen3\")) +\n          labs(x =\"Bilhões de Barris\", y = \"\") +\n          \n          ggtitle(\"As 10 Maiores Reservas de Petróleo em 2020\") +\n          geom_label(size =3)\n\n\n\n\n\nProducao_internacional <- readr::read_csv2(\"https://www.gov.br/anp/pt-br/centrais-de-conteudo/publicacoes/anuario-estatistico/arquivos-anuario-estatistico-2021-metadados-pdf-e-dados-abertos-csv/secao-1-panorama-internacional/dados-abertos-csv/anuario-2021-dados_abertos-tabela1-2.csv\")\n\n\n Producao_internacional %>% filter(ANO == 2020) %>% \n  arrange(desc(PRODUÇÃO)) %>% slice(1:10) %>%   \n  ggplot() +\n      aes(x =PRODUÇÃO ,y =reorder(PAÍS,PRODUÇÃO),fill=BLOCO, label = PRODUÇÃO) +\n        \n      geom_col() +\n           scale_fill_manual(values = c(\"orange\",\"seagreen3\")) +\n          labs(x =\"Milhares de Barris por Dia\", y = \"\") +\n          \n          ggtitle(\"Os 10 Maiores Produtores de Petróleo em 2020\") +\n          geom_label(size = 3)\n\n\n\n\n\nProducao_internacional %>% filter(PAÍS ==\"Brasil\") %>% \n  ggplot() +\n   aes(x = ANO,y=PRODUÇÃO) +\n  geom_line(size =1.2,colour = \"grey\" ) +\n  scale_x_continuous(breaks =c(2012,2015,2017,2020)) +\n  labs(y = \"Milhares de Barris por dia\") +\n  annotate(\"text\",x = 2012 ,y =2800,size = 6,\n           label = \"BRASIL\", fontface = \"bold\",colour = \"green\") +\n  geom_point(size = 3)"
   },
   {
     "objectID": "posts/Petroleum/Petroleum.html#visão-geral",
