@@ -1,5 +1,5 @@
 ---
-title: "Petroleum"
+title: "Petróleo"
 author: "Jorge Luiz Mendes"
 date: "2022-07-04"
 categories: [analysis,new,code,ANP]
@@ -13,7 +13,7 @@ O petróleo é um recurso extremamente necessário, presente em diversos setores
 
 ![](image1.png){fig-align="center" width="188"}
 
-[Link do Ícone](<a href="https://www.flaticon.com/br/icones-gratis/barril-de-oleo" title="barril de óleo ícones">Barril de óleo ícones criados por mangsaabguru - Flaticon</a>)
+\[Link do Ícone\](<a href="https://www.flaticon.com/br/icones-gratis/barril-de-oleo" title="barril de óleo ícones">Barril de óleo ícones criados por mangsaabguru - Flaticon</a>)
 
 # Objetivo
 
