@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-0.9.626">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Jorge Luiz Mendes">
 <meta name="dcterms.date" content="2022-07-14">
 <meta name="description" content="Analisando os resultados do campeonato brasileiro">
-
 <title>Jorge Mendes - Campeonato Brasileiro</title>
 <style>
 code{white-space: pre-wrap;}
@@ -81,8 +78,26 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
-
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
@@ -99,8 +114,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -118,18 +132,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit"
   }
-}</script>
-
-
+}</script><style>html{ scroll-behavior: smooth; }</style>
 <link rel="stylesheet" href="../../styles.css">
 </head>
-
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
       <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Jorge Mendes</span>
   </a>
@@ -138,7 +147,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="../../about.html">About</a>
   </li>  
   <li class="nav-item compact">
@@ -152,14 +161,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  </a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+<div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
+    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default page-columns page-full"><div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Campeonato Brasileiro</h1>
                   <div>
@@ -199,97 +204,101 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#objetivo" id="toc-objetivo" class="nav-link active" data-scroll-target="#objetivo">Objetivo</a></li>
+  <li><a href="#bibliotecas" id="toc-bibliotecas" class="nav-link" data-scroll-target="#bibliotecas">Bibliotecas</a></li>
+  <li><a href="#m%C3%A3o-na-massa" id="toc-mão-na-massa" class="nav-link" data-scroll-target="#m%C3%A3o-na-massa"><strong>Mão na Massa</strong></a></li>
+  <li><a href="#conclus%C3%A3o" id="toc-conclusão" class="nav-link" data-scroll-target="#conclus%C3%A3o">Conclusão</a></li>
+  <li><a href="#ver-tamb%C3%A9m" id="toc-ver-também" class="nav-link" data-scroll-target="#ver-tamb%C3%A9m">Ver também</a></li>
+  </ul></nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
-
-
-
-
-<section id="campeonato-brasileiro" class="level1">
-<h1>Campeonato Brasileiro</h1>
-<section id="objetivo" class="level2">
-<h2 class="anchored" data-anchor-id="objetivo">Objetivo</h2>
-<p>Explorar a biblioteca <a href="https://github.com/williamorim/brasileirao">brasileirão</a>. É uma boa base para praticar, principalmente, manipulações de dataframe.</p>
+<main class="content quarto-banner-title-block" id="quarto-document-content"><hr>
+<p><em>Atualizado em 11/09/2022</em></p>
+<hr>
+<section id="objetivo" class="level2"><h2 class="anchored" data-anchor-id="objetivo">Objetivo</h2>
+<p>Explorar a biblioteca <a href="https://github.com/williamorim/brasileirao">brasileirão</a> <span class="citation" data-cites="brasileirao">(<a href="#ref-brasileirao" role="doc-biblioref">Amorim 2022</a>)</span> . É uma boa base para praticar, principalmente, manipulações de dataframe.</p>
 <p>Ela consegue, além de outras coisas, retornar jogos, a data, o placar e os clubes envolvidos desde 2003 no campeonato brasileiro de futebol.</p>
-</section>
-<section id="bibliotecas" class="level2">
-<h2 class="anchored" data-anchor-id="bibliotecas">Bibliotecas</h2>
+</section><section id="bibliotecas" class="level2"><h2 class="anchored" data-anchor-id="bibliotecas">Bibliotecas</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plyr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(calendR)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brasileirao)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(treemap)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gghighlight)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jpeg)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> <span class="co">#tratamento de dados</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span> <span class="co">#tratamento de dados</span>
+
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span> <span class="co">#o pipe antigo</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span> <span class="co">#programação funcional</span>al
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span> <span class="co">#tratar datas</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span> <span class="co">#formatação de tabelas</span>as
+
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/williamorim/brasileirao">brasileirao</a></span><span class="op">)</span> <span class="co">#base de dados utilizados</span>
+
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span> <span class="co">#gráficos</span>s
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">treemap</span><span class="op">)</span> <span class="co">#gráficos</span>s
+
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.rforge.net/jpeg/">jpeg</a></span><span class="op">)</span> <span class="co">#adicionar imagens</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span>  <span class="co">#adicionar imagens</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="mão-na-massa" class="level2">
-<h2 class="anchored" data-anchor-id="mão-na-massa"><strong>Mão na Massa</strong></h2>
+</section><section id="mão-na-massa" class="level2"><h2 class="anchored" data-anchor-id="mão-na-massa"><strong>Mão na Massa</strong></h2>
 <p>Carregando dados.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Br <span class="ot">&lt;-</span> brasileirao<span class="sc">::</span>matches</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">Br</span> <span class="op">&lt;-</span> <span class="fu">brasileirao</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/brasileirao/man/matches.html">matches</a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Podemos expor os resultados na forma de tabela.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(Br))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">Br</span><span class="op">)</span>,align <span class="op">=</span> <span class="st">"lccrr"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
-<thead>
-<tr class="header">
-<th style="text-align: right;">season</th>
-<th style="text-align: left;">date</th>
-<th style="text-align: left;">home</th>
-<th style="text-align: left;">score</th>
-<th style="text-align: left;">away</th>
-</tr>
-</thead>
+<thead><tr class="header">
+<th style="text-align: left;">season</th>
+<th style="text-align: center;">date</th>
+<th style="text-align: center;">home</th>
+<th style="text-align: right;">score</th>
+<th style="text-align: right;">away</th>
+</tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">2003</td>
-<td style="text-align: left;">2003-03-29</td>
-<td style="text-align: left;">Athletico PR</td>
-<td style="text-align: left;">2x0</td>
-<td style="text-align: left;">Grêmio</td>
+<td style="text-align: left;">2003</td>
+<td style="text-align: center;">2003-03-29</td>
+<td style="text-align: center;">Athletico PR</td>
+<td style="text-align: right;">2x0</td>
+<td style="text-align: right;">Grêmio</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">2003</td>
-<td style="text-align: left;">2003-03-29</td>
-<td style="text-align: left;">Guarani</td>
-<td style="text-align: left;">4x2</td>
-<td style="text-align: left;">Vasco</td>
+<td style="text-align: left;">2003</td>
+<td style="text-align: center;">2003-03-29</td>
+<td style="text-align: center;">Guarani</td>
+<td style="text-align: right;">4x2</td>
+<td style="text-align: right;">Vasco</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">2003</td>
-<td style="text-align: left;">2003-03-30</td>
-<td style="text-align: left;">Corinthians</td>
-<td style="text-align: left;">0x3</td>
-<td style="text-align: left;">Atlético MG</td>
+<td style="text-align: left;">2003</td>
+<td style="text-align: center;">2003-03-30</td>
+<td style="text-align: center;">Corinthians</td>
+<td style="text-align: right;">0x3</td>
+<td style="text-align: right;">Atlético MG</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">2003</td>
-<td style="text-align: left;">2003-03-30</td>
-<td style="text-align: left;">Goiás</td>
-<td style="text-align: left;">2x2</td>
-<td style="text-align: left;">Paysandu</td>
+<td style="text-align: left;">2003</td>
+<td style="text-align: center;">2003-03-30</td>
+<td style="text-align: center;">Goiás</td>
+<td style="text-align: right;">2x2</td>
+<td style="text-align: right;">Paysandu</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">2003</td>
-<td style="text-align: left;">2003-03-30</td>
-<td style="text-align: left;">Criciúma</td>
-<td style="text-align: left;">2x0</td>
-<td style="text-align: left;">Fluminense</td>
+<td style="text-align: left;">2003</td>
+<td style="text-align: center;">2003-03-30</td>
+<td style="text-align: center;">Criciúma</td>
+<td style="text-align: right;">2x0</td>
+<td style="text-align: right;">Fluminense</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">2003</td>
-<td style="text-align: left;">2003-03-30</td>
-<td style="text-align: left;">Cruzeiro</td>
-<td style="text-align: left;">2x2</td>
-<td style="text-align: left;">São Caetano</td>
+<td style="text-align: left;">2003</td>
+<td style="text-align: center;">2003-03-30</td>
+<td style="text-align: center;">Cruzeiro</td>
+<td style="text-align: right;">2x2</td>
+<td style="text-align: right;">São Caetano</td>
 </tr>
 </tbody>
 </table>
@@ -297,7 +306,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Verificando os tipos de variáveis das colunas.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(Br)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">Br</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 8,026
 Columns: 5
@@ -310,194 +319,322 @@ $ away   &lt;chr&gt; "Grêmio", "Vasco", "Atlético MG", "Paysandu", "Fluminense
 </div>
 <p>Realizando algumas manipulações para obter resultados dos jogos a partir de 2010.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Tabela_extendida <span class="ot">&lt;-</span> Br  <span class="sc">%&gt;%</span> <span class="fu">filter</span>(season <span class="sc">&gt;=</span><span class="dv">2010</span>)  <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(score,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>           <span class="fu">c</span>(<span class="st">"Placar_Mandante"</span>,<span class="st">"Placar_Visitante"</span>),</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">sep =</span> <span class="st">"x"</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">convert =</span> <span class="cn">TRUE</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mandante =</span> <span class="fu">case_when</span>(</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>      Placar_Mandante <span class="sc">&gt;</span> Placar_Visitante<span class="sc">~</span><span class="st">"Venceu"</span>,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>      Placar_Mandante <span class="sc">&lt;</span> Placar_Visitante<span class="sc">~</span><span class="st">"Perdeu"</span>,</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>      Placar_Mandante <span class="sc">==</span> Placar_Visitante<span class="sc">~</span><span class="st">"Empate"</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">Visitante =</span> <span class="fu">case_when</span>(</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>      Placar_Mandante <span class="sc">&lt;</span> Placar_Visitante<span class="sc">~</span><span class="st">"Venceu"</span>,</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>      Placar_Mandante <span class="sc">&gt;</span> Placar_Visitante<span class="sc">~</span><span class="st">"Perdeu"</span>,</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>      Placar_Mandante <span class="sc">==</span> Placar_Visitante<span class="sc">~</span><span class="st">"Empate"</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">Tabela_extendida</span> <span class="op">&lt;-</span> <span class="va">Br</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">season</span> <span class="op">&gt;=</span><span class="fl">2010</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">score</span>,
+           <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Placar_Mandante"</span>,<span class="st">"Placar_Visitante"</span><span class="op">)</span>,
+           sep <span class="op">=</span> <span class="st">"x"</span>,
+           convert <span class="op">=</span> <span class="cn">TRUE</span>,
+           remove <span class="op">=</span> <span class="cn">FALSE</span>
+    
+  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    Mandante <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span>
+      <span class="va">Placar_Mandante</span> <span class="op">&gt;</span> <span class="va">Placar_Visitante</span><span class="op">~</span><span class="st">"Venceu"</span>,
+      <span class="va">Placar_Mandante</span> <span class="op">&lt;</span> <span class="va">Placar_Visitante</span><span class="op">~</span><span class="st">"Perdeu"</span>,
+      <span class="va">Placar_Mandante</span> <span class="op">==</span> <span class="va">Placar_Visitante</span><span class="op">~</span><span class="st">"Empate"</span>
+    <span class="op">)</span>,
+     Visitante <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span>
+      <span class="va">Placar_Mandante</span> <span class="op">&lt;</span> <span class="va">Placar_Visitante</span><span class="op">~</span><span class="st">"Venceu"</span>,
+      <span class="va">Placar_Mandante</span> <span class="op">&gt;</span> <span class="va">Placar_Visitante</span><span class="op">~</span><span class="st">"Perdeu"</span>,
+      <span class="va">Placar_Mandante</span> <span class="op">==</span> <span class="va">Placar_Visitante</span><span class="op">~</span><span class="st">"Empate"</span>
+    <span class="op">)</span>
+  <span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A ideia aqui é selecionar um clube e fazer as análises a partir dessa escolha. Vamos criar uma função para selecionar um time.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Clubes<span class="ot">&lt;-</span><span class="cf">function</span>(dataframe,Time){</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#selcionar o clube quando ele é mandante</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  TimeMandante <span class="ot">&lt;-</span>dataframe <span class="sc">%&gt;%</span> <span class="fu">filter</span>(home<span class="sc">==</span>Time) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(season,date,home,Placar_Mandante,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>         Placar_Visitante,Mandante) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  plyr<span class="sc">::</span><span class="fu">rename</span>(</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">replace =</span> <span class="fu">c</span>(<span class="st">"home"</span><span class="ot">=</span><span class="st">"clube"</span>,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Placar_Mandante"</span><span class="ot">=</span><span class="st">"Gols_Pro"</span>,</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Placar_Visitante"</span><span class="ot">=</span><span class="st">"Gols_Contra"</span>,</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Mandante"</span><span class="ot">=</span><span class="st">"Resultado"</span>))</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#selcionar o clube quando ele é visitante</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  TimeVisitante <span class="ot">&lt;-</span> dataframe <span class="sc">%&gt;%</span> </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(away<span class="sc">==</span>Time) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(season,date,away,Placar_Visitante,</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>         Placar_Mandante,Visitante) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  plyr<span class="sc">::</span><span class="fu">rename</span>(</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">replace =</span> <span class="fu">c</span>(<span class="st">"away"</span><span class="ot">=</span><span class="st">"clube"</span>,</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Placar_Visitante"</span><span class="ot">=</span><span class="st">"Gols_Pro"</span>,</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Placar_Mandante"</span><span class="ot">=</span><span class="st">"Gols_Contra"</span>,</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Visitante"</span><span class="ot">=</span><span class="st">"Resultado"</span>)) </span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Unindo as tabelas</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  Resultados <span class="ot">&lt;-</span><span class="fu">rbind</span>(TimeMandante,TimeVisitante)</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(Resultados)</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">Clube</span><span class="op">&lt;-</span><span class="kw">function</span><span class="op">(</span><span class="va">dataframe</span>,<span class="va">Time</span><span class="op">)</span><span class="op">{</span>
+  <span class="co">#selecionar o clube quando ele é mandante</span>e
+        <span class="va">TimeMandante</span> <span class="op">&lt;-</span><span class="va">dataframe</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">home</span><span class="op">==</span><span class="va">Time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+            <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">season</span>,<span class="va">date</span>,<span class="va">home</span>,<span class="va">Placar_Mandante</span>,
+            <span class="va">Placar_Visitante</span>,<span class="va">Mandante</span>,<span class="va">away</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+            <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>
+                    <span class="st">"clube"</span><span class="op">=</span><span class="st">"home"</span>,
+                    <span class="st">"Gols_Pro"</span><span class="op">=</span><span class="st">"Placar_Mandante"</span>,
+                    <span class="st">"Gols_Contra"</span><span class="op">=</span><span class="st">"Placar_Visitante"</span>,
+                    <span class="st">"Resultado"</span><span class="op">=</span><span class="st">"Mandante"</span>,
+                    <span class="st">"adversario"</span> <span class="op">=</span><span class="st">"away"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+            <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>mando <span class="op">=</span> <span class="st">"Mandante"</span><span class="op">)</span>
+  
+  <span class="co">#selecionar o clube quando ele é visitante</span>e
+        <span class="va">TimeVisitante</span> <span class="op">&lt;-</span> <span class="va">dataframe</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+            <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">away</span><span class="op">==</span><span class="va">Time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+            <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">season</span>,<span class="va">date</span>,<span class="va">away</span>,<span class="va">Placar_Visitante</span>,
+            <span class="va">Placar_Mandante</span>,<span class="va">Visitante</span>,<span class="va">home</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+            <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>
+                    <span class="st">"clube"</span><span class="op">=</span><span class="st">"away"</span>,
+                    <span class="st">"Gols_Pro"</span><span class="op">=</span><span class="st">"Placar_Visitante"</span>,
+                    <span class="st">"Gols_Contra"</span><span class="op">=</span><span class="st">"Placar_Mandante"</span>,
+                    <span class="st">"Resultado"</span><span class="op">=</span><span class="st">"Visitante"</span>,
+                     <span class="st">"adversario"</span><span class="op">=</span><span class="st">"home"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+            <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>mando <span class="op">=</span> <span class="st">"Visitante"</span><span class="op">)</span>
+  
+  <span class="co">#Unindo as tabelas</span>
+        <span class="va">Resultados</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">TimeMandante</span>,<span class="va">TimeVisitante</span><span class="op">)</span>
+  
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">Resultados</span><span class="op">)</span>
+  
+<span class="op">}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Selecionando um time.</p>
-<p>O interessante é selecionar um clube que jogou muitas edições para ter uma boa quantidade de dados. Convenientemente foi selcionado o Corinthians.</p>
+<p>O interessante é selecionar um clube que jogou muitas edições para ter uma boa quantidade de dados. Convenientemente foi selecionado o Corinthians.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://logodownload.org/wp-content/uploads/2016/11/corinthians-logo-0-1536x1536.png" class="img-fluid figure-img" width="400"></p>
+<figure class="figure"><p><img src="https://logodownload.org/wp-content/uploads/2016/11/corinthians-logo-0-1536x1536.png" class="img-fluid figure-img" width="400"></p>
 </figure>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Timao<span class="ot">&lt;-</span><span class="fu">Clubes</span>(<span class="at">dataframe=</span> Tabela_extendida,<span class="at">Time =</span><span class="st">"Corinthians"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">Timao</span><span class="op">&lt;-</span><span class="fu">Clube</span><span class="op">(</span>dataframe<span class="op">=</span> <span class="va">Tabela_extendida</span>,Time <span class="op">=</span><span class="st">"Corinthians"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>É interessante adicionar os pontos obtidos em cada partida.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Timao <span class="ot">&lt;-</span> Timao <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Pontos =</span> <span class="fu">case_when</span>(</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  Resultado <span class="sc">==</span><span class="st">"Venceu"</span><span class="sc">~</span><span class="dv">3</span>,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  Resultado <span class="sc">==</span><span class="st">"Empate"</span><span class="sc">~</span><span class="dv">1</span>,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  Resultado <span class="sc">==</span><span class="st">"Perdeu"</span><span class="sc">~</span><span class="dv">0</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">Timao</span> <span class="op">&lt;-</span> <span class="va">Timao</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+  Pontos <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span>
+  <span class="va">Resultado</span> <span class="op">==</span><span class="st">"Venceu"</span><span class="op">~</span><span class="fl">3</span>,
+  <span class="va">Resultado</span> <span class="op">==</span><span class="st">"Empate"</span><span class="op">~</span><span class="fl">1</span>,
+  <span class="va">Resultado</span> <span class="op">==</span><span class="st">"Perdeu"</span><span class="op">~</span><span class="fl">0</span>,
+<span class="op">)</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Usando o pacote lubridate para tratar datas, obtendo informações sobre o dia,dia da semana, mês e ano de forma isolada.</p>
+<p>Usando o pacote lubridate é possível tratar datas, obtendo informações sobre o dia,dia da semana, mês e ano de forma isolada.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>Timao<span class="sc">$</span>dia_Mes <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">day</span>(Timao<span class="sc">$</span>date)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Timao<span class="sc">$</span>Mes <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">month</span>(Timao<span class="sc">$</span>date)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>Timao<span class="sc">$</span>NdiaSemana <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">wday</span>(Timao<span class="sc">$</span>date)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>Timao <span class="ot">&lt;-</span>Timao <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">dia_semana =</span> <span class="fu">case_when</span>(</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    NdiaSemana <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span><span class="st">"Domingo"</span>,</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    NdiaSemana <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span><span class="st">"Segunda-Feira"</span>,</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    NdiaSemana <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span><span class="st">"Terça-Feira"</span>,</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    NdiaSemana <span class="sc">==</span> <span class="dv">4</span> <span class="sc">~</span><span class="st">"Quarta-Feira"</span>,</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    NdiaSemana <span class="sc">==</span> <span class="dv">5</span> <span class="sc">~</span><span class="st">"Quinta-Feira"</span>,</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    NdiaSemana <span class="sc">==</span> <span class="dv">6</span> <span class="sc">~</span><span class="st">"Sexta-Feira"</span>,</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    NdiaSemana <span class="sc">==</span> <span class="dv">7</span> <span class="sc">~</span><span class="st">"Sábado"</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co">#Timao$dia_Mes &lt;- lubridate::day(Timao$date)</span>
+<span class="va">Timao</span><span class="op">$</span><span class="va">Mes</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="va">Timao</span><span class="op">$</span><span class="va">date</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#Timao$NdiaSemana &lt;- lubridate::wday(Timao$date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Qual o número de vitórias, empates e derrotas da última década?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>Timao <span class="sc">%&gt;%</span> <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span> <span class="fu">count</span>(<span class="st">"Resultado"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">treemap</span>(<span class="at">index =</span> <span class="fu">c</span>(<span class="st">"freq"</span>,<span class="st">"Resultado"</span>),</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">vSize =</span> <span class="st">"freq"</span>,</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">align.labels=</span><span class="fu">list</span>(<span class="fu">c</span>(<span class="st">"center"</span>, <span class="st">"center"</span>),<span class="fu">c</span>(<span class="st">"center"</span>, <span class="st">"top"</span>)),</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"Resultados do Corinthians desde 2010"</span>,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">fontsize.labels=</span><span class="fu">c</span>(<span class="dv">15</span>,<span class="dv">12</span>),</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"#cfc6c6"</span>,<span class="st">"#3d3a3a"</span>,<span class="st">"#0a0a0a"</span>)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>           </span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">Timao</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">Pontos</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">Resultado</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  
+  <span class="fu"><a href="https://rdrr.io/pkg/treemap/man/treemap.html">treemap</a></span><span class="op">(</span>index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"n"</span>,<span class="st">"Resultado"</span><span class="op">)</span>,
+          vSize <span class="op">=</span> <span class="st">"n"</span>,
+          align.labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"center"</span>, <span class="st">"center"</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"center"</span>, <span class="st">"top"</span><span class="op">)</span><span class="op">)</span>,
+          title <span class="op">=</span> <span class="st">"Resultados do Corinthians desde 2010"</span>,
+          fontsize.labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">15</span>,<span class="fl">12</span><span class="op">)</span>,
+          palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#cfc6c6"</span>,<span class="st">"#3d3a3a"</span>,<span class="st">"#0a0a0a"</span><span class="op">)</span>
+           
+           <span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Campeonato-Brasileiro_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Qual a pontuação das últimas temporadas?</p>
+<p>Com a função <strong>group_by e summarise</strong> podemos agrupar os dados.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pontuacao <span class="ot">&lt;-</span>Timao <span class="sc">%&gt;%</span> <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(season) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="at">Total =</span>Pontos)) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  plyr<span class="sc">::</span><span class="fu">rename</span>(</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">replace =</span> <span class="fu">c</span>(<span class="st">"sum(Total = Pontos)"</span><span class="ot">=</span><span class="st">"Pontuação"</span>)) </span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Gambiarra para plotar os anos em que foi campeão</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>pontuacao <span class="ot">&lt;-</span> pontuacao <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Titulo =</span> <span class="fu">case_when</span>(</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  season <span class="sc">==</span><span class="dv">2011</span> <span class="sc">~</span><span class="st">"Campeão"</span>,</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  season <span class="sc">==</span><span class="dv">2015</span> <span class="sc">~</span><span class="st">"Campeão"</span>,</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  season <span class="sc">==</span><span class="dv">2017</span> <span class="sc">~</span><span class="st">"Campeão"</span>,</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="cn">TRUE</span> <span class="sc">~</span><span class="st">" "</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">DadosAgg</span> <span class="op">&lt;-</span> <span class="va">Timao</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">Pontos</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Mes</span><span class="op">)</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
+
+    MediaPontos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Pontos</span><span class="op">)</span>,<span class="fl">2</span><span class="op">)</span>,
+    GolsPro <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Gols_Pro</span><span class="op">)</span>,
+    GolsContra <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Gols_Contra</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">Mes</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">DadosAgg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>col.names <span class="op">=</span>
+                            <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Mês"</span>"<span class="st">"Pontos"</span>"<span class="st">"Gols Pro"</span>"<span class="st">"Gols Contra"</span><span class="op">)</span><span class="op">)</span>)</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead><tr class="header">
+<th style="text-align: left;">Mês</th>
+<th style="text-align: right;">Pontos</th>
+<th style="text-align: right;">Gols Pro</th>
+<th style="text-align: right;">Gols Contra</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">dez</td>
+<td style="text-align: right;">1.11</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nov</td>
+<td style="text-align: right;">1.82</td>
+<td style="text-align: right;">85</td>
+<td style="text-align: right;">58</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">out</td>
+<td style="text-align: right;">1.40</td>
+<td style="text-align: right;">87</td>
+<td style="text-align: right;">80</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">set</td>
+<td style="text-align: right;">1.37</td>
+<td style="text-align: right;">89</td>
+<td style="text-align: right;">77</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ago</td>
+<td style="text-align: right;">1.56</td>
+<td style="text-align: right;">88</td>
+<td style="text-align: right;">69</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">jul</td>
+<td style="text-align: right;">2.00</td>
+<td style="text-align: right;">81</td>
+<td style="text-align: right;">35</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">jun</td>
+<td style="text-align: right;">1.71</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">38</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mai</td>
+<td style="text-align: right;">1.84</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">32</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">abr</td>
+<td style="text-align: right;">1.78</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fev</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">jan</td>
+<td style="text-align: right;">1.20</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">8</td>
+</tr>
+</tbody>
+</table>
 </div>
+</div>
+<p>Qual mês, em média, fez mais pontos?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Texto <span class="ot">&lt;-</span> <span class="fu">paste</span>(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">strwrap</span>(<span class="st">"A temporada de 2022 ainda não foi concluída"</span>,</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>          <span class="dv">20</span>),</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span><span class="st">"escudo1.jpg"</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>img <span class="ot">&lt;-</span> <span class="fu">readJPEG</span>(path,<span class="at">native =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> pontuacao<span class="sc">%&gt;%</span> </span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span>season,<span class="at">y =</span>Pontuação))<span class="sc">+</span> </span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Desempenho do Clube"</span>) <span class="sc">+</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span><span class="st">"Temporada"</span>)   </span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">size =</span><span class="fl">1.2</span>,<span class="at">colour=</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">breaks =</span><span class="fu">c</span>(<span class="dv">2010</span>,<span class="dv">2011</span>,<span class="dv">2012</span>,<span class="dv">2013</span>,<span class="dv">2014</span>,<span class="dv">2015</span>,</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>                <span class="dv">2016</span>,<span class="dv">2017</span>,<span class="dv">2018</span>,<span class="dv">2019</span>,<span class="dv">2020</span>,<span class="dv">2021</span>,<span class="dv">2022</span>)) <span class="sc">+</span>  </span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>,<span class="at">color=</span><span class="st">"grey"</span>) <span class="sc">+</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> season,<span class="at">y=</span>Pontuação,<span class="at">color=</span>Titulo)) <span class="sc">+</span></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>),<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"#999999"</span>, <span class="st">"#050101"</span>)) <span class="sc">+</span></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>,<span class="at">x =</span> <span class="dv">2011</span>,<span class="at">y =</span><span class="dv">79</span>,<span class="at">size =</span> <span class="dv">5</span>,</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"Campeão"</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>,<span class="at">colour =</span> <span class="st">"black"</span>)<span class="sc">+</span></span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>,<span class="at">x =</span> <span class="dv">2019</span> ,<span class="at">y =</span><span class="dv">38</span>,<span class="at">size =</span> <span class="dv">4</span>,</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> Texto, <span class="at">fontface =</span> <span class="st">"bold"</span>,<span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inset_element</span>(<span class="at">p =</span> img,</span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>                <span class="at">left =</span> <span class="fl">1.00</span>,</span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>                <span class="at">bottom =</span> <span class="fl">0.65</span>,</span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>                <span class="at">right =</span> <span class="fl">0.75</span>,</span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>                <span class="at">top =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"> <span class="va">DadosAgg</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    
+    
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span><span class="va">MediaPontos</span> ,y <span class="op">=</span><span class="va">Mes</span>, label <span class="op">=</span> <span class="va">MediaPontos</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span><span class="op">+</span>
+
+     
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span>
+            position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_stack.html">position_stack</a></span><span class="op">(</span>vjust <span class="op">=</span><span class="fl">1.05</span><span class="op">)</span>,
+            color<span class="op">=</span><span class="st">"#030202"</span><span class="op">)</span> <span class="op">+</span>
+    
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Pontos"</span>,y <span class="op">=</span> <span class="st">"Mês"</span>", title<span class="op">=</span>=<span class="st">"Média de Pontos em Cada Mês"</span>ªs",
+         subtitle <span class="op">=</span> <span class="st">"valores a partir de 2010"</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,axis.ticks.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+          axis.text.y <span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span><span class="st">"bold"</span>,
+                                    colour <span class="op">=</span> <span class="st">"#030202"</span><span class="op">)</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Campeonato-Brasileiro_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="conclusão" class="level2">
-<h2 class="anchored" data-anchor-id="conclusão">Conclusão</h2>
+<p>Em quais mêses, fez e tomou ,mais gols?</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">DadosAgg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="op">-</span><span class="va">GolsPro</span> ,y <span class="op">=</span><span class="va">Mes</span><span class="op">)</span>, fill<span class="op">=</span><span class="st">"#424d6b"</span><span class="op">)</span> <span class="op">+</span>
+
+     
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="op">-</span><span class="va">GolsPro</span> ,y <span class="op">=</span><span class="va">Mes</span>,label <span class="op">=</span><span class="va">GolsPro</span><span class="op">)</span>,
+            position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_stack.html">position_stack</a></span><span class="op">(</span>vjust <span class="op">=</span><span class="fl">0.5</span><span class="op">)</span>,
+            color <span class="op">=</span><span class="st">"#ced2de"</span><span class="op">)</span> <span class="op">+</span>
+    
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">GolsContra</span>,y <span class="op">=</span><span class="va">Mes</span><span class="op">)</span>, 
+              fill<span class="op">=</span><span class="st">"#806630"</span><span class="op">)</span> <span class="op">+</span>
+
+     
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span><span class="va">GolsContra</span> ,y <span class="op">=</span><span class="va">Mes</span>,label <span class="op">=</span><span class="va">GolsContra</span><span class="op">)</span>,
+            position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_stack.html">position_stack</a></span><span class="op">(</span>vjust <span class="op">=</span><span class="fl">0.5</span><span class="op">)</span>,
+            color<span class="op">=</span><span class="st">"#030202"</span><span class="op">)</span> <span class="op">+</span>
+   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>,x <span class="op">=</span> <span class="op">-</span><span class="fl">50</span> ,y <span class="op">=</span><span class="fl">2</span>,label <span class="op">=</span><span class="st">"Gols Pro"</span>,
+            color <span class="op">=</span><span class="st">"#424d6b"</span><span class="op">)</span> <span class="op">+</span>
+   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>,x <span class="op">=</span> <span class="fl">50</span> ,y <span class="op">=</span><span class="fl">2</span>,label <span class="op">=</span><span class="st">"Gols Contra"</span>,
+            color <span class="op">=</span><span class="st">"#806630"</span><span class="op">)</span> <span class="op">+</span>
+    
+    
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Gols"</span>,y <span class="op">=</span> <span class="st">"Mês"</span>", title<span class="op">=</span>=<span class="st">"Total de Gols por Mês"</span>s",
+         subtitle <span class="op">=</span> <span class="st">"valores a partir de 2010"</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+          axis.ticks.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+          axis.text.y <span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span><span class="st">"bold"</span>,
+                                    colour <span class="op">=</span> <span class="st">"#030202"</span><span class="op">)</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Campeonato-Brasileiro_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Qual o desempenho das últimas temporadas?</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">ano</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2011</span>,<span class="fl">2015</span>,<span class="fl">2017</span><span class="op">)</span>
+<span class="va">pontuacao</span> <span class="op">&lt;-</span>
+  <span class="va">Timao</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">Pontos</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">season</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>Pontos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Pontos</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Titulo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">season</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">ano</span>, <span class="st">"Campeão"</span>",<span class="st">"Não Ganhou"</span><span class="op">)</span><span class="op">)</span>)) </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">Texto</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/strwrap.html">strwrap</a></span><span class="op">(</span><span class="st">"A temporada de 2022 ainda não foi concluída"</span>a",
+          <span class="fl">20</span><span class="op">)</span>,
+  collapse <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span>
+
+<span class="va">path</span> <span class="op">&lt;-</span><span class="st">"escudo1.jpg"</span>
+<span class="va">img</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/jpeg/man/readJPEG.html">readJPEG</a></span><span class="op">(</span><span class="va">path</span>,native <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+
+<span class="va">pontuacao</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">season</span>, y <span class="op">=</span> <span class="va">Pontos</span><span class="op">)</span>,size <span class="op">=</span><span class="fl">1.4</span>,colour <span class="op">=</span><span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2010</span><span class="op">:</span><span class="fl">2022</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">season</span>, y <span class="op">=</span> <span class="va">Pontos</span><span class="op">)</span>,size <span class="op">=</span> <span class="fl">2</span>,color<span class="op">=</span><span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span>
+    
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>
+      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">season</span>,y<span class="op">=</span><span class="va">Pontos</span>, color <span class="op">=</span><span class="va">Titulo</span>, size<span class="op">=</span> <span class="va">Titulo</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#0a0a0a"</span>,<span class="st">"#b3a6a6"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_size_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2010</span><span class="op">:</span><span class="fl">2022</span><span class="op">)</span>,y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">`Pontos`</span><span class="op">)</span><span class="op">)</span>,
+              linetype <span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span>  
+  
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span><span class="st">"Temporada"</span>,title <span class="op">=</span> <span class="st">"Desempenho do Clube"</span><span class="op">)</span> <span class="op">+</span>
+    
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>,x <span class="op">=</span> <span class="fl">2011</span> ,y <span class="op">=</span><span class="fl">60</span>,size <span class="op">=</span> <span class="fl">2</span>,
+           label <span class="op">=</span> <span class="st">"Média"</span>", fontface<span class="op">=</span>=<span class="st">"bold"</span>",colour<span class="op">=</span>=<span class="st">"black"</span><span class="op">)</span>)<span class="op">+</span>+
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>,x <span class="op">=</span> <span class="fl">2018</span> ,y <span class="op">=</span><span class="fl">35</span>,size <span class="op">=</span> <span class="fl">4</span>,
+           label <span class="op">=</span> <span class="va">Texto</span>, fontface <span class="op">=</span> <span class="st">"bold"</span>,colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/inset_element.html">inset_element</a></span><span class="op">(</span>p <span class="op">=</span> <span class="va">img</span>,
+                left <span class="op">=</span> <span class="fl">1.00</span>,
+                bottom <span class="op">=</span> <span class="fl">0.65</span>,
+                right <span class="op">=</span> <span class="fl">1.35</span>,
+                top <span class="op">=</span> <span class="fl">1.15</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Campeonato-Brasileiro_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section><section id="conclusão" class="level2"><h2 class="anchored" data-anchor-id="conclusão">Conclusão</h2>
 <p>A biblioteca brasileirao é excelente . Foi possível extrair bastante informação. Ela fornece de forma simples os dados gerais sobre as partidas, infelizmente ela não trás informações como número de cartões, tempo de jogo sem interrupções, posse bola, e entre outras. Não é terra arrasada, pois outros dados de fontes distintas podem ser adicionados para complementar as análises.</p>
-</section>
-<section id="referências" class="level2">
-<h2 class="anchored" data-anchor-id="referências">Referências</h2>
+</section><section id="ver-também" class="level2"><h2 class="anchored" data-anchor-id="ver-também">Ver também</h2>
 <ul>
-<li><p><a href="https://blog.curso-r.com/posts/2021-03-05-brasileirao-sem-torcida/">Blog Curso - R</a></p></li>
 <li><p><a href="https://r-graph-gallery.com/treemap.html">r - graph - gallery</a></p></li>
+<li><p><a href="https://blog.curso-r.com/posts/2021-03-05-brasileirao-sem-torcida/">Blog Curso -R</a></p></li>
 </ul>
 
 
-</section>
-</section>
 
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-brasileirao" class="csl-entry" role="doc-biblioentry">
+Amorim, William. 2022. <span>“Brasileirao: Brazilian National Soccer League (Brasileirão) Matches.”</span> <a href="https://github.com/williamorim/brasileirao">https://github.com/williamorim/brasileirao</a>.
+</div>
+</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";
   const anchorJS = new window.AnchorJS();
@@ -574,10 +711,26 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return popup.innerHTML;
     });
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/^(?:http:|https:)\/\/www\.jorgemendes\.com\/**/);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
 });
+</script><script src="https://giscus.app/client.js" data-repo="jorgelum/Jorge-Mendes" data-repo-id="R_kgDOHliCJA" data-category="General" data-category-id="DIC_kwDOHliCJM4CQYAV" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
 </div> <!-- /content -->
 
 
 
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

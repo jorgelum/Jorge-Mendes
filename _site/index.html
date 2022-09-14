@@ -84,6 +84,7 @@ ul.task-list{list-style: none;}
     }
   })
   </script>
+<style>html{ scroll-behavior: smooth; }</style>
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
@@ -144,7 +145,7 @@ ul.task-list{list-style: none;}
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="ANP">ANP <span class="quarto-category-count">(1)</span></div><div class="category" data-category="analysis">analysis <span class="quarto-category-count">(2)</span></div><div class="category" data-category="code">code <span class="quarto-category-count">(2)</span></div><div class="category" data-category="futebol">futebol <span class="quarto-category-count">(1)</span></div><div class="category" data-category="new">new <span class="quarto-category-count">(2)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="ANP">ANP <span class="quarto-category-count">(1)</span></div><div class="category" data-category="analysis">analysis <span class="quarto-category-count">(3)</span></div><div class="category" data-category="code">code <span class="quarto-category-count">(3)</span></div><div class="category" data-category="csv">csv <span class="quarto-category-count">(1)</span></div><div class="category" data-category="futebol">futebol <span class="quarto-category-count">(1)</span></div><div class="category" data-category="geobr">geobr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ggplot">ggplot <span class="quarto-category-count">(1)</span></div><div class="category" data-category="new">new <span class="quarto-category-count">(3)</span></div><div class="category" data-category="saneamento">saneamento <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -157,7 +158,60 @@ ul.task-list{list-style: none;}
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="analysis,new,code,futebol" data-listing-date-sort="1657767600000" data-listing-file-modified-sort="1657828620342" data-listing-reading-time-sort="5.18">
+<div class="quarto-post image-right" data-index="0" data-categories="analysis,new,code,saneamento,csv,geobr,ggplot" data-listing-date-sort="1662778800000" data-listing-file-modified-sort="1663137297840" data-listing-reading-time-sort="4.215">
+<div class="thumbnail">
+<p><a href="./posts/Saneamento/Saneamento.html"> <img src="./posts/Saneamento/image.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/Saneamento/Saneamento.html">
+<h3 class="no-anchor listing-title">
+Saneamento no Estado de São Paulo
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('analysis'); return false;">
+analysis
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('new'); return false;">
+new
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
+code
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('saneamento'); return false;">
+saneamento
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('csv'); return false;">
+csv
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('geobr'); return false;">
+geobr
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('ggplot'); return false;">
+ggplot
+</div>
+</div>
+<a href="./posts/Saneamento/Saneamento.html">
+<div class="listing-description">
+<p>Atlas do Esgoto</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/Saneamento/Saneamento.html">
+<div class="listing-date">
+Sep 10, 2022
+</div>
+<div class="listing-author">
+Jorge Luiz Mendes
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="analysis,new,code,futebol" data-listing-date-sort="1657767600000" data-listing-file-modified-sort="1663137890431" data-listing-reading-time-sort="8.875">
 <div class="thumbnail">
 <p><a href="./posts/Campeonato Brasileiro/Campeonato Brasileiro.html"> <img src="./posts/Campeonato Brasileiro/image1.png" class="thumnail-image"> </a></p>
 </div>
@@ -201,7 +255,7 @@ Jorge Luiz Mendes
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="analysis,new,code,ANP" data-listing-date-sort="1656903600000" data-listing-file-modified-sort="1657711913860" data-listing-reading-time-sort="5.565">
+<div class="quarto-post image-right" data-index="2" data-categories="analysis,new,code,ANP" data-listing-date-sort="1656903600000" data-listing-file-modified-sort="1657711913860" data-listing-reading-time-sort="5.565">
 <div class="thumbnail">
 <p><a href="./posts/Petroleum/Petroleum.html"> <img src="./posts/Petroleum/image1.png" class="thumnail-image"> </a></p>
 </div>
@@ -327,6 +381,20 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return popup.innerHTML;
     });
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/^(?:http:|https:)\/\/www\.jorgemendes\.com\/**/);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
 });
 </script>
 <script src="https://giscus.app/client.js" data-repo="jorgelum/Jorge-Mendes" data-repo-id="R_kgDOHliCJA" data-category="General" data-category-id="DIC_kwDOHliCJM4CQYAV" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
@@ -335,4 +403,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

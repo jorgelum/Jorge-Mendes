@@ -5,30 +5,41 @@ date: "2022-07-14"
 categories: [analysis,new,code,futebol]
 image: "image1.png"
 description: "Analisando os resultados do campeonato brasileiro"
+draft: false
+toc: true
+bibliography: references.bib
 ---
 
-# Campeonato Brasileiro
+------------------------------------------------------------------------
+
+*Atualizado em 11/09/2022*
+
+------------------------------------------------------------------------
 
 ## Objetivo
 
-Explorar a biblioteca [brasileirão](https://github.com/williamorim/brasileirao). É uma boa base para praticar, principalmente, manipulações de dataframe.
+Explorar a biblioteca [brasileirão](https://github.com/williamorim/brasileirao) [@brasileirao] . É uma boa base para praticar, principalmente, manipulações de dataframe.
 
 Ela consegue, além de outras coisas, retornar jogos, a data, o placar e os clubes envolvidos desde 2003 no campeonato brasileiro de futebol.
 
 ## Bibliotecas
 
 ```{r, message= FALSE}
-library(tidyverse)
-library(magrittr)
-library(plyr)
-library(lubridate)
-library(calendR)
-library(brasileirao)
-library(knitr)
-library(treemap)
-library(gghighlight)
-library(jpeg)
-library(patchwork)
+library(dplyr) #tratamento de dados
+library(tidyr) #tratamento de dados
+
+library(magrittr) #o pipe antigo
+library(purrr) #programação funcional
+library(lubridate) #tratar datas
+library(knitr) #formatação de tabelas
+
+library(brasileirao) #base de dados utilizados
+
+library(ggplot2) #gráficos
+library(treemap) #gráficos
+
+library(jpeg) #adicionar imagens
+library(patchwork)  #adicionar imagens
 ```
 
 ## **Mão na Massa**
@@ -39,8 +50,10 @@ Carregando dados.
 Br <- brasileirao::matches
 ```
 
+Podemos expor os resultados na forma de tabela.
+
 ```{r}
-knitr::kable(head(Br))
+knitr::kable(head(Br),align = "lccrr")
 ```
 
 Verificando os tipos de variáveis das colunas.
@@ -56,7 +69,8 @@ Tabela_extendida <- Br  %>% filter(season >=2010)  %>%
   separate(score,
            c("Placar_Mandante","Placar_Visitante"),
            sep = "x",
-           convert = TRUE
+           convert = TRUE,
+           remove = FALSE
     
   ) %>% 
   mutate(
@@ -76,30 +90,34 @@ Tabela_extendida <- Br  %>% filter(season >=2010)  %>%
 A ideia aqui é selecionar um clube e fazer as análises a partir dessa escolha. Vamos criar uma função para selecionar um time.
 
 ```{r}
-Clubes<-function(dataframe,Time){
-  #selcionar o clube quando ele é mandante
-  TimeMandante <-dataframe %>% filter(home==Time) %>% 
-  select(season,date,home,Placar_Mandante,
-         Placar_Visitante,Mandante) %>% 
-  plyr::rename(
-    replace = c("home"="clube",
-                "Placar_Mandante"="Gols_Pro",
-                "Placar_Visitante"="Gols_Contra",
-                "Mandante"="Resultado"))
+Clube<-function(dataframe,Time){
+  #selecionar o clube quando ele é mandante
+        TimeMandante <-dataframe %>% filter(home==Time) %>% 
+            select(season,date,home,Placar_Mandante,
+            Placar_Visitante,Mandante,away) %>% 
+            rename(
+                    "clube"="home",
+                    "Gols_Pro"="Placar_Mandante",
+                    "Gols_Contra"="Placar_Visitante",
+                    "Resultado"="Mandante",
+                    "adversario" ="away") %>% 
+            mutate(mando = "Mandante")
   
-  #selcionar o clube quando ele é visitante
-  TimeVisitante <- dataframe %>% 
-  filter(away==Time) %>% 
-  select(season,date,away,Placar_Visitante,
-         Placar_Mandante,Visitante) %>% 
-  plyr::rename(
-    replace = c("away"="clube",
-                "Placar_Visitante"="Gols_Pro",
-                "Placar_Mandante"="Gols_Contra",
-                "Visitante"="Resultado")) 
+  #selecionar o clube quando ele é visitante
+        TimeVisitante <- dataframe %>% 
+            filter(away==Time) %>% 
+            select(season,date,away,Placar_Visitante,
+            Placar_Mandante,Visitante,home) %>% 
+            rename(
+                    "clube"="away",
+                    "Gols_Pro"="Placar_Visitante",
+                    "Gols_Contra"="Placar_Mandante",
+                    "Resultado"="Visitante",
+                     "adversario"="home") %>% 
+            mutate(mando = "Visitante")
   
   #Unindo as tabelas
-  Resultados <-rbind(TimeMandante,TimeVisitante)
+        Resultados <-rbind(TimeMandante,TimeVisitante)
   
   return(Resultados)
   
@@ -108,12 +126,12 @@ Clubes<-function(dataframe,Time){
 
 Selecionando um time.
 
-O interessante é selecionar um clube que jogou muitas edições para ter uma boa quantidade de dados. Convenientemente foi selcionado o Corinthians.
+O interessante é selecionar um clube que jogou muitas edições para ter uma boa quantidade de dados. Convenientemente foi selecionado o Corinthians.
 
 ![](https://logodownload.org/wp-content/uploads/2016/11/corinthians-logo-0-1536x1536.png){fig-align="center" width="400"}
 
 ```{r}
-Timao<-Clubes(dataframe= Tabela_extendida,Time ="Corinthians")
+Timao<-Clube(dataframe= Tabela_extendida,Time ="Corinthians")
 ```
 
 É interessante adicionar os pontos obtidos em cada partida.
@@ -127,44 +145,21 @@ Timao <- Timao %>% mutate(
 ))
 ```
 
-Usando o pacote lubridate para tratar datas, obtendo informações sobre o dia,dia da semana, mês e ano de forma isolada.
+Usando o pacote lubridate é possível tratar datas, obtendo informações sobre o dia,dia da semana, mês e ano de forma isolada.
 
 ```{r}
-Timao$dia_Mes <- lubridate::day(Timao$date)
-Timao$Mes <- lubridate::month(Timao$date)
-Timao$NdiaSemana <- lubridate::wday(Timao$date)
+#Timao$dia_Mes <- lubridate::day(Timao$date)
+Timao$Mes <- lubridate::month(Timao$date, label = TRUE)
+#Timao$NdiaSemana <- lubridate::wday(Timao$date)
 
-Timao <-Timao %>% mutate(
-
-  dia_semana = case_when(
-
-    NdiaSemana == 1 ~"Domingo",
-
-    NdiaSemana == 2 ~"Segunda-Feira",
-
-    NdiaSemana == 3 ~"Terça-Feira",
-
-    NdiaSemana == 4 ~"Quarta-Feira",
-
-    NdiaSemana == 5 ~"Quinta-Feira",
-
-    NdiaSemana == 6 ~"Sexta-Feira",
-
-    NdiaSemana == 7 ~"Sábado"
-
-    
-
-  )
-
-)
 ```
 
 Qual o número de vitórias, empates e derrotas da última década?
 
 ```{r}
-Timao %>% na.omit() %>% count("Resultado") %>% 
-  treemap(index = c("freq","Resultado"),
-          vSize = "freq",
+Timao %>% filter(!is.na(Pontos)) %>% count(Resultado) %>%  
+  treemap(index = c("n","Resultado"),
+          vSize = "n",
           align.labels=list(c("center", "center"),c("center", "top")),
           title = "Resultados do Corinthians desde 2010",
           fontsize.labels=c(15,12),
@@ -173,28 +168,95 @@ Timao %>% na.omit() %>% count("Resultado") %>%
            )
 ```
 
-Qual a pontuação das últimas temporadas?
+Com a função **group_by e summarise** podemos agrupar os dados.
 
 ```{r}
-pontuacao <-Timao %>% na.omit() %>% group_by(season) %>% 
-  dplyr::summarise(
-    sum(Total =Pontos)) %>% 
-  plyr::rename(
-    replace = c("sum(Total = Pontos)"="Pontuação")) 
+DadosAgg <- Timao %>% 
 
-#Gambiarra para plotar os anos em que foi campeão
-pontuacao <- pontuacao %>% mutate(Titulo = case_when(
-  season ==2011 ~"Campeão",
-  season ==2015 ~"Campeão",
-  season ==2017 ~"Campeão",
-  TRUE ~" "
-  
-))
+  filter(!is.na(Pontos)) %>% 
+
+  group_by(Mes)%>% 
+
+  summarise(
+
+    MediaPontos = round(mean(Pontos),2),
+    GolsPro = sum(Gols_Pro),
+    GolsContra =sum(Gols_Contra)) %>%
+
+    arrange(desc(Mes))
+
+DadosAgg %>% knitr::kable(col.names =
+                            c("Mês","Pontos","Gols Pro","Gols Contra"))
 
 
-  
-  
-  
+```
+
+Qual mês, em média, fez mais pontos?
+
+```{r}
+ DadosAgg%>% 
+    
+    
+    ggplot(aes(x =MediaPontos ,y =Mes, label = MediaPontos)) +
+
+    geom_col(fill = "gray")+
+
+     
+    geom_text(
+            position = position_stack(vjust =1.05),
+            color="#030202") +
+    
+    labs(x = "Pontos",y = "Mês", title = "Média de Pontos em Cada Mês",
+         subtitle = "valores a partir de 2010") +
+    theme(axis.text.x = element_blank(),axis.ticks.x=element_blank(),
+          axis.text.y =element_text(face ="bold",
+                                    colour = "#030202"))
+    
+```
+
+Em quais mêses, fez e tomou ,mais gols?
+
+```{r}
+DadosAgg %>%  ggplot() +
+    
+    geom_col(aes(x = -GolsPro ,y =Mes), fill="#424d6b") +
+
+     
+    geom_text(aes(x = -GolsPro ,y =Mes,label =GolsPro),
+            position = position_stack(vjust =0.5),
+            color ="#ced2de") +
+    
+    geom_col(aes(x = GolsContra,y =Mes), 
+              fill="#806630") +
+
+     
+    geom_text(aes(x =GolsContra ,y =Mes,label =GolsContra),
+            position = position_stack(vjust =0.5),
+            color="#030202") +
+   annotate("text",x = -50 ,y =2,label ="Gols Pro",
+            color ="#424d6b") +
+   annotate("text",x = 50 ,y =2,label ="Gols Contra",
+            color ="#806630") +
+    
+    
+    labs(x = "Gols",y = "Mês", title = "Total de Gols por Mês",
+         subtitle = "valores a partir de 2010") +
+    theme(axis.text.x = element_blank(),
+          axis.ticks.x=element_blank(),
+          axis.text.y =element_text(face ="bold",
+                                    colour = "#030202"))
+```
+
+Qual o desempenho das últimas temporadas?
+
+```{r}
+ano <- c(2011,2015,2017)
+pontuacao <-
+  Timao %>% filter(!is.na(Pontos)) %>% 
+  group_by(season) %>% 
+  summarise(Pontos = sum(Pontos)) %>% 
+  mutate(Titulo = ifelse(season %in% ano, "Campeão", "Não Ganhou")) 
+
 ```
 
 ```{r}
@@ -206,41 +268,46 @@ Texto <- paste(
 path <-"escudo1.jpg"
 img <- readJPEG(path,native = TRUE)
 
-p1 <- pontuacao%>% 
-  ggplot(aes(x =season,y =Pontuação))+ 
-  ggtitle("Desempenho do Clube") +
-  labs(x ="Temporada")   
+
+pontuacao %>% 
+  ggplot() +
+    geom_line(aes(x = season, y = Pontos),size =1.4,colour ="grey") +
+    scale_x_continuous(breaks = c(2010:2022)) +
+    geom_point(aes(x = season, y = Pontos),size = 2,color="grey") +
+    
+    geom_point(
+      aes(x = season,y=Pontos, color =Titulo, size= Titulo)) +
+    
+    scale_colour_manual(values = c("#0a0a0a","#b3a6a6")) +
+
+    scale_size_manual(values = c(3,2)) +
+    
+    geom_line(aes(x = c(2010:2022),y = mean(`Pontos`)),
+              linetype =2) +  
   
-p1 + geom_line(size =1.2,colour= "grey") +
-    scale_x_continuous(
-      breaks =c(2010,2011,2012,2013,2014,2015,
-                2016,2017,2018,2019,2020,2021,2022)) +  
-  geom_point(size = 2,color="grey") +
-  geom_point(
-    aes(x = season,y=Pontuação,color=Titulo)) +
-  
-  theme(
-    axis.text.x = element_text(angle = 90),legend.position = "none") +
-scale_color_manual(values=c("#999999", "#050101")) +
-  annotate("text",x = 2011,y =79,size = 5,
-           label = "Campeão", fontface = "bold",colour = "black")+
-  annotate("text",x = 2019 ,y =38,size = 4,
+    labs(x ="Temporada",title = "Desempenho do Clube") +
+    
+    theme(axis.text.x = element_text(angle = 90)) +
+    
+    annotate("text",x = 2011 ,y =60,size = 2,
+           label = "Média", fontface = "bold",colour = "black") +
+    annotate("text",x = 2018 ,y =35,size = 4,
            label = Texto, fontface = "bold",colour = "red") +
-  inset_element(p = img,
+    inset_element(p = img,
                 left = 1.00,
                 bottom = 0.65,
-                right = 0.75,
-                top = 0.95)
-  
-  
+                right = 1.35,
+                top = 1.15)
+
+
 ```
 
 ## Conclusão
 
 A biblioteca brasileirao é excelente . Foi possível extrair bastante informação. Ela fornece de forma simples os dados gerais sobre as partidas, infelizmente ela não trás informações como número de cartões, tempo de jogo sem interrupções, posse bola, e entre outras. Não é terra arrasada, pois outros dados de fontes distintas podem ser adicionados para complementar as análises.
 
-## Referências
-
--   [Blog Curso - R](https://blog.curso-r.com/posts/2021-03-05-brasileirao-sem-torcida/)
+## Ver também
 
 -   [r - graph - gallery](https://r-graph-gallery.com/treemap.html)
+
+-   [Blog Curso -R](https://blog.curso-r.com/posts/2021-03-05-brasileirao-sem-torcida/)

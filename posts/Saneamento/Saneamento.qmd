@@ -1,0 +1,159 @@
+---
+title: "Saneamento no Estado de São Paulo"
+author: "Jorge Luiz Mendes"
+date: "2022-09-10"
+editor: visual
+categories: [analysis,new,code,saneamento,csv,geobr,ggplot]
+image: "image.png"
+description: "Atlas do Esgoto"
+draft: false
+toc: true
+bibliography: references.bib
+---
+
+## Objetivo
+
+Saneamento é um tema de extrema importâcia. Aqui o foco principal é fazer uma análise exploratória simples com ***dados públicos***.
+
+## Bibliotecas
+
+```{r,message=FALSE}
+library(ggplot2)
+library(dplyr)
+library(magrittr)
+library(knitr)
+library(geobr)
+library(ggspatial)
+library(sf)
+```
+
+## Os dados
+
+------------------------------------------------------------------------
+
+Os dados foram obtidos da agência nacional de águas e saneamento básico [ANA](https://www.gov.br/ana/pt-br).
+
+Foi utilizado o [Atlas Esgotos Situação 2013 - Remoção da Carga de Esgotos Gerada na Sede Municipal](https://dadosabertos.ana.gov.br/datasets/1bf952cbf5314d57882272656438dc1f_1/about) e o pacote **geobr** [@geobr] para acessar informações sobre os dados espaciais do Brasil.
+
+```{r, message=FALSE}
+dados <- readr::read_delim("Atlas_Esgoto2013.csv",delim = ',')
+```
+
+```{r}
+glimpse(dados)
+```
+
+## Manipulando as Bases
+
+Renomeando as colunas (consultei o aplicativo do ANA).
+
+```{r}
+dados <- dados %>% 
+    dplyr::rename( 
+        c("code_muni" = "MUN_CD_MUN","municipio"="MUN_NM_MUN" ,
+          "uf"="MUN_UF", "prestador_servico"= "MUN_NM_PRE" ,
+          "sigla_prestador"="MUN_SIGLA_"  ,
+          "populacao2013" ="MUN_POPU_2" , 
+                
+          "Parcela_População_Com_Coleta_Sem_Tratamento(%)" =
+            "MUN_ICS",
+                
+          "Parcela_População_Com_Solução_Individual(%)" =
+            "MUN_IFSUTI" ,
+                
+          "Parcela_População_Sem_Coleta_Sem_Tratamento(%)" =
+            "MUN_ISCST",
+                
+          "Parcela_População_Com_Coleta_Com_Tratamento(%)" =
+            "MUN_ICT_FI",
+                
+          "Carga_Gerada"= "MUN_C_GERA",
+          "Carga_Remanescente" ="MUN_C_REMA"  ,
+          "Remoção_Carga_Orgânica(DBO)(%)"="MUN_EFIC_1"))
+```
+
+Podemos gerar tabelas com o pacote **knitr** para gerar tabelas.
+
+Quais cidades geram maior carga de esgoto no estado de são paulo?
+
+```{r}
+dados %>% filter(uf == "SP") %>% 
+  select(c("municipio","Carga_Gerada")) %>% 
+  arrange(desc(Carga_Gerada)) %>% 
+  slice(1:10) %>% 
+  knitr::kable(col.names = 
+                 c("Municípios","Carga Gerada Total (kgDBO/dia)"),
+               "simple",caption = "Estado de São Paulo")
+
+```
+
+Carregando os dados do **geobr** para o estado de São Paulo.
+
+```{r,results="hide"}
+mapa <- geobr::read_municipality(code_muni = 35,year = 2018)
+```
+
+Unindo as tabelas
+
+```{r}
+sp <- dados %>% filter(uf =="SP") %>% merge(mapa)
+nrow(sp) # verificando se possui as 645 cidades do estado de sp
+ 
+```
+
+Agora podemos gerar mapas com os pontos **geom**.
+
+Quais cidades geram mais carga de esgoto no estado de São Paulo?
+
+```{r}
+sp  %>% ggplot() +
+  geom_sf(aes(fill = Carga_Gerada, geometry = geom)) + 
+  labs(title = "Situação do Estado de São Paulo",
+       subtitle = "Carga Total Gerada 2013") +
+  scale_fill_distiller(palette = "Reds",direction = 1,
+                       name= "KgDBO/dia") +
+  theme(axis.title=element_blank(),
+                   axis.text=element_blank(),
+                   axis.ticks=element_blank())
+```
+
+Podemos verificar uma região específica ( como um conjunto de cidades). A forma mais segura é utilizar os códigos dos municípios, algumas cidades compartilham o mesmo nome.
+
+Qual a porcentagem da população com coleta e tratamento de esgoto na região do grande ABC?
+
+Aproveitei e adicionei o nome dos municípios, eixos das coordenadas, escala e a indicação do norte.
+
+```{r, message=FALSE}
+listaABC = list(3548708, 3547809, 3529401, 3513801, 3548807, 3543303, 3544103)
+
+sp %>%  filter(code_muni %in% listaABC) %>%
+  ggplot() + 
+  geom_sf(aes(fill = `Parcela_População_Com_Coleta_Com_Tratamento(%)`,
+              geometry = geom)) +
+  
+  geom_sf_label(aes(label = municipio,geometry =geom),
+                label.padding = unit(0.5,"mm"),
+                size = 2) +
+  
+  
+  labs(title = "Parcela da População Com Coleta e Com Tratamento",
+       subtitle = "Região do Grande ABC, 2013 ",
+       x = "Longitude",y ="Latitude") +
+  
+  scale_fill_distiller(palette = "Greens",direction = 1,
+                       name= "(%)") +
+  annotation_north_arrow(location = "br") +
+  annotation_scale(location ="bl"
+                   )
+  
+  
+  
+ 
+
+  
+
+```
+
+## Ver também
+
+-   [Bea Milz](https://beamilz.com/posts/2020-07-27-criando-mapas-com-os-pacotes-tidyverse-e-geobr/pt/#dados-utilizados)

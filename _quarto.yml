@@ -14,6 +14,14 @@ format:
   html:
     theme: yeti
     css: styles.css
+    smooth-scroll: true
+    link-external-icon: false
+    link-external-newwindow: true
+    link-external-filter: '^(?:http:|https:)\/\/www\.jorgemendes\.com\/**'
+    citations-hover: true
+    footnotes-hover: true
+    toc: true
+    code-link: true
 
 editor: visual
 
