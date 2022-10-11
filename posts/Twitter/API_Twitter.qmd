@@ -1,0 +1,227 @@
+---
+title: "Como usar API do Twitter"
+author: "Jorge Luiz Mendes"
+editor: visual
+date: "2022-10-10"
+categories: [api, seleção, twitter]
+description: "Um tutorial básico de como acessar a API do Twitter para obter dados"
+image: "image1.png"
+draft: false
+toc: true
+bibliography: references.bib
+---
+
+## **Introdução**
+
+**API** ou interface de programação de aplicação é basicamente uma ferramenta que estabelece uma comunicação entre sistemas. Nela é possível que realizar troca de informações de forma segura utilizando diferentes linguagens de programação.
+
+O **Twitter** fornece API para consumo de dados para algumas lnguagem como **python**, **R**, entre outras. O **R** possui uma biblioteca específica para isso chamada ***rtweet*** [@rtweet].
+
+## **Primeiros passos...**
+
+Inicialmente devesse criar uma conta no **Twitter** e em seguida criar uma conta de desenvolvedor na própria plataforma. Ao criar um projeto e um aplicativo serão geradas chaves de acesso para a requisição de dados via API.
+
+![Portal do Desenvolvedor](Conta_devl.png){fig-align="center"}
+
+::: {.callout-note collapse="false"}
+## Ao criar a conta lembre-se de ativar a autenticação em dois fatores.
+:::
+
+## **Bibliotecas**
+
+```{r}
+#| message: false
+#install.packages("rtweet")
+#install.packages("wordcloud")
+#install.packages("tm")
+library(dplyr)
+library(ggplot2)
+library(magrittr)
+library(lubridate)
+library(knitr)
+library(rtweet)
+library(wordcloud)
+library(tm)
+
+```
+
+Existem 3 formas simples de se fazer a autenticação:
+
+::: panel-tabset
+## Usando as chaves
+
+::: panel-tabset
+Na função mencionada ***create_token*** basta inserir os argumentos fornecidos na hora de criar o app.
+
+-   app
+
+-   consumer key
+
+-   consumer secret
+
+-   access token
+
+-   access secret
+:::
+
+## Login
+
+::: panel-tabset
+Caso tenha algum tipo de problema com o primeiro método, é possível utilizar a mesma função ***create_token*** sem argumentos. Neste caso você será levado a uma página de login do Twitter e um código de autenticação será enviado um código para o seu celular.
+
+![](auth.png)
+:::
+
+## Usando rtweet app
+
+::: panel-tabset
+Outra opção é usar a função ***rtweet_app***, nesse caso uma tela e será necessário fornecer a Bearer token.
+
+![](rtweer_app_auth.png){fig-align="center"}
+:::
+:::
+
+::: {.callout-note collapse="true"}
+## Escolha
+
+Eu tive problemas com a primeiro e terceiro método de autenticação. Uma análise mais profunda da documentação do pacote possa revelar a solução mas na ausência de tempo escolhi o que funcionou sem ter nenhum erro.
+
+A função ***create_token*** foi descontinuada a partir da versão 1.0.0 do pacote rtweet e a função ***rtweet_app*** é mais indicada para versão 1.0.2 .
+:::
+
+::: {.callout-important collapse="true"}
+## Cuidado!!! Sempre proteja suas chaves.
+
+Esse não é o caso mas existem API's que são pagas, além do prejuízo financeiro, a ideia de terceiros utilizarem para fins duvidosos já causa preocupação. Caso interesse em disponizibilizar seus scripts existem métodos seguros para proteger senhas e chaves, mas como não é o foco dessa postagem tem esse [blog](https://blog.curso-r.com/posts/2022-09-13-senha-no-script/).
+:::
+
+## Autenticando
+
+```{r}
+#| message: false
+#| warning: false
+twitter_token = create_token()
+auth_as(twitter_token)
+
+```
+
+## Manipulações
+
+Após a autenticação podemos iniciar nossas análises .
+
+Com a função `search_tweets` ajuda a fazer busca por assuntos ou perfis. Podemos escolher o número de tweets, o idioma, entre outras opções.
+
+Nesse caso trouxemos 3000 tweets com o assunto **seleção**.
+
+```{r}
+selecao <- search_tweets("seleção", n=3000)
+```
+
+Antes de fazer visualizações devemos fazer uma limpeza nos dados.
+
+```{r}
+# Remove retweets e replies
+selecao_tweets_organic <- selecao %>% filter(
+  retweeted == FALSE, is.na(in_reply_to_status_id)
+                                             ) 
+# converte o tipo 
+selecao_tweets_organic$full_text <- as.character(
+ selecao_tweets_organic$full_text)
+
+#selecionar só as colunas que serão utilizadas
+selecao_tweets_organic <-selecao_tweets_organic %>% select(created_at,full_text,retweet_count,favorite_count,display_text_range,lang)
+
+# removendo palavras que não fazem sentido para análise
+selecao_tweets_organic$full_text <- gsub("com","",selecao_tweets_organic$full_text)
+selecao_tweets_organic$full_text <- gsub("que","",selecao_tweets_organic$full_text)
+selecao_tweets_organic$full_text <- gsub("pra","",selecao_tweets_organic$full_text)
+selecao_tweets_organic$full_text <- gsub("blimag","",selecao_tweets_organic$full_text)
+selecao_tweets_organic$full_text <- gsub("tô","",selecao_tweets_organic$full_text)
+selecao_tweets_organic$full_text <- gsub("por","",selecao_tweets_organic$full_text)
+selecao_tweets_organic$full_text <- gsub("bolsonaro","",selecao_tweets_organic$full_text)
+selecao_tweets_organic$full_text <- gsub("uma","",selecao_tweets_organic$full_text)
+selecao_tweets_organic$full_text <- gsub("Bolsonaro","",selecao_tweets_organic$full_text)
+```
+
+Uma nuvem de palavras é um tipo de visualização muito boa para dados textuais e para executar essa tarefa temos a biblioteca `{wordcloud}` nela podemos passar uma coluna de dataframe como dado de entrada.
+
+```{r}
+set.seed(1234) # reprodutibilidade
+```
+
+```{r}
+#| message: false
+#| warning: false
+wordcloud(selecao_tweets_organic$full_text, 
+          min.freq=5, scale=c(3.5, .5), 
+          random.order=FALSE, rot.per=0.45, 
+          colors=brewer.pal(8, "Dark2"))
+
+```
+
+Podemos fazer análises com base no horário em que o tweet foi criado.
+
+```{r}
+selecao_tweets_organic$hora_criada <-lubridate::hour(selecao_tweets_organic$created_at)
+```
+
+Em média qual horário teve mais Retweet, Favoritoe e Tamanho de Texto?
+
+```{r}
+selecao_tweets_organic %>% group_by(hora_criada) %>%
+  summarise(round(mean(retweet_count)),
+            round(mean(favorite_count)),
+            round(mean(display_text_range))) %>% 
+  kable(col.names = c("Hora","Retweet","Favorito","Tamanho do Texto"),caption = "Médias Referentes ao Assunto Seleção")
+```
+
+Escolhendo um perfil dessa vez. Aproveitando que é semana de champions escolhi o Vinícius Junior do Real Madrid.
+
+```{r}
+vinijr <- search_tweets("@vinijr", n = 3000)
+```
+
+Quais idiomas presentes nos tweets?
+
+```{r}
+unique(vinijr$lang)
+```
+
+Desconsiderando o português qual a porcetagem de presença dos tweets?
+
+```{r}
+vinijr %>% filter(lang != "pt") %>% 
+  group_by(lang) %>% 
+  summarise(contagem=n()) %>%
+  arrange(desc(contagem)) %>% 
+  slice(1:5) %>%
+  mutate(
+    langEx = case_when(lang =="ar"~"Árabe",
+                     lang =="es"~"Espanhol",
+                     lang =="fr"~"Francês",
+                     lang =="en"~"Inglês", 
+                     lang =="und"~"Não Detectado",
+                     )) %>% 
+   
+  mutate(Perc = round(contagem /sum(contagem)*100 ,2 )) %>% 
+  ggplot(aes(x= langEx,y =Perc,label = Perc)) +
+  geom_col(fill ="gray") +
+    
+  geom_text(position = position_stack(vjust =1.05),
+           color="#030202") +
+  labs(
+    title= "Os 5 Idiomas mais Presentes nos Tweets do @vinijr",
+       subtitle = "Desconsiderando o Português", x ="", 
+       y ='Porcentagem (%)') +
+   theme(axis.ticks.x=element_blank(),
+          axis.text.y =element_blank())
+  
+```
+
+## Conclusão
+
+Embora eu tenha descartado a maioria das colunas, estou impressionado pelo volume de informação que a API disponibiliza para o usuário (43 colunas) um leque absurdo de análises que podem ser feitas. A parte mais complexa é estabelecer a conexão com a API mas uma vez feita basta se atentar no tempo de validade das chaves.
+
+## Ver Também
+
+-   [Céline Van den Rul](https://medium.com/@celine.vdr?source=post_page-----2f56818fdd16--------------------------------)

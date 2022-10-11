@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Jorge Mendes - About</title>
+<title>Jorge Mendes - Jorge L. Mendes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -52,6 +52,7 @@ ul.task-list{list-style: none;}
     "search-submit-button-title": "Submit"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -72,7 +73,7 @@ ul.task-list{list-style: none;}
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page">About</a>
+    <a class="nav-link active" href="./about.html" aria-current="page">Jorge L. Mendes</a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/jorgelum/Jorge-Mendes"><i class="bi bi-github" role="img">
@@ -83,6 +84,9 @@ ul.task-list{list-style: none;}
     <a class="nav-link" href="https://twitter.com"><i class="bi bi-twitter" role="img">
 </i> 
  </a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://br.linkedin.com/in/jorge-luiz-mendes-bab690227?trk=people-guest_people_search-card">LinkedIn</a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -96,35 +100,41 @@ ul.task-list{list-style: none;}
 <!-- margin-sidebar -->
     
 <!-- main -->
-<div class="quarto-about-jolla">
-  <img src="profile.jpg" class="about-image
-  round " style="height: 15em; width: 15em;">
- <header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-about-solana column-body">
+  <div class="about-entity">
+    <div class="entity-contents">
+      <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<h1 class="title">Jorge L. Mendes</h1>
 </div>
 <div class="quarto-title-meta">
   </div>
-</header><main class="content" id="quarto-document-content">
-<p>About this blog</p>
-
-
-</main> 
-  <hr class="about-sep">
-   <div class="about-links">
+</header> <div class="about-links">
   <a href="https://twitter.com" class="about-link">
     <i class="bi bi-twitter"></i>
      <span class="about-link-text">Twitter</span>
   </a>
-  <a href="https://linkedin.com" class="about-link">
+  <a href="https://br.linkedin.com/in/jorge-luiz-mendes-bab690227?trk=people-guest_people_search-card" class="about-link">
     <i class="bi bi-linkedin"></i>
      <span class="about-link-text">LinkedIn</span>
   </a>
-  <a href="https://github.com" class="about-link">
+  <a href="https://github.com/jorgelum/Jorge-Mendes" class="about-link">
     <i class="bi bi-github"></i>
      <span class="about-link-text">Github</span>
   </a>
 </div>
+      <div class="about-contents"><main class="content" id="quarto-document-content">
+<div id="hero-heading">
+<p>Me chamo Jorge. Sou graduando em Engenharia Química pela <a href="https://www.unifesp.br/">Universidade Federal de São Paulo</a>.</p>
+<p>Comecei a ter afinidade pela linguagem <strong>R</strong> no final de 2020 e me apaixonei pelo <strong>RMarkdown/Quarto</strong>.</p>
+</div>
+
+
+</main></div>
+    </div>
+    <img src="Image00.jpg" class="about-image
+  rounded " style="width: 15em;">
+  </div>
 </div>
  <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -197,12 +207,25 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return popup.innerHTML;
     });
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/^(?:http:|https:)\/\/www\.jorgemendes\.com\/**/);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
 });
-</script>
-<script src="https://giscus.app/client.js" data-repo="jorgelum/Jorge-Mendes" data-repo-id="R_kgDOHliCJA" data-category="General" data-category-id="DIC_kwDOHliCJM4CQYAV" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
 </div> <!-- /content -->
 
 
 
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

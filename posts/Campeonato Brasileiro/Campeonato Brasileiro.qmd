@@ -18,7 +18,7 @@ bibliography: references.bib
 
 ## Objetivo
 
-Explorar a biblioteca [brasileirão](https://github.com/williamorim/brasileirao) [@brasileirao] . É uma boa base para praticar, principalmente, manipulações de dataframe.
+Explorar a biblioteca ***brasileirão*** [@brasileirao] . É uma boa base para praticar, principalmente, manipulações de dataframe.
 
 Ela consegue, além de outras coisas, retornar jogos, a data, o placar e os clubes envolvidos desde 2003 no campeonato brasileiro de futebol.
 

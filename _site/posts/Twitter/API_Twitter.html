@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.626">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Jorge Luiz Mendes">
+<meta name="dcterms.date" content="2022-10-10">
+<meta name="description" content="Um tutorial básico de como acessar a API do Twitter para obter dados">
+<title>Jorge Mendes - Como usar API do Twitter</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Jorge Mendes</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../../about.html">About</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jorgelum/Jorge-Mendes"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+<div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Como usar API do Twitter</h1>
+                  <div>
+        <div class="description">
+          Um tutorial básico de como acessar a API do Twitter para obter dados
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">api</div>
+                <div class="quarto-category">seleção</div>
+                <div class="quarto-category">twitter</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Jorge Luiz Mendes </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 10, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#introdu%C3%A7%C3%A3o" id="toc-introdução" class="nav-link active" data-scroll-target="#introdu%C3%A7%C3%A3o"><strong>Introdução</strong></a></li>
+  <li><a href="#primeiros-passos" id="toc-primeiros-passos" class="nav-link" data-scroll-target="#primeiros-passos"><strong>Primeiros passos…</strong></a></li>
+  <li><a href="#bibliotecas" id="toc-bibliotecas" class="nav-link" data-scroll-target="#bibliotecas"><strong>Bibliotecas</strong></a></li>
+  <li><a href="#autenticando" id="toc-autenticando" class="nav-link" data-scroll-target="#autenticando">Autenticando</a></li>
+  <li><a href="#manipula%C3%A7%C3%B5es" id="toc-manipulações" class="nav-link" data-scroll-target="#manipula%C3%A7%C3%B5es">Manipulações</a></li>
+  <li><a href="#conclus%C3%A3o" id="toc-conclusão" class="nav-link" data-scroll-target="#conclus%C3%A3o">Conclusão</a></li>
+  <li><a href="#ver-tamb%C3%A9m" id="toc-ver-também" class="nav-link" data-scroll-target="#ver-tamb%C3%A9m">Ver Também</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content"><section id="introdução" class="level2"><h2 class="anchored" data-anchor-id="introdução"><strong>Introdução</strong></h2>
+<p><strong>API</strong> ou interface de programação de aplicação é basicamente uma ferramenta que estabelece uma comunicação entre sistemas. Nela é possível que realizar troca de informações de forma segura utilizando diferentes linguagens de programação.</p>
+<p>O <strong>Twitter</strong> fornece API para consumo de dados para algumas lnguagem como <strong>python</strong>, <strong>R</strong>, entre outras. O <strong>R</strong> possui uma biblioteca específica para isso chamada <strong><em>rtweet</em></strong> <span class="citation" data-cites="rtweet">(<a href="#ref-rtweet" role="doc-biblioref">Kearney 2019</a>)</span>.</p>
+</section><section id="primeiros-passos" class="level2"><h2 class="anchored" data-anchor-id="primeiros-passos"><strong>Primeiros passos…</strong></h2>
+<p>Inicialmente devesse criar uma conta no <strong>Twitter</strong> e em seguida criar uma conta de desenvolvedor na própria plataforma. Ao criar um projeto e um aplicativo serão geradas chaves de acesso para a requisição de dados via API.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="Conta_devl.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Portal do Desenvolvedor</figcaption><p></p>
+</figure>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Ao criar a conta lembre-se de ativar a autenticação em dois fatores.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</div>
+</section><section id="bibliotecas" class="level2"><h2 class="anchored" data-anchor-id="bibliotecas"><strong>Bibliotecas</strong></h2>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co">#install.packages("rtweet")</span>
+<span class="co">#install.packages("wordcloud")</span>
+<span class="co">#install.packages("tm")</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rtweet/">rtweet</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://blog.fellstat.com/?cat=11">wordcloud</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tm.r-forge.r-project.org/">tm</a></span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Existem 3 formas simples de se fazer a autenticação:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Usando as chaves</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Login</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">Usando rtweet app</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="panel-tabset">
+<p>Na função mencionada <strong><em>create_token</em></strong> basta inserir os argumentos fornecidos na hora de criar o app.</p>
+<ul>
+<li><p>app</p></li>
+<li><p>consumer key</p></li>
+<li><p>consumer secret</p></li>
+<li><p>access token</p></li>
+<li><p>access secret</p></li>
+</ul>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="panel-tabset">
+<p>Caso tenha algum tipo de problema com o primeiro método, é possível utilizar a mesma função <strong><em>create_token</em></strong> sem argumentos. Neste caso você será levado a uma página de login do Twitter e um código de autenticação será enviado um código para o seu celular.</p>
+<p><img src="auth.png" class="img-fluid"></p>
+</div>
+</div>
+<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
+<div class="panel-tabset">
+<p>Outra opção é usar a função <strong><em>rtweet_app</em></strong>, nesse caso uma tela e será necessário fornecer a Bearer token.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="rtweer_app_auth.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Escolha
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Eu tive problemas com a primeiro e terceiro método de autenticação. Uma análise mais profunda da documentação do pacote possa revelar a solução mas na ausência de tempo escolhi o que funcionou sem ter nenhum erro.</p>
+<p>A função <strong><em>create_token</em></strong> foi descontinuada a partir da versão 1.0.0 do pacote rtweet e a função <strong><em>rtweet_app</em></strong> é mais indicada para versão 1.0.2 .</p>
+</div>
+</div>
+</div>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Cuidado!!! Sempre proteja suas chaves.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Esse não é o caso mas existem API’s que são pagas, além do prejuízo financeiro, a ideia de terceiros utilizarem para fins duvidosos já causa preocupação. Caso interesse em disponizibilizar seus scripts existem métodos seguros para proteger senhas e chaves, mas como não é o foco dessa postagem tem esse <a href="https://blog.curso-r.com/posts/2022-09-13-senha-no-script/">blog</a>.</p>
+</div>
+</div>
+</div>
+</section><section id="autenticando" class="level2"><h2 class="anchored" data-anchor-id="autenticando">Autenticando</h2>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">twitter_token</span> <span class="op">=</span> <span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/create_token.html">create_token</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/auth_as.html">auth_as</a></span><span class="op">(</span><span class="va">twitter_token</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="manipulações" class="level2"><h2 class="anchored" data-anchor-id="manipulações">Manipulações</h2>
+<p>Após a autenticação podemos iniciar nossas análises .</p>
+<p>Com a função <code>search_tweets</code> ajuda a fazer busca por assuntos ou perfis. Podemos escolher o número de tweets, o idioma, entre outras opções.</p>
+<p>Nesse caso trouxemos 3000 tweets com o assunto <strong>seleção</strong>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">selecao</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/search_tweets.html">search_tweets</a></span><span class="op">(</span><span class="st">"seleção"</span>, n<span class="op">=</span><span class="fl">3000</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Antes de fazer visualizações devemos fazer uma limpeza nos dados.</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Remove retweets e replies</span>
+<span class="va">selecao_tweets_organic</span> <span class="op">&lt;-</span> <span class="va">selecao</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
+  <span class="va">retweeted</span> <span class="op">==</span> <span class="cn">FALSE</span>, <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">in_reply_to_status_id</span><span class="op">)</span>
+                                             <span class="op">)</span> 
+<span class="co"># converte o tipo </span>
+<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span>
+ <span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span><span class="op">)</span>
+
+<span class="co">#selecionar só as colunas que serão utilizadas</span>as
+<span class="va">selecao_tweets_organic</span> <span class="op">&lt;-</span><span class="va">selecao_tweets_organic</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">created_at</span>,<span class="va">full_text</span>,<span class="va">retweet_count</span>,<span class="va">favorite_count</span>,<span class="va">display_text_range</span>,<span class="va">lang</span><span class="op">)</span>
+
+<span class="co"># removendo palavras que não fazem sentido para análise</span>se
+<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"com"</span>,<span class="st">""</span>,<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span><span class="op">)</span>
+<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"que"</span>,<span class="st">""</span>,<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span><span class="op">)</span>
+<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"pra"</span>,<span class="st">""</span>,<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span><span class="op">)</span>
+<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"blimag"</span>,<span class="st">""</span>,<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span><span class="op">)</span>
+<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"tô"</span>"<span class="st">""</span>"<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span><span class="op">)</span>)
+<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"por"</span>,<span class="st">""</span>,<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span><span class="op">)</span>
+<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"bolsonaro"</span>,<span class="st">""</span>,<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span><span class="op">)</span>
+<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"uma"</span>,<span class="st">""</span>,<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span><span class="op">)</span>
+<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"Bolsonaro"</span>,<span class="st">""</span>,<span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Uma nuvem de palavras é um tipo de visualização muito boa para dados textuais e para executar essa tarefa temos a biblioteca <a href="http://blog.fellstat.com/?cat=11">wordcloud</a> nela podemos passar uma coluna de dataframe como dado de entrada.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span> <span class="co"># reprodutibilidade</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/wordcloud/man/wordcloud.html">wordcloud</a></span><span class="op">(</span><span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">full_text</span>, 
+          min.freq<span class="op">=</span><span class="fl">5</span>, scale<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3.5</span>, <span class="fl">.5</span><span class="op">)</span>, 
+          random.order<span class="op">=</span><span class="cn">FALSE</span>, rot.per<span class="op">=</span><span class="fl">0.45</span>, 
+          colors<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html">brewer.pal</a></span><span class="op">(</span><span class="fl">8</span>, <span class="st">"Dark2"</span><span class="op">)</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="API_Twitter_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Podemos fazer análises com base no horário em que o tweet foi criado.</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">hora_criada</span> <span class="op">&lt;-</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/hour.html">hour</a></span><span class="op">(</span><span class="va">selecao_tweets_organic</span><span class="op">$</span><span class="va">created_at</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Em média qual horário teve mais Retweet, Favoritoe e Tamanho de Texto?</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">selecao_tweets_organic</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">hora_criada</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">retweet_count</span><span class="op">)</span><span class="op">)</span>,
+            <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">favorite_count</span><span class="op">)</span><span class="op">)</span>,
+            <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">display_text_range</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Hora"</span>,<span class="st">"Retweet"</span>,<span class="st">"Favorito"</span>,<span class="st">"Tamanho do Texto"</span><span class="op">)</span>,caption <span class="op">=</span> <span class="st">"Médias Referentes ao Assunto Seleção"</span><span class="op">)</span>o")</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>Médias Referentes ao Assunto Seleção</caption>
+<thead><tr class="header">
+<th style="text-align: right;">Hora</th>
+<th style="text-align: right;">Retweet</th>
+<th style="text-align: right;">Favorito</th>
+<th style="text-align: right;">Tamanho do Texto</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">417</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">119</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">173</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">133</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">91</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">126</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">169</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">131</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">241</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">133</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">123</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">124</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">148</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">134</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">124</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">138</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">223</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">134</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">87</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">139</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">81</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">131</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">91</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">129</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">195</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">126</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">176</td>
+<td style="text-align: right;">4846</td>
+<td style="text-align: right;">151</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Escolhendo um perfil dessa vez. Aproveitando que é semana de champions escolhi o Vinícius Junior do Real Madrid.</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">vinijr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rtweet/reference/search_tweets.html">search_tweets</a></span><span class="op">(</span><span class="st">"@vinijr"</span>, n <span class="op">=</span> <span class="fl">3000</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Quais idiomas presentes nos tweets?</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">vinijr</span><span class="op">$</span><span class="va">lang</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "und" "es"  "en"  "it"  "ht"  "fr"  "pt"  "in"  "cy"  "ar"  "ca"  "eu" 
+[13] "fi"  "nl"  "tl"  "et"  "lv"  "no"  "tr" </code></pre>
+</div>
+</div>
+<p>Desconsiderando o português qual a porcetagem de presença dos tweets?</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">vinijr</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">lang</span> <span class="op">!=</span> <span class="st">"pt"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">lang</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>contagem<span class="op">=</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">contagem</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    langEx <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">lang</span> <span class="op">==</span><span class="st">"ar"</span><span class="op">~</span><span class="st">"Árabe"</span>",
+                     <span class="va">lang</span> <span class="op">==</span><span class="st">"es"</span><span class="op">~</span><span class="st">"Espanhol"</span>,
+                     <span class="va">lang</span> <span class="op">==</span><span class="st">"fr"</span><span class="op">~</span><span class="st">"Francês"</span>",
+                     <span class="va">lang</span> <span class="op">==</span><span class="st">"en"</span><span class="op">~</span><span class="st">"Inglês"</span>", 
+                     <span class="va">lang</span> <span class="op">==</span><span class="st">"und"</span><span class="op">~</span><span class="st">"Não Detectado"</span>",
+                     <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+   
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Perc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">contagem</span> <span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">contagem</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span> ,<span class="fl">2</span> <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span> <span class="va">langEx</span>,y <span class="op">=</span><span class="va">Perc</span>,label <span class="op">=</span> <span class="va">Perc</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>fill <span class="op">=</span><span class="st">"gray"</span><span class="op">)</span> <span class="op">+</span>
+    
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span>position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_stack.html">position_stack</a></span><span class="op">(</span>vjust <span class="op">=</span><span class="fl">1.05</span><span class="op">)</span>,
+           color<span class="op">=</span><span class="st">"#030202"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
+    title<span class="op">=</span> <span class="st">"Os 5 Idiomas mais Presentes nos Tweets do @vinijr"</span>,
+       subtitle <span class="op">=</span> <span class="st">"Desconsiderando o Português"</span>", x<span class="op">=</span><span class="st">""</span>", 
+       y <span class="op">=</span><span class="st">'Porcentagem (%)'</span><span class="op">)</span> <span class="op">+</span>
+   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.ticks.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+          axis.text.y <span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="API_Twitter_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section><section id="conclusão" class="level2"><h2 class="anchored" data-anchor-id="conclusão">Conclusão</h2>
+<p>Embora eu tenha descartado a maioria das colunas, estou impressionado pelo volume de informação que a API disponibiliza para o usuário (43 colunas) um leque absurdo de análises que podem ser feitas. A parte mais complexa é estabelecer a conexão com a API mas uma vez feita basta se atentar no tempo de validade das chaves.</p>
+</section><section id="ver-também" class="level2"><h2 class="anchored" data-anchor-id="ver-também">Ver Também</h2>
+<ul>
+<li><a href="https://medium.com/@celine.vdr?source=post_page-----2f56818fdd16--------------------------------">Céline Van den Rul</a></li>
+</ul>
+
+
+
+</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-rtweet" class="csl-entry" role="doc-biblioentry">
+Kearney, Michael W. 2019. <span>“Rtweet: Collecting and Analyzing Twitter Data”</span> 4: 1829. <a href="https://doi.org/10.21105/joss.01829">https://doi.org/10.21105/joss.01829</a>.
+</div>
+</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/^(?:http:|https:)\/\/www\.jorgemendes\.com\/**/);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script><script src="https://giscus.app/client.js" data-repo="jorgelum/Jorge-Mendes" data-repo-id="R_kgDOHliCJA" data-category="General" data-category-id="DIC_kwDOHliCJM4CQYAV" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
