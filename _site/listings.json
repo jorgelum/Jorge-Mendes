@@ -2,6 +2,8 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Copa do Mundo/Copa do Mundo.html",
+      "/posts/Governos do Reino Unido/Web Scraping.html",
       "/posts/Twitter/API_Twitter.html",
       "/posts/Saneamento/Saneamento.html",
       "/posts/Campeonato Brasileiro/Campeonato Brasileiro.html",
