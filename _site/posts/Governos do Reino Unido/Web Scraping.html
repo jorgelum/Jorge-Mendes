@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.626">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Jorge Luiz Mendes">
+<meta name="dcterms.date" content="2022-11-03">
+<meta name="description" content="Web Scraping da página da Wikipédia">
+<title>Jorge Mendes - Extraindo dados da wikipedia</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Jorge Mendes</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../../about.html">Jorge L. Mendes</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jorgelum/Jorge-Mendes"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://br.linkedin.com/in/jorge-luiz-mendes-bab690227?trk=people-guest_people_search-card">LinkedIn</a>
+  </li>  
+</ul>
+<div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Extraindo dados da wikipedia</h1>
+                  <div>
+        <div class="description">
+          Web Scraping da página da Wikipédia
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">web scraping</div>
+                <div class="quarto-category">parlamento</div>
+                <div class="quarto-category">governo</div>
+                <div class="quarto-category">Reino Unido</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Jorge Luiz Mendes </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 3, 2022</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#introdu%C3%A7%C3%A3o" id="toc-introdução" class="nav-link active" data-scroll-target="#introdu%C3%A7%C3%A3o">Introdução</a></li>
+  <li><a href="#tema" id="toc-tema" class="nav-link" data-scroll-target="#tema">Tema</a></li>
+  <li><a href="#bibliotecas" id="toc-bibliotecas" class="nav-link" data-scroll-target="#bibliotecas">Bibliotecas</a></li>
+  <li><a href="#carregando-os-dados" id="toc-carregando-os-dados" class="nav-link" data-scroll-target="#carregando-os-dados">Carregando os dados</a></li>
+  <li><a href="#tratamento" id="toc-tratamento" class="nav-link" data-scroll-target="#tratamento">Tratamento</a></li>
+  <li><a href="#m%C3%A3o-na-massa" id="toc-mão-na-massa" class="nav-link" data-scroll-target="#m%C3%A3o-na-massa">Mão na massa</a></li>
+  <li><a href="#visualiza%C3%A7%C3%B5es" id="toc-visualizações" class="nav-link" data-scroll-target="#visualiza%C3%A7%C3%B5es">Visualizações</a></li>
+  <li><a href="#sugest%C3%A3o" id="toc-sugestão" class="nav-link" data-scroll-target="#sugest%C3%A3o">Sugestão</a></li>
+  <li><a href="#ver-tamb%C3%A9m" id="toc-ver-também" class="nav-link" data-scroll-target="#ver-tamb%C3%A9m">Ver também</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content"><section id="introdução" class="level2"><h2 class="anchored" data-anchor-id="introdução">Introdução</h2>
+<p>Venho me interessando pelo tema de raspagem de dados (Web Scraping) e resolvi trazer exemplo “simples” de como faze-lo. A ideia aqui é extrair os dados da página da Wikipédia, realizar o tratamento e fazer análise exploratória.</p>
+</section><section id="tema" class="level2"><h2 class="anchored" data-anchor-id="tema">Tema</h2>
+<p>Recentemente houve a troca do primeiro ministro do Reino Unido a premiê Liz Truss, sendo destacada por ser a que ficou menos tempo no cargo, foi substituída por Rishi Sunak. Esse <a href="https://www.youtube.com/watch?v=t3vxUIbrTXE&amp;t=20s">video</a> da BBC conta um pouco de quem foi Liz Truss e como foi seu governo.</p>
+</section><section id="bibliotecas" class="level2"><h2 class="anchored" data-anchor-id="bibliotecas">Bibliotecas</h2>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://stringr.tidyverse.org">stringr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://forcats.tidyverse.org">forcats</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hrbrmstr/ggalt">ggalt</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">treemap</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span> <span class="co"># pipe</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span><span class="co"># tratamento de datas</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span> <span class="co"># formatação de tabelas</span>as
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/">rvest</a></span><span class="op">)</span> <span class="co"># raspagem de dados</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="carregando-os-dados" class="level2"><h2 class="anchored" data-anchor-id="carregando-os-dados">Carregando os dados</h2>
+<p>Para carregar os dados é necessário o <a href="https://pt.wikipedia.org/wiki/Lista_de_primeiros-ministros_do_Reino_Unido">Link</a> da página da wikipédia e a tag da tabela. Para fazer isso basta clicar com o botão direito próxima a tabela desejada e escolher a opção inspecionar elemento, em seguida identificar tag da tabela e copiar seu XPath como mostra a figura 1.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="tag.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Fígura 1</figcaption><p></p>
+</figure>
+</div>
+<p>Com essas informações podemos fazer a extração.</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://pt.wikipedia.org/wiki/Lista_de_primeiros-ministros_do_Reino_Unido"</span>
+<span class="va">tag</span> <span class="op">&lt;-</span> <span class="st">'//*[@id="mw-content-text"]/div[1]/table[3]'</span>
+
+<span class="va">dados</span> <span class="op">&lt;-</span> <span class="va">url</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  
+  <span class="fu">rvest</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">rvest</span><span class="fu">::</span><span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_node</a></span><span class="op">(</span>xpath <span class="op">=</span> <span class="va">tag</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">rvest</span><span class="fu">::</span><span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Podemos verificar o tipo de estrutura.</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">dados</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "tbl_df"     "tbl"        "data.frame"</code></pre>
+</div>
+</div>
+<p>Podemos inspessionar os nomes das colunas e os tipos de dados que estão presentes.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">dados</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "N.º"                                                
+ [2] "Primeiro-ministro (Nascimento–Falecimento)"         
+ [3] "Primeiro-ministro (Nascimento–Falecimento)"         
+ [4] "Mandato (Duração em anos e dias)"                   
+ [5] "Mandato (Duração em anos e dias)"                   
+ [6] "Partido"                                            
+ [7] "Partido"                                            
+ [8] "Cargos ministeriais ocupados como primeiro-ministro"
+ [9] "Monarca (Reino)"                                    
+[10] "Ref."                                               </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">dados</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 188
+Columns: 10
+$ N.º                                                   &lt;chr&gt; "1", "1", "1", "~
+$ `Primeiro-ministro (Nascimento–Falecimento)`          &lt;chr&gt; "", "", "", "", ~
+$ `Primeiro-ministro (Nascimento–Falecimento)`          &lt;chr&gt; "Sir Robert Walp~
+$ `Mandato (Duração em anos e dias)`                    &lt;chr&gt; "3 de abril de 1~
+$ `Mandato (Duração em anos e dias)`                    &lt;chr&gt; "1722", "1727", ~
+$ Partido                                               &lt;chr&gt; "", "", "", "", ~
+$ Partido                                               &lt;chr&gt; "Whig", "Whig", ~
+$ `Cargos ministeriais ocupados como primeiro-ministro` &lt;chr&gt; "Chanceler do Te~
+$ `Monarca (Reino)`                                     &lt;chr&gt; "Jorge I  (1714–~
+$ Ref.                                                  &lt;chr&gt; "[20]", "[20]", ~</code></pre>
+</div>
+</div>
+<p>Aqui termina a parte simples.</p>
+</section><section id="tratamento" class="level2"><h2 class="anchored" data-anchor-id="tratamento">Tratamento</h2>
+<p>Nem sempre os dados estão estrurados do jeito que gostariámos (aliás quase nunca está). O Dataframe obtido está bagunçado então precisamos realizar uma “faxina”, padronizando as linhas e colunas.</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># |message: false</span>
+<span class="co"># |warnings: false</span>
+<span class="va">dados</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"A Tabela Original"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>A Tabela Original</caption>
+<colgroup>
+<col style="width: 1%">
+<col style="width: 14%">
+<col style="width: 17%">
+<col style="width: 15%">
+<col style="width: 11%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 24%">
+<col style="width: 7%">
+<col style="width: 1%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">N.º</th>
+<th style="text-align: left;">Primeiro-ministro (Nascimento–Falecimento)</th>
+<th style="text-align: left;">Primeiro-ministro (Nascimento–Falecimento)</th>
+<th style="text-align: left;">Mandato (Duração em anos e dias)</th>
+<th style="text-align: left;">Mandato (Duração em anos e dias)</th>
+<th style="text-align: left;">Partido</th>
+<th style="text-align: left;">Partido</th>
+<th style="text-align: left;">Cargos ministeriais ocupados como primeiro-ministro</th>
+<th style="text-align: left;">Monarca (Reino)</th>
+<th style="text-align: left;">Ref.</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Sir Robert Walpole 1.º Conde de Orford (1676–1745)</td>
+<td style="text-align: left;">3 de abril de 1721 – 11 de fevereiro de 1742</td>
+<td style="text-align: left;">1722</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Whig</td>
+<td style="text-align: left;">Chanceler do TesouroPrimeiro Lorde do TesouroLíder da Câmara dos Comuns</td>
+<td style="text-align: left;">Jorge I (1714–1727)</td>
+<td style="text-align: left;">[20]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Sir Robert Walpole 1.º Conde de Orford (1676–1745)</td>
+<td style="text-align: left;">3 de abril de 1721 – 11 de fevereiro de 1742</td>
+<td style="text-align: left;">1727</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Whig</td>
+<td style="text-align: left;">Chanceler do TesouroPrimeiro Lorde do TesouroLíder da Câmara dos Comuns</td>
+<td style="text-align: left;">Jorge II (1727–1760)</td>
+<td style="text-align: left;">[20]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Sir Robert Walpole 1.º Conde de Orford (1676–1745)</td>
+<td style="text-align: left;">3 de abril de 1721 – 11 de fevereiro de 1742</td>
+<td style="text-align: left;">1734</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Whig</td>
+<td style="text-align: left;">Chanceler do TesouroPrimeiro Lorde do TesouroLíder da Câmara dos Comuns</td>
+<td style="text-align: left;">Jorge II (1727–1760)</td>
+<td style="text-align: left;">[20]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Não existe uma regra para realizar essa operação, a única certeza é que vai ser mais trabalhoso do que você pensou.</p>
+<p>O que me ajudou bastante foi desenhar e/ou imaginar a tabela final e fazer o simples mesmo que pareça preguiçoso, o importante é estar correto. Neste processo tem que ter paciência, pois uma operação equivocada (ou incompleta) pode ajudar a resolver um problema de um conjunto de linhas e simultaneamente prejudicar outro conjunto.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Atenção ao volume de dados!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sempre é importante verificar a tabela após cada operação, mas uma coisa é inspessionar um Dataframe de 100 linhas, é mais facíl monitorar os erros, outra é inspessionar um Dataframe de 50000 linhas. Então tenha cuidado e bom senso.</p>
+</div>
+</div>
+</div>
+<p>O processo é literalmente um aprendizado, ao longo do caminho você já sabe o que precisa ser descartado (seja linhas ou colunas), as micro alterações (ajustes específicos), as macro alterações (as mais perigosas) e que operações cada coluna necessita. Esse processo te aproxima do resultado que você espera.</p>
+</section><section id="mão-na-massa" class="level2"><h2 class="anchored" data-anchor-id="mão-na-massa">Mão na massa</h2>
+<p>Existem colunas com nomes idênticos mas informações diferentes.</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"> <span class="va">df</span> <span class="op">&lt;-</span><span class="va">dados</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">7</span>,<span class="fl">8</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co">#selecionei as colunas de interesse </span>
+ <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>
+   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'ministro'</span><span class="op">=</span><span class="st">'Primeiro-ministro (Nascimento–Falecimento)'</span>)<span class="st">'mandato'</span><span class="op">=</span><span class="st">'Mandato (Duração em anos e dias)'</span>as)',
+     <span class="st">'cargo'</span> <span class="op">=</span><span class="st">'Cargos ministeriais ocupados como primeiro-ministro'</span><span class="op">)</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co">#renomeando as colunas </span>
+   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">'dias'</span>,<span class="va">mandato</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># eliminei as linhas que estão poluindo </span> 
+   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># eliminei as linhas iguais</span>
+   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="op">-</span><span class="fl">80</span><span class="op">)</span> <span class="co">#eliminei a última linha manualmente</span>e</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Agora quero colocar as datas em um formato em que o <strong>R</strong> interprete.</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co">#separando as colunas</span>
+<span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">mandato</span>,
+                <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"InicioMandato"</span>,<span class="st">"FimMandato"</span><span class="op">)</span>,
+                sep <span class="op">=</span><span class="st">"–"</span>“",
+                convert <span class="op">=</span> <span class="cn">T</span>,
+                remove <span class="op">=</span> <span class="cn">T</span>,
+                <span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># | message: false</span>
+<span class="co"># Separando as colunas para obter dia,mês e ano do início e fim de mandato</span>to
+<span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">InicioMandato</span>,
+                <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DiaIM"</span>,<span class="st">"MesIM"</span>,<span class="st">"AnoIM"</span><span class="op">)</span>,
+                sep <span class="op">=</span><span class="st">"de "</span>,
+                remove <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+<span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">FimMandato</span>,
+                <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DiaFM"</span>,<span class="st">"MesFM"</span>,<span class="st">"AnoFM"</span><span class="op">)</span>,
+                sep <span class="op">=</span><span class="st">"de "</span>,
+                remove <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [79].</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># obtendo um valor numérico dos meses</span>s
+<span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>MesIM <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span>
+  <span class="va">MesIM</span> <span class="op">==</span> <span class="st">"janeiro "</span> <span class="op">~</span> <span class="fl">1</span>,
+  <span class="va">MesIM</span> <span class="op">==</span> <span class="st">"fevereiro "</span> <span class="op">~</span> <span class="fl">2</span>,
+  <span class="va">MesIM</span> <span class="op">==</span> <span class="st">"março "</span>"<span class="op">~</span>~<span class="fl">3</span>3,
+  <span class="va">MesIM</span> <span class="op">==</span> <span class="st">"abril "</span> <span class="op">~</span> <span class="fl">4</span>,
+  <span class="va">MesIM</span> <span class="op">==</span> <span class="st">"maio "</span> <span class="op">~</span> <span class="fl">5</span>,
+  <span class="va">MesIM</span> <span class="op">==</span> <span class="st">"junho "</span> <span class="op">~</span> <span class="fl">6</span>,
+  <span class="va">MesIM</span> <span class="op">==</span> <span class="st">"julho "</span> <span class="op">~</span> <span class="fl">7</span>,
+  <span class="va">MesIM</span> <span class="op">==</span> <span class="st">"agosto "</span> <span class="op">~</span> <span class="fl">8</span>,
+  <span class="va">MesIM</span> <span class="op">==</span> <span class="st">"setembro "</span> <span class="op">~</span> <span class="fl">9</span>,
+  <span class="va">MesIM</span> <span class="op">==</span> <span class="st">"outubro "</span> <span class="op">~</span> <span class="fl">10</span>,
+  <span class="va">MesIM</span> <span class="op">==</span> <span class="st">"novembro "</span> <span class="op">~</span> <span class="fl">11</span>,
+  <span class="va">MesIM</span> <span class="op">==</span> <span class="st">"dezembro "</span> <span class="op">~</span> <span class="fl">12</span>
+<span class="op">)</span>,
+  MesFM <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span>
+  <span class="va">MesFM</span> <span class="op">==</span> <span class="st">"janeiro "</span> <span class="op">~</span> <span class="fl">1</span>,
+  <span class="va">MesFM</span> <span class="op">==</span> <span class="st">"fevereiro "</span> <span class="op">~</span> <span class="fl">2</span>,
+  <span class="va">MesFM</span> <span class="op">==</span> <span class="st">"março "</span>"<span class="op">~</span>~<span class="fl">3</span>3,
+  <span class="va">MesFM</span> <span class="op">==</span> <span class="st">"abril "</span> <span class="op">~</span> <span class="fl">4</span>,
+  <span class="va">MesFM</span> <span class="op">==</span> <span class="st">"maio "</span> <span class="op">~</span> <span class="fl">5</span>,
+  <span class="va">MesFM</span> <span class="op">==</span> <span class="st">"junho "</span> <span class="op">~</span> <span class="fl">6</span>,
+  <span class="va">MesFM</span> <span class="op">==</span> <span class="st">"julho "</span> <span class="op">~</span> <span class="fl">7</span>,
+  <span class="va">MesFM</span> <span class="op">==</span> <span class="st">"agosto "</span> <span class="op">~</span> <span class="fl">8</span>,
+  <span class="va">MesFM</span> <span class="op">==</span> <span class="st">"setembro "</span> <span class="op">~</span> <span class="fl">9</span>,
+  <span class="va">MesFM</span> <span class="op">==</span> <span class="st">"outubro "</span> <span class="op">~</span> <span class="fl">10</span>,
+  <span class="va">MesFM</span> <span class="op">==</span> <span class="st">"novembro "</span> <span class="op">~</span> <span class="fl">11</span>,
+  <span class="va">MesFM</span> <span class="op">==</span> <span class="st">"dezembro "</span> <span class="op">~</span> <span class="fl">12</span><span class="op">)</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>É necessário uniformizar os dados, pois o espacinho em branco atrapalha as operações</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">AnoIM</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">$</span><span class="va">AnoIM</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="st">" "</span>,<span class="st">""</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">AnoFM</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">$</span><span class="va">AnoFM</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="st">" "</span>,<span class="st">""</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Agora podemos unir as colunas criadas para formar a data completa.</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># União das colunas </span> 
+<span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="st">"Data_Inicio_Mandato"</span>,
+             <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"AnoIM"</span>,<span class="st">"MesIM"</span>,<span class="st">"DiaIM"</span><span class="op">)</span>,
+             sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span> 
+<span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="st">"Data_Fim_Mandato"</span>,
+             <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"AnoFM"</span>,<span class="st">"MesFM"</span>,<span class="st">"DiaFM"</span><span class="op">)</span>,
+             sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span> 
+<span class="co"># convertendo para o formato de datas</span>
+<span class="va">df</span><span class="op">$</span><span class="va">Data_Inicio_Mandato</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span>  <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># convertendo</span>
+<span class="va">df</span><span class="op">$</span><span class="va">Data_Fim_Mandato</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span>  <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="va">df</span><span class="op">$</span><span class="va">Data_Fim_Mandato</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">Data_Fim_Mandato</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">now</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># como o ministro ainda está em exercício colocamos o dia atual como último dia. </span>a. </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Com o novo formato podemos obter a duração dos mandatos.</p>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>duracao <span class="op">=</span> <span class="va">df</span><span class="op">$</span><span class="va">Data_Fim_Mandato</span> <span class="op">-</span> <span class="va">df</span><span class="op">$</span><span class="va">Data_Inicio_Mandato</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Aqui estão as alterações simples e preguiçosas. São modificações tão específicas que é mais viável fazer a alteração manual do que buscar um método mais elaborado.</p>
+<hr>
+<p><em>Neste caso eram erros de ortografia e referências.</em></p>
+<hr>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">ministro</span><span class="op">[</span><span class="va">df</span><span class="op">$</span><span class="va">ministro</span> <span class="op">==</span> <span class="st">"Sir Robert Walpole 1.º Conde de Orford (1676–1745)"</span><span class="op">]</span>)<span class="op">&lt;-</span> <span class="st">"Sir Robert Walpole 1.º Conde de Oxford (1676–1745)"</span>1745)"
+
+<span class="va">df</span><span class="op">$</span><span class="va">ministro</span><span class="op">[</span><span class="va">df</span><span class="op">$</span><span class="va">ministro</span> <span class="op">==</span>  <span class="st">"William Pitt, o Velho 1.º Conde de Chatham[a](1708–1778)"</span><span class="op">]</span>)<span class="op">&lt;-</span><span class="st">"William Pitt, o Velho 1.º Conde de Chatham (1708–1778)"</span>1778)"
+
+<span class="va">df</span><span class="op">$</span><span class="va">ministro</span><span class="op">[</span><span class="va">df</span><span class="op">$</span><span class="va">ministro</span> <span class="op">==</span>  <span class="st">"(1) William Pitt, o Novo[b](1759–1806)"</span><span class="op">]</span>"<span class="op">&lt;-</span><span class="st">"(1) William Pitt, o Novo (1759–1806)"</span>06)"
+
+<span class="va">df</span><span class="op">$</span><span class="va">ministro</span><span class="op">[</span><span class="va">df</span><span class="op">$</span><span class="va">ministro</span> <span class="op">==</span>  <span class="st">"(2) Benjamin Disraeli 1.º Conde de Beaconsfield[c](1804–1881)"</span><span class="op">]</span>)<span class="op">&lt;-</span><span class="st">"(2) Benjamin Disraeli 1.º Conde de Beaconsfield (1804–1881)"</span>1881)"
+
+<span class="va">df</span><span class="op">$</span><span class="va">ministro</span><span class="op">[</span><span class="va">df</span><span class="op">$</span><span class="va">ministro</span> <span class="op">==</span>  <span class="st">"Alec Douglas-Home Barão Home de Hirsel[d](1894–1986)"</span><span class="op">]</span>)<span class="op">&lt;-</span><span class="st">"Alec Douglas-Home Barão Home de Hirsel (1894–1986)"</span>1986)"</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Agora com a tabela uniformizada podemos extrair um conjunto de caracteres utilizando expressões regulares (Regex). Neste caso queremos identificar e remover o padrão “(Ano de Nascimento - Ano de Falecimento)”</p>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">ministro</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">$</span><span class="va">ministro</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="st">"[(][0-9]{4}[–][0-9]{4}[)]|[(][0-9]{4}[)]"</span>,<span class="st">""</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finalmente temos a tabela tratada.</p>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"Tabela Tratada"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>Tabela Tratada</caption>
+<colgroup>
+<col style="width: 2%">
+<col style="width: 25%">
+<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 4%">
+<col style="width: 43%">
+<col style="width: 5%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">N.º</th>
+<th style="text-align: left;">ministro</th>
+<th style="text-align: left;">Data_Inicio_Mandato</th>
+<th style="text-align: left;">Data_Fim_Mandato</th>
+<th style="text-align: left;">Partido</th>
+<th style="text-align: left;">cargo</th>
+<th style="text-align: left;">duracao</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Sir Robert Walpole 1.º Conde de Oxford</td>
+<td style="text-align: left;">1721-04-03</td>
+<td style="text-align: left;">1742-02-11</td>
+<td style="text-align: left;">Whig</td>
+<td style="text-align: left;">Chanceler do TesouroPrimeiro Lorde do TesouroLíder da Câmara dos Comuns</td>
+<td style="text-align: left;">7619 days</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Spencer Compton 1.º Conde de Wilmington</td>
+<td style="text-align: left;">1742-02-16</td>
+<td style="text-align: left;">1743-07-02</td>
+<td style="text-align: left;">Whig</td>
+<td style="text-align: left;">Primeiro Lorde do Tesouro</td>
+<td style="text-align: left;">501 days</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Henry Pelham</td>
+<td style="text-align: left;">1743-08-27</td>
+<td style="text-align: left;">1754-03-06</td>
+<td style="text-align: left;">Whig</td>
+<td style="text-align: left;">Chanceler do TesouroPrimeiro Lorde do TesouroLíder da Câmara dos Comuns</td>
+<td style="text-align: left;">3844 days</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">(1) Thomas Pelham-Holles 1.º Duque de Newcastle</td>
+<td style="text-align: left;">1754-03-16</td>
+<td style="text-align: left;">1756-11-11</td>
+<td style="text-align: left;">Whig</td>
+<td style="text-align: left;">Primeiro Lorde do TesouroLíder da Câmara dos Comuns</td>
+<td style="text-align: left;">971 days</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">William Cavendish 4.º Duque de Devonshire</td>
+<td style="text-align: left;">1756-11-16</td>
+<td style="text-align: left;">1757-06-29</td>
+<td style="text-align: left;">Whig</td>
+<td style="text-align: left;">Primeiro Lorde do TesouroLíder da Câmara dos ComunsLorde Alto Tesoureiro da Irlanda</td>
+<td style="text-align: left;">225 days</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">(2) Thomas Pelham-Holles 1.º Duque de Newcastle</td>
+<td style="text-align: left;">1757-06-29</td>
+<td style="text-align: left;">1762-05-26</td>
+<td style="text-align: left;">Whig</td>
+<td style="text-align: left;">Primeiro Lorde do TesouroLíder da Câmara dos Comuns</td>
+<td style="text-align: left;">1792 days</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section><section id="visualizações" class="level2"><h2 class="anchored" data-anchor-id="visualizações">Visualizações</h2>
+<p>Quem passou mais tempo no cargo?</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># |message: false</span>
+<span class="co"># |warnings: false</span>
+
+<span class="va">texto</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/strwrap.html">strwrap</a></span><span class="op">(</span><span class="st">"Os 5 Primeiros-Ministros que permaneceram por mais tempo no cargo"</span>,
+          <span class="fl">30</span><span class="op">)</span>,
+  collapse <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span>
+
+
+<span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">duracao</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">duracao</span>,
+        y <span class="op">=</span><span class="va">ministro</span>,
+        label <span class="op">=</span> <span class="va">duracao</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>fill <span class="op">=</span><span class="st">"#3c43c7"</span>, size<span class="op">=</span><span class="fl">0.05</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span>position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_stack.html">position_stack</a></span><span class="op">(</span>vjust <span class="op">=</span><span class="fl">1.05</span><span class="op">)</span>,
+            color<span class="op">=</span><span class="st">"#030202"</span><span class="op">)</span> <span class="op">+</span>
+  
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="va">texto</span>,
+       subtitle <span class="op">=</span> <span class="st">"Duração em dias."</span>.",
+       caption <span class="op">=</span> <span class="st">"(n) = contagem do mandato"</span>,
+       y <span class="op">=</span> <span class="st">""</span>,
+       x <span class="op">=</span><span class="st">""</span> <span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+          axis.ticks.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+          axis.text.y <span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span><span class="st">"bold"</span>,
+                                    colour <span class="op">=</span> <span class="st">"#030202"</span><span class="op">)</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Don't know how to automatically pick scale for object of type difftime. Defaulting to continuous.
+Don't know how to automatically pick scale for object of type difftime. Defaulting to continuous.
+Don't know how to automatically pick scale for object of type difftime. Defaulting to continuous.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Web-Scraping_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Em que mês costuma terminar os mandatos?</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span>mes <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="va">Data_Fim_Mandato</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>contagem <span class="op">=</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span><span class="va">mes</span>,y <span class="op">=</span><span class="va">contagem</span>, label <span class="op">=</span> <span class="va">contagem</span> <span class="op">)</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>fill <span class="op">=</span><span class="st">"#e05c09"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span>vjust <span class="op">=</span> <span class="fl">1.25</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Quantidade de términos de mandatos em cada mês"</span>s",
+       subtitle <span class="op">=</span> <span class="st">"Desde 1742."</span>, y <span class="op">=</span><span class="st">""</span>,x<span class="op">=</span><span class="st">""</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+        axis.ticks.y<span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+        axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span><span class="st">"bold"</span>,size <span class="op">=</span><span class="fl">8</span>,
+                                    colour <span class="op">=</span> <span class="st">"#030202"</span><span class="op">)</span>,
+        plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span><span class="st">"bold"</span>, size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>,
+        plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"italic"</span>, size <span class="op">=</span> <span class="fl">10</span>,
+                        margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span><span class="op">(</span>b <span class="op">=</span> <span class="fl">0.5</span>, unit <span class="op">=</span> <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Web-Scraping_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Últimos ministros que passarem pelo cargo.</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">df</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Data_Inicio_Mandato</span> <span class="op">&gt;</span> <span class="st">"2000-01-01"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    mandato_or <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">ministro</span>,<span class="va">Data_Inicio_Mandato</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Data_Inicio_Mandato</span>,xend <span class="op">=</span> <span class="va">Data_Fim_Mandato</span>,y <span class="op">=</span> <span class="va">mandato_or</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggalt/man/geom_dumbbell.html">geom_dumbbell</a></span><span class="op">(</span>size <span class="op">=</span><span class="fl">2.5</span>,color<span class="op">=</span><span class="st">"#cbcbd6"</span>,colour_x <span class="op">=</span><span class="st">"#3eb2f0"</span>,
+                colour_xend <span class="op">=</span> <span class="st">"#0909ab"</span>,dot_guide<span class="op">=</span><span class="cn">TRUE</span>,
+                dot_guide_size<span class="op">=</span><span class="fl">0.25</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span><span class="st">"Ano"</span>,y <span class="op">=</span> <span class="st">""</span>,title <span class="op">=</span> <span class="st">"Últimos Ministros"</span>",
+       subtitle <span class="op">=</span> <span class="st">"A partir dos anos 2000"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span><span class="st">"bold"</span>, size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>,
+        plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"italic"</span>, size <span class="op">=</span> <span class="fl">10</span>,
+                        margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span><span class="op">(</span>b <span class="op">=</span> <span class="fl">0.5</span>, unit <span class="op">=</span> <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span>,
+        axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span><span class="st">"bold"</span>,size <span class="op">=</span><span class="fl">10</span>,
+                                    colour <span class="op">=</span> <span class="st">"#030202"</span><span class="op">)</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Web-Scraping_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Qual partido mais governou?</p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">df</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Partido</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>Tempo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">duracao</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/treemap/man/treemap.html">treemap</a></span><span class="op">(</span>index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Tempo"</span>,<span class="st">"Partido"</span><span class="op">)</span>,vSize <span class="op">=</span> <span class="st">"Tempo"</span>,
+          align.labels<span class="op">=</span>
+            <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"center"</span>, <span class="st">"center"</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"center"</span>, <span class="st">"top"</span><span class="op">)</span><span class="op">)</span>,
+          title <span class="op">=</span> <span class="st">"Tempo, em Dias, que Cada Partido Governou"</span>,
+          fontsize.labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">12</span>,<span class="fl">10</span><span class="op">)</span>,
+          palette <span class="op">=</span> <span class="st">"BrBG"</span><span class="op">)</span> </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Web-Scraping_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Curiosidade!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Alguns partidos foram dissolvidos ou fundidos a outros partidos como por exemplo:</p>
+<ul>
+<li><p>Tory ⟹ Partido Conservador</p></li>
+<li><p>Wing ⟹ Partido Liberal</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="sugestão" class="level2"><h2 class="anchored" data-anchor-id="sugestão">Sugestão</h2>
+<p>Uma boa ideia é extrair os títulos reais da coluna de ministros para realizar análises. Uma coluna que acabou não sendo utilizada é a de cargo, os cargos são strings que estão “coladas” uma na outra o desafio é separa-las</p>
+</section><section id="ver-também" class="level2"><h2 class="anchored" data-anchor-id="ver-também">Ver também</h2>
+<ul>
+<li><p><a href="https://beamilz.com/posts/2021-05-24-naruto/pt/index.html">Beatriz Milz</a></p></li>
+<li><p><a href="blog.curso-r.com/">Curso R</a></p></li>
+</ul>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/^(?:http:|https:)\/\/www\.jorgemendes\.com\/**/);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script><script src="https://giscus.app/client.js" data-repo="jorgelum/Jorge-Mendes" data-repo-id="R_kgDOHliCJA" data-category="General" data-category-id="DIC_kwDOHliCJM4CQYAV" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

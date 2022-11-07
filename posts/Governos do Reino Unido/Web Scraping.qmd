@@ -1,0 +1,334 @@
+---
+title: "Extraindo dados da wikipedia"
+author: "Jorge Luiz Mendes"
+editor: visual
+description: "Web Scraping da página da Wikipédia"
+categories: [web scraping, parlamento, governo, Reino Unido]
+image: "Parlamento.png"
+date: "2022-11-03"
+draft: false
+toc: true
+---
+
+## Introdução
+
+Venho me interessando pelo tema de raspagem de dados (Web Scraping) e resolvi trazer exemplo "simples" de como faze-lo. A ideia aqui é extrair os dados da página da Wikipédia, realizar o tratamento e fazer análise exploratória.
+
+## Tema
+
+Recentemente houve a troca do primeiro ministro do Reino Unido a premiê Liz Truss, sendo destacada por ser a que ficou menos tempo no cargo, foi substituída por Rishi Sunak. Esse [video](https://www.youtube.com/watch?v=t3vxUIbrTXE&t=20s) da BBC conta um pouco de quem foi Liz Truss e como foi seu governo.
+
+## Bibliotecas
+
+```{r,message=FALSE}
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(stringr)
+library(forcats)
+library(ggalt)
+library(treemap)
+library(magrittr) # pipe
+library(lubridate)# tratamento de datas
+library(knitr) # formatação de tabelas
+library(rvest) # raspagem de dados
+```
+
+## Carregando os dados
+
+Para carregar os dados é necessário o [Link](https://pt.wikipedia.org/wiki/Lista_de_primeiros-ministros_do_Reino_Unido) da página da wikipédia e a tag da tabela. Para fazer isso basta clicar com o botão direito próxima a tabela desejada e escolher a opção inspecionar elemento, em seguida identificar tag da tabela e copiar seu XPath como mostra a figura 1.
+
+![Fígura 1](tag.png)
+
+Com essas informações podemos fazer a extração.
+
+```{r}
+url <- "https://pt.wikipedia.org/wiki/Lista_de_primeiros-ministros_do_Reino_Unido"
+tag <- '//*[@id="mw-content-text"]/div[1]/table[3]'
+
+dados <- url %>%  
+  rvest::read_html() %>% 
+  rvest::html_node(xpath = tag) %>%
+  rvest::html_table()
+
+```
+
+Podemos verificar o tipo de estrutura.
+
+```{r}
+class(dados)
+```
+
+Podemos inspessionar os nomes das colunas e os tipos de dados que estão presentes.
+
+```{r}
+colnames(dados)
+```
+
+```{r}
+glimpse(dados)
+```
+
+Aqui termina a parte simples.
+
+## Tratamento
+
+Nem sempre os dados estão estrurados do jeito que gostariámos (aliás quase nunca está). O Dataframe obtido está bagunçado então precisamos realizar uma "faxina", padronizando as linhas e colunas.
+
+```{r}
+# |message: false
+# |warnings: false
+dados %>% head(3) %>% knitr::kable(caption = "A Tabela Original")
+```
+
+Não existe uma regra para realizar essa operação, a única certeza é que vai ser mais trabalhoso do que você pensou.
+
+O que me ajudou bastante foi desenhar e/ou imaginar a tabela final e fazer o simples mesmo que pareça preguiçoso, o importante é estar correto. Neste processo tem que ter paciência, pois uma operação equivocada (ou incompleta) pode ajudar a resolver um problema de um conjunto de linhas e simultaneamente prejudicar outro conjunto.
+
+::: {.callout-note collapse="true"}
+## Atenção ao volume de dados!
+
+Sempre é importante verificar a tabela após cada operação, mas uma coisa é inspessionar um Dataframe de 100 linhas, é mais facíl monitorar os erros, outra é inspessionar um Dataframe de 50000 linhas. Então tenha cuidado e bom senso.
+:::
+
+O processo é literalmente um aprendizado, ao longo do caminho você já sabe o que precisa ser descartado (seja linhas ou colunas), as micro alterações (ajustes específicos), as macro alterações (as mais perigosas) e que operações cada coluna necessita. Esse processo te aproxima do resultado que você espera.
+
+## Mão na massa
+
+Existem colunas com nomes idênticos mas informações diferentes.
+
+```{r}
+ df <-dados %>% select(c(1,3,4,7,8)) %>% #selecionei as colunas de interesse 
+ rename(
+   c('ministro'='Primeiro-ministro (Nascimento–Falecimento)','mandato'='Mandato (Duração em anos e dias)',
+     'cargo' ='Cargos ministeriais ocupados como primeiro-ministro'))  %>%  #renomeando as colunas 
+   filter(!grepl('dias',mandato)) %>% # eliminei as linhas que estão poluindo 
+   distinct() %>% # eliminei as linhas iguais
+   slice(-80) #eliminei a última linha manualmente
+```
+
+Agora quero colocar as datas em um formato em que o **R** interprete.
+
+```{r}
+#separando as colunas
+df %<>% separate(mandato,
+                c("InicioMandato","FimMandato"),
+                sep ="–",
+                convert = T,
+                remove = T,
+                )
+```
+
+```{r}
+# | message: false
+# Separando as colunas para obter dia,mês e ano do início e fim de mandato
+df %<>% separate(InicioMandato,
+                c("DiaIM","MesIM","AnoIM"),
+                sep ="de ",
+                remove = T)
+df %<>% separate(FimMandato,
+                c("DiaFM","MesFM","AnoFM"),
+                sep ="de ",
+                remove = T)
+
+```
+
+```{r}
+# obtendo um valor numérico dos meses
+df %<>% mutate(MesIM = case_when(
+  MesIM == "janeiro " ~ 1,
+  MesIM == "fevereiro " ~ 2,
+  MesIM == "março " ~ 3,
+  MesIM == "abril " ~ 4,
+  MesIM == "maio " ~ 5,
+  MesIM == "junho " ~ 6,
+  MesIM == "julho " ~ 7,
+  MesIM == "agosto " ~ 8,
+  MesIM == "setembro " ~ 9,
+  MesIM == "outubro " ~ 10,
+  MesIM == "novembro " ~ 11,
+  MesIM == "dezembro " ~ 12
+),
+  MesFM = case_when(
+  MesFM == "janeiro " ~ 1,
+  MesFM == "fevereiro " ~ 2,
+  MesFM == "março " ~ 3,
+  MesFM == "abril " ~ 4,
+  MesFM == "maio " ~ 5,
+  MesFM == "junho " ~ 6,
+  MesFM == "julho " ~ 7,
+  MesFM == "agosto " ~ 8,
+  MesFM == "setembro " ~ 9,
+  MesFM == "outubro " ~ 10,
+  MesFM == "novembro " ~ 11,
+  MesFM == "dezembro " ~ 12))
+```
+
+É necessário uniformizar os dados, pois o espacinho em branco atrapalha as operações
+
+```{r}
+df$AnoIM <- df$AnoIM %>% str_replace_all(" ","")
+df$AnoFM <- df$AnoFM %>% str_replace_all(" ","")
+```
+
+Agora podemos unir as colunas criadas para formar a data completa.
+
+```{r}
+# União das colunas 
+df %<>% unite("Data_Inicio_Mandato",
+             c("AnoIM","MesIM","DiaIM"),
+             sep = "/") 
+df %<>% unite("Data_Fim_Mandato",
+             c("AnoFM","MesFM","DiaFM"),
+             sep = "/") 
+# convertendo para o formato de datas
+df$Data_Inicio_Mandato %<>%  as.Date() # convertendo
+df$Data_Fim_Mandato %<>%  as.Date()
+
+df$Data_Fim_Mandato[is.na(df$Data_Fim_Mandato)] <- now() # como o ministro ainda está em exercício colocamos o dia atual como último dia. 
+```
+
+Com o novo formato podemos obter a duração dos mandatos.
+
+```{r}
+df %<>% mutate(duracao = df$Data_Fim_Mandato - df$Data_Inicio_Mandato)
+```
+
+Aqui estão as alterações simples e preguiçosas. São modificações tão específicas que é mais viável fazer a alteração manual do que buscar um método mais elaborado.
+
+------------------------------------------------------------------------
+
+*Neste caso eram erros de ortografia e referências.*
+
+------------------------------------------------------------------------
+
+```{r}
+df$ministro[df$ministro == "Sir Robert Walpole 1.º Conde de Orford (1676–1745)"] <- "Sir Robert Walpole 1.º Conde de Oxford (1676–1745)"
+
+df$ministro[df$ministro == 	"William Pitt, o Velho 1.º Conde de Chatham[a](1708–1778)"] <-"William Pitt, o Velho 1.º Conde de Chatham (1708–1778)"
+
+df$ministro[df$ministro == 	"(1) William Pitt, o Novo[b](1759–1806)"] <-"(1) William Pitt, o Novo (1759–1806)"
+
+df$ministro[df$ministro == 	"(2) Benjamin Disraeli 1.º Conde de Beaconsfield[c](1804–1881)"] <-"(2) Benjamin Disraeli 1.º Conde de Beaconsfield (1804–1881)"
+
+df$ministro[df$ministro == 	"Alec Douglas-Home Barão Home de Hirsel[d](1894–1986)"] <-"Alec Douglas-Home Barão Home de Hirsel (1894–1986)"
+```
+
+Agora com a tabela uniformizada podemos extrair um conjunto de caracteres utilizando expressões regulares (Regex). Neste caso queremos identificar e remover o padrão "(Ano de Nascimento - Ano de Falecimento)"
+
+```{r}
+df$ministro <- df$ministro %>% str_replace_all("[(][0-9]{4}[–][0-9]{4}[)]|[(][0-9]{4}[)]","")
+```
+
+Finalmente temos a tabela tratada.
+
+```{r}
+df %>% head() %>% knitr::kable(caption = "Tabela Tratada")
+```
+
+## Visualizações
+
+Quem passou mais tempo no cargo?
+
+```{r}
+# |message: false
+# |warnings: false
+
+texto <- paste(
+  strwrap("Os 5 Primeiros-Ministros que permaneceram por mais tempo no cargo",
+          30),
+  collapse = "\n")
+
+
+df %>% arrange(desc(duracao)) %>% 
+  slice(1:5) %>% 
+  ggplot(
+    aes(x = duracao,
+        y =ministro,
+        label = duracao)) +
+  geom_col(fill ="#3c43c7", size=0.05) + 
+  geom_text(position = position_stack(vjust =1.05),
+            color="#030202") +
+  
+  labs(title = texto,
+       subtitle = "Duração em dias.",
+       caption = "(n) = contagem do mandato",
+       y = "",
+       x ="" ) +
+    theme(axis.text.x = element_blank(),
+          axis.ticks.x=element_blank(),
+          axis.text.y =element_text(face ="bold",
+                                    colour = "#030202"))
+  
+```
+
+Em que mês costuma terminar os mandatos?
+
+```{r}
+df %>% group_by(mes = month(Data_Fim_Mandato, label = TRUE)) %>%   summarise(contagem =n()) %>% 
+  ggplot(aes(x =mes,y =contagem, label = contagem ))+
+  geom_col(fill ="#e05c09") +
+  geom_text(vjust = 1.25) +
+  labs(title = "Quantidade de términos de mandatos em cada mês",
+       subtitle = "Desde 1742.", y ="",x="") +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y= element_blank(),
+        axis.text.x = element_text(face ="bold",size =8,
+                                    colour = "#030202"),
+        plot.title = element_text(face ="bold", size = 14),
+        plot.subtitle = element_text(face = "italic", size = 10,
+                        margin = margin(b = 0.5, unit = "cm")))
+```
+
+Últimos ministros que passarem pelo cargo.
+
+```{r}
+df%>% filter(Data_Inicio_Mandato > "2000-01-01") %>% 
+  mutate(
+    mandato_or = fct_reorder(ministro,Data_Inicio_Mandato))%>% 
+  ggplot((aes(x=Data_Inicio_Mandato,xend = Data_Fim_Mandato,y = mandato_or))) +
+  geom_dumbbell(size =2.5,color="#cbcbd6",colour_x ="#3eb2f0",
+                colour_xend = "#0909ab",dot_guide=TRUE,
+                dot_guide_size=0.25) +
+  labs(x ="Ano",y = "",title = "Últimos Ministros",
+       subtitle = "A partir dos anos 2000") +
+  theme(plot.title = element_text(face ="bold", size = 14),
+        plot.subtitle = element_text(face = "italic", size = 10,
+                        margin = margin(b = 0.5, unit = "cm")),
+        axis.text.y = element_text(face ="bold",size =10,
+                                    colour = "#030202"))
+```
+
+Qual partido mais governou?
+
+```{r}
+df  %>% group_by(Partido) %>% 
+  summarise(Tempo = as.numeric(sum(duracao))) %>% 
+  treemap(index = c("Tempo","Partido"),vSize = "Tempo",
+          align.labels=
+            list(c("center", "center"),c("center", "top")),
+          title = "Tempo, em Dias, que Cada Partido Governou",
+          fontsize.labels=c(12,10),
+          palette = "BrBG") 
+```
+
+::: {.callout-note collapse="true"}
+## Curiosidade!
+
+Alguns partidos foram dissolvidos ou fundidos a outros partidos como por exemplo:
+
+-   Tory ⟹ Partido Conservador
+
+-   Wing ⟹ Partido Liberal
+:::
+
+## Sugestão
+
+Uma boa ideia é extrair os títulos reais da coluna de ministros para realizar análises. Uma coluna que acabou não sendo utilizada é a de cargo, os cargos são strings que estão "coladas" uma na outra o desafio é separa-las
+
+## Ver também
+
+-   [Beatriz Milz](https://beamilz.com/posts/2021-05-24-naruto/pt/index.html)
+
+-   [Curso R](blog.curso-r.com/)
