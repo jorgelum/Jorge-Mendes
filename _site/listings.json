@@ -2,6 +2,9 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Otimização/Otimização.html",
+      "/posts/Big Mac/Big Mac.html",
+      "/posts/Eleição/eleicao_2022.html",
       "/posts/Copa do Mundo/Copa do Mundo.html",
       "/posts/Governos do Reino Unido/Web Scraping.html",
       "/posts/Twitter/API_Twitter.html",

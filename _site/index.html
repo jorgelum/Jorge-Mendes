@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.626">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,10 +11,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 </style>
 
 
@@ -35,7 +40,7 @@ ul.task-list{list-style: none;}
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -97,29 +102,34 @@ ul.task-list{list-style: none;}
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="./index.html">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Jorge Mendes</span>
-  </a>
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html">Jorge L. Mendes</a>
+    <a class="nav-link" href="./about.html">
+ <span class="menu-text">Jorge L. Mendes</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/jorgelum/Jorge-Mendes"><i class="bi bi-github" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://twitter.com"><i class="bi bi-twitter" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://br.linkedin.com/in/jorge-luiz-mendes-bab690227?trk=people-guest_people_search-card">LinkedIn</a>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://br.linkedin.com/in/jorge-luiz-mendes-bab690227?trk=people-guest_people_search-card"><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -139,6 +149,7 @@ ul.task-list{list-style: none;}
   <div class="quarto-title-meta">
 
       
+    
       
     </div>
     
@@ -148,7 +159,7 @@ ul.task-list{list-style: none;}
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(6)</span></div><div class="category" data-category="ANP">ANP <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Reino Unido">Reino Unido <span class="quarto-category-count">(1)</span></div><div class="category" data-category="analysis">analysis <span class="quarto-category-count">(3)</span></div><div class="category" data-category="api">api <span class="quarto-category-count">(1)</span></div><div class="category" data-category="code">code <span class="quarto-category-count">(3)</span></div><div class="category" data-category="csv">csv <span class="quarto-category-count">(1)</span></div><div class="category" data-category="futebol">futebol <span class="quarto-category-count">(1)</span></div><div class="category" data-category="geobr">geobr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ggplot">ggplot <span class="quarto-category-count">(1)</span></div><div class="category" data-category="governo">governo <span class="quarto-category-count">(1)</span></div><div class="category" data-category="new">new <span class="quarto-category-count">(3)</span></div><div class="category" data-category="parlamento">parlamento <span class="quarto-category-count">(1)</span></div><div class="category" data-category="saneamento">saneamento <span class="quarto-category-count">(1)</span></div><div class="category" data-category="seleção">seleção <span class="quarto-category-count">(1)</span></div><div class="category" data-category="twitter">twitter <span class="quarto-category-count">(1)</span></div><div class="category" data-category="web scraping">web scraping <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(9)</span></div><div class="category" data-category="ANP">ANP <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Economics">Economics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Reino Unido">Reino Unido <span class="quarto-category-count">(1)</span></div><div class="category" data-category="analysis">analysis <span class="quarto-category-count">(3)</span></div><div class="category" data-category="api">api <span class="quarto-category-count">(1)</span></div><div class="category" data-category="code">code <span class="quarto-category-count">(3)</span></div><div class="category" data-category="csv">csv <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dplyr">dplyr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="futebol">futebol <span class="quarto-category-count">(1)</span></div><div class="category" data-category="geobr">geobr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ggplot">ggplot <span class="quarto-category-count">(2)</span></div><div class="category" data-category="governo">governo <span class="quarto-category-count">(1)</span></div><div class="category" data-category="lpsolve">lpsolve <span class="quarto-category-count">(1)</span></div><div class="category" data-category="new">new <span class="quarto-category-count">(3)</span></div><div class="category" data-category="parlamento">parlamento <span class="quarto-category-count">(1)</span></div><div class="category" data-category="saneamento">saneamento <span class="quarto-category-count">(1)</span></div><div class="category" data-category="seleção">seleção <span class="quarto-category-count">(1)</span></div><div class="category" data-category="twitter">twitter <span class="quarto-category-count">(1)</span></div><div class="category" data-category="web scraping">web scraping <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -161,7 +172,111 @@ ul.task-list{list-style: none;}
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1667617200000" data-listing-file-modified-sort="1668133045432" data-listing-reading-time-sort="6.605">
+<div class="quarto-post image-right" data-index="0" data-categories="lpsolve" data-listing-date-sort="1677726000000" data-listing-file-modified-sort="1677875949281" data-listing-reading-time-sort="1.645">
+<div class="thumbnail">
+<p><a href="./posts/Otimização/Otimização.html"> <img src="./posts/Otimização/image0.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/Otimização/Otimização.html">
+<h3 class="no-anchor listing-title">
+Otimização
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('lpsolve'); return false;">
+lpsolve
+</div>
+</div>
+<a href="./posts/Otimização/Otimização.html">
+<div class="listing-description">
+<p>Otimização utilizando a linguagem R</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/Otimização/Otimização.html">
+<div class="listing-date">
+Mar 2, 2023
+</div>
+<div class="listing-author">
+Jorge Luiz Mendes
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="Economics,ggplot,dplyr" data-listing-date-sort="1677466800000" data-listing-file-modified-sort="1677604308449" data-listing-reading-time-sort="4.985">
+<div class="thumbnail">
+<p><a href="./posts/Big Mac/Big Mac.html"> <img src="./posts/Big Mac/Big_Mac.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/Big Mac/Big Mac.html">
+<h3 class="no-anchor listing-title">
+Poder de Compra e Big Mac
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Economics'); return false;">
+Economics
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('ggplot'); return false;">
+ggplot
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('dplyr'); return false;">
+dplyr
+</div>
+</div>
+<a href="./posts/Big Mac/Big Mac.html">
+<div class="listing-description">
+<p>O big mac é um dos pratos mais famosos do mcdonalds e virou uma ferramenta de estudos econômicos</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/Big Mac/Big Mac.html">
+<div class="listing-date">
+Feb 27, 2023
+</div>
+<div class="listing-author">
+Jorge Luiz Mendes
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1668135600000" data-listing-file-modified-sort="1675131202536" data-listing-reading-time-sort="0.78">
+<div class="thumbnail">
+<p><a href="./posts/Eleição/eleicao_2022.html"> <img src="./posts/Eleição/Palacio_Planalto.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/Eleição/eleicao_2022.html">
+<h3 class="no-anchor listing-title">
+Mapa Eleitoral
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+<p>dasd dsa</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/Eleição/eleicao_2022.html">
+<div class="listing-date">
+Nov 11, 2022
+</div>
+<div class="listing-author">
+Jorge Luiz Mendes
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1667617200000" data-listing-file-modified-sort="1668133045432" data-listing-reading-time-sort="6.605">
 <div class="thumbnail">
 <p><a href="./posts/Copa do Mundo/Copa do Mundo.html"> <img src="./posts/Copa do Mundo/2022_FIFA_World_Cup.png" class="thumnail-image"> </a></p>
 </div>
@@ -189,7 +304,7 @@ Jorge Luiz Mendes
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="web scraping,parlamento,governo,Reino Unido" data-listing-date-sort="1667444400000" data-listing-file-modified-sort="1667506834365" data-listing-reading-time-sort="9.695">
+<div class="quarto-post image-right" data-index="4" data-categories="web scraping,parlamento,governo,Reino Unido" data-listing-date-sort="1667444400000" data-listing-file-modified-sort="1667506834365" data-listing-reading-time-sort="9.695">
 <div class="thumbnail">
 <p><a href="./posts/Governos do Reino Unido/Web Scraping.html"> <img src="./posts/Governos do Reino Unido/Parlamento.png" class="thumnail-image"> </a></p>
 </div>
@@ -233,7 +348,7 @@ Jorge Luiz Mendes
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="api,seleção,twitter" data-listing-date-sort="1665370800000" data-listing-file-modified-sort="1665495069334" data-listing-reading-time-sort="4.935">
+<div class="quarto-post image-right" data-index="5" data-categories="api,seleção,twitter" data-listing-date-sort="1665370800000" data-listing-file-modified-sort="1665495069334" data-listing-reading-time-sort="4.935">
 <div class="thumbnail">
 <p><a href="./posts/Twitter/API_Twitter.html"> <img src="./posts/Twitter/image1.png" class="thumnail-image"> </a></p>
 </div>
@@ -274,7 +389,7 @@ Jorge Luiz Mendes
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="analysis,new,code,saneamento,csv,geobr,ggplot" data-listing-date-sort="1662778800000" data-listing-file-modified-sort="1663137297840" data-listing-reading-time-sort="4.215">
+<div class="quarto-post image-right" data-index="6" data-categories="analysis,new,code,saneamento,csv,geobr,ggplot" data-listing-date-sort="1662778800000" data-listing-file-modified-sort="1663137297840" data-listing-reading-time-sort="4.215">
 <div class="thumbnail">
 <p><a href="./posts/Saneamento/Saneamento.html"> <img src="./posts/Saneamento/image.png" class="thumnail-image"> </a></p>
 </div>
@@ -327,7 +442,7 @@ Jorge Luiz Mendes
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="analysis,new,code,futebol" data-listing-date-sort="1657767600000" data-listing-file-modified-sort="1663643532310" data-listing-reading-time-sort="8.875">
+<div class="quarto-post image-right" data-index="7" data-categories="analysis,new,code,futebol" data-listing-date-sort="1657767600000" data-listing-file-modified-sort="1663643532310" data-listing-reading-time-sort="8.875">
 <div class="thumbnail">
 <p><a href="./posts/Campeonato Brasileiro/Campeonato Brasileiro.html"> <img src="./posts/Campeonato Brasileiro/image1.png" class="thumnail-image"> </a></p>
 </div>
@@ -371,7 +486,7 @@ Jorge Luiz Mendes
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="analysis,new,code,ANP" data-listing-date-sort="1656903600000" data-listing-file-modified-sort="1657711913860" data-listing-reading-time-sort="5.565">
+<div class="quarto-post image-right" data-index="8" data-categories="analysis,new,code,ANP" data-listing-date-sort="1656903600000" data-listing-file-modified-sort="1657711913860" data-listing-reading-time-sort="5.565">
 <div class="thumbnail">
 <p><a href="./posts/Petroleum/Petroleum.html"> <img src="./posts/Petroleum/image1.png" class="thumnail-image"> </a></p>
 </div>
@@ -422,6 +537,24 @@ No matching items
 </div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -443,7 +576,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -471,31 +621,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var filterRegex = new RegExp(/^(?:http:|https:)\/\/www\.jorgemendes\.com\/**/);
@@ -503,7 +672,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
-    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

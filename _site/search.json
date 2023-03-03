@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Jorge Mendes",
     "section": "",
-    "text": "Isso é um pequeno tutorial para acessar o google sheets com a biblioteca googlesheets4 e base de dados utilizada vai ser da copa do mundo.\n\n\n\n\n\n\nNov 5, 2022\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nweb scraping\n\n\nparlamento\n\n\ngoverno\n\n\nReino Unido\n\n\n\n\nWeb Scraping da página da Wikipédia\n\n\n\n\n\n\nNov 3, 2022\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\napi\n\n\nseleção\n\n\ntwitter\n\n\n\n\nUm tutorial básico de como acessar a API do Twitter para obter dados\n\n\n\n\n\n\nOct 10, 2022\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nanalysis\n\n\nnew\n\n\ncode\n\n\nsaneamento\n\n\ncsv\n\n\ngeobr\n\n\nggplot\n\n\n\n\nAtlas do Esgoto\n\n\n\n\n\n\nSep 10, 2022\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nanalysis\n\n\nnew\n\n\ncode\n\n\nfutebol\n\n\n\n\nAnalisando os resultados do campeonato brasileiro\n\n\n\n\n\n\nJul 14, 2022\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nanalysis\n\n\nnew\n\n\ncode\n\n\nANP\n\n\n\n\nPanorama a respeito do petróleo e biblioteca ggplot\n\n\n\n\n\n\nJul 4, 2022\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\nNo matching items"
+    "text": "Otimização\n\n\n\n\n\n\n\nlpsolve\n\n\n\n\nOtimização utilizando a linguagem R\n\n\n\n\n\n\nMar 2, 2023\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\n  \n\n\n\n\nPoder de Compra e Big Mac\n\n\n\n\n\n\n\nEconomics\n\n\nggplot\n\n\ndplyr\n\n\n\n\nO big mac é um dos pratos mais famosos do mcdonalds e virou uma ferramenta de estudos econômicos\n\n\n\n\n\n\nFeb 27, 2023\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\n  \n\n\n\n\nMapa Eleitoral\n\n\n\n\n\ndasd dsa\n\n\n\n\n\n\nNov 11, 2022\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\n  \n\n\n\n\nUsando R para acessar google sheet\n\n\n\n\n\nIsso é um pequeno tutorial para acessar o google sheets com a biblioteca googlesheets4 e base de dados utilizada vai ser da copa do mundo.\n\n\n\n\n\n\nNov 5, 2022\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\n  \n\n\n\n\nExtraindo dados da wikipedia\n\n\n\n\n\n\n\nweb scraping\n\n\nparlamento\n\n\ngoverno\n\n\nReino Unido\n\n\n\n\nWeb Scraping da página da Wikipédia\n\n\n\n\n\n\nNov 3, 2022\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\n  \n\n\n\n\nComo usar API do Twitter\n\n\n\n\n\n\n\napi\n\n\nseleção\n\n\ntwitter\n\n\n\n\nUm tutorial básico de como acessar a API do Twitter para obter dados\n\n\n\n\n\n\nOct 10, 2022\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\n  \n\n\n\n\nSaneamento no Estado de São Paulo\n\n\n\n\n\n\n\nanalysis\n\n\nnew\n\n\ncode\n\n\nsaneamento\n\n\ncsv\n\n\ngeobr\n\n\nggplot\n\n\n\n\nAtlas do Esgoto\n\n\n\n\n\n\nSep 10, 2022\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\n  \n\n\n\n\nCampeonato Brasileiro\n\n\n\n\n\n\n\nanalysis\n\n\nnew\n\n\ncode\n\n\nfutebol\n\n\n\n\nAnalisando os resultados do campeonato brasileiro\n\n\n\n\n\n\nJul 14, 2022\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\n  \n\n\n\n\nPetróleo\n\n\n\n\n\n\n\nanalysis\n\n\nnew\n\n\ncode\n\n\nANP\n\n\n\n\nPanorama a respeito do petróleo e biblioteca ggplot\n\n\n\n\n\n\nJul 4, 2022\n\n\nJorge Luiz Mendes\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/Petroleum/Petroleum.html",
@@ -299,5 +299,96 @@
     "title": "Usando R para acessar google sheet",
     "section": "Ver também",
     "text": "Ver também\n\nBeatriz Milz"
+  },
+  {
+    "objectID": "posts/Big Mac/Big Mac.html",
+    "href": "posts/Big Mac/Big Mac.html",
+    "title": "Poder de Compra e Big Mac",
+    "section": "",
+    "text": "A revista britânica The Economics em 1986 criou o índice Big Mac (ou Big Mac Index). Seu objetivo era comparar o poder de compra de cada país utilizando o preço de um big mac .\n\n\n\n\nO índice pode ser calculado pela seguinte fórmula:\n\\[\nÍndice\\,Big\\,Mac = \\frac{Preço\\, Big\\, Mac\\, no\\, país}{\nPreço\\, Big\\, Mac\\, no\\, EUA*taxa\\, de\\, câmbio }\\, -1\n\\]\nUm valor positivo significa que a moeda naquele momento está valorizada frente ao dólar americano, já um valor negativo indica que a moeda está subvalorizada. Os Estados Unidos da América recebe o valor de zero para seu índice, pois é a base de estudo.\n\n\n\n\n\n\nCuriosidade!!!\n\n\n\n\n\nNesse post a moeda estudada foi o Dólar Americano, entretanto já existe dados comparando as outras moedas como o Euro, Libra Esterlina, yuan chinês, e entre outras moedas.\n\n\n\nEsse índice permite também calcular a razão de troca ou paridade do poder de compra:\n\\[\nRazão\\,de\\,troca = \\frac{Preço\\,Big\\,Mac\\,no\\,país}{Preço\\,em\\, dolar}\n\\]\nGostaria de mostrar uma biblioteca que conheci recentemente ,(Arnold 2021), ela da uma embelezada no seus gráficos."
+  },
+  {
+    "objectID": "posts/Eleição/eleicao_2022.html",
+    "href": "posts/Eleição/eleicao_2022.html",
+    "title": "Mapa Eleitoral",
+    "section": "",
+    "text": "A eleição de 2022 foi acirrada"
+  },
+  {
+    "objectID": "posts/Big Mac/Big Mac.html#bibliotecas",
+    "href": "posts/Big Mac/Big Mac.html#bibliotecas",
+    "title": "Poder de Compra e Big Mac",
+    "section": "Bibliotecas",
+    "text": "Bibliotecas\n\nlibrary(dplyr) # tratamento de dados\nlibrary(knitr) # formatação de tabela\nlibrary(ggplot2) # gráficos\nlibrary(ggthemes) # temas de gráficos\nlibrary(lubridate) # tratamento de datas\nlibrary(glue) # colar textos"
+  },
+  {
+    "objectID": "posts/Big Mac/Big Mac.html#carregando-os-dados",
+    "href": "posts/Big Mac/Big Mac.html#carregando-os-dados",
+    "title": "Poder de Compra e Big Mac",
+    "section": "Carregando os dados",
+    "text": "Carregando os dados\nOs dados podem ser encontrados no kaggle.\n\ndf <- read.csv(\"big_mac.csv\")\n\n\nglimpse(df)\n\nRows: 1,631\nColumns: 19\n$ date          <chr> \"2000-04-01\", \"2000-04-01\", \"2000-04-01\", \"2000-04-01\", …\n$ iso_a3        <chr> \"ARG\", \"AUS\", \"BRA\", \"CAN\", \"CHE\", \"CHL\", \"CHN\", \"CZE\", …\n$ currency_code <chr> \"ARS\", \"AUD\", \"BRL\", \"CAD\", \"CHF\", \"CLP\", \"CNY\", \"CZK\", …\n$ name          <chr> \"Argentina\", \"Australia\", \"Brazil\", \"Canada\", \"Switzerla…\n$ local_price   <dbl> 2.50, 2.59, 2.95, 2.85, 5.90, 1260.00, 9.90, 54.37, 24.7…\n$ dollar_ex     <dbl> 1.0000000, 1.6800000, 1.7900000, 1.4700000, 1.7000000, 5…\n$ dollar_price  <dbl> 2.500000, 1.541667, 1.648045, 1.938776, 3.470588, 2.4513…\n$ USD_raw       <dbl> 0.11607, -0.31176, -0.26427, -0.13448, 0.54937, 0.09436,…\n$ EUR_raw       <dbl> 0.05007, -0.35246, -0.30778, -0.18566, 0.45774, 0.02964,…\n$ GBP_raw       <dbl> -0.16722, -0.48645, -0.45102, -0.35417, 0.15609, -0.1834…\n$ JPY_raw       <dbl> -0.09864, -0.44416, -0.40581, -0.30099, 0.25130, -0.1161…\n$ CNY_raw       <dbl> 1.09091, 0.28939, 0.37836, 0.62152, 1.90267, 1.05023, 0.…\n$ GDP_bigmac    <dbl> 7803.329, 29144.877, 4822.739, 26087.329, 23872.716, 464…\n$ adj_price     <dbl> 1.922652, 2.301550, 1.869734, 2.247266, 2.207948, 1.8665…\n$ USD_adjusted  <dbl> 0.39117, -0.28335, -0.05696, -0.07698, 0.68172, 0.40514,…\n$ EUR_adjusted  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …\n$ GBP_adjusted  <dbl> -0.06626, -0.51898, -0.36704, -0.38047, 0.12876, -0.0568…\n$ JPY_adjusted  <dbl> 0.10096, -0.43285, -0.25369, -0.26953, 0.33090, 0.11201,…\n$ CNY_adjusted  <dbl> 0.97153, 0.01563, 0.33645, 0.30809, 1.38330, 0.99133, 0.…"
+  },
+  {
+    "objectID": "posts/Eleição/eleicao_2022.html#bibliotecas",
+    "href": "posts/Eleição/eleicao_2022.html#bibliotecas",
+    "title": "Mapa Eleitoral",
+    "section": "Bibliotecas",
+    "text": "Bibliotecas\n\n#library(basedosdados)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(sf)\nlibrary(geobr)\n\n\ndf <- read.csv(\"dados.csv\")\n\ndados-tse-368314\nbasedosdados.br_tse_eleicoes.receitas_candidato\n# Defina o seu projeto no Google Cloud set_billing_id(“<YOUR_PROJECT_ID>”)"
+  },
+  {
+    "objectID": "posts/Big Mac/Big Mac.html#no-mundo",
+    "href": "posts/Big Mac/Big Mac.html#no-mundo",
+    "title": "Poder de Compra e Big Mac",
+    "section": "No Mundo",
+    "text": "No Mundo\nAtualmente que países possuim um índice positivo, ou seja, que possuim uma moeda valorizada em relação ao dólar americano?\n\ndf |> filter(USD_raw > 0, date %in% max(date)) |>\n  ggplot(aes(x =reorder(name,USD_raw),y = USD_raw)) + \n  geom_col(fill = \"#236fa8\") +\n  labs(title = \"Países com moeda valorizada\",\n       subtitle = \"índices positivos em relação ao dólar em 01/07/2022\",\n       x = \"\",\n       y = \"índice Big Mac\",\n       caption = \"Mendes, Jorge L.,2023\") +\n  theme(\n    plot.title = element_text(face = \"bold\",size = 14),\n    axis.text.x = element_text(angle = 45)\n    \n  )\n\n\n\n\nQuais países possuem o menor índice?\n\ndf |> filter( date %in% max(date)) |>\n  arrange(desc(-USD_raw)) |> head() |> \n  ggplot(aes(x =reorder(name,USD_raw),y = USD_raw)) + \n  geom_col(fill = \"#db6d1f\") +\n  labs(title = \"Países com moeda subvalorizada\",\n       subtitle = \"índices positivos em relação ao dólar em 01/07/2022\",\n       x = \"\",\n       y = \"índice Big Mac\",\n       caption = \"Mendes, Jorge L.,2023\") +\n  theme(\n    plot.title = element_text(face = \"bold\",\n                              size = 14),\n    axis.text.x = element_text(angle = 45)\n    \n  )+\n  theme_solarized(base_size = 15, light = FALSE)"
+  },
+  {
+    "objectID": "posts/Big Mac/Big Mac.html#situação-do-brasil.",
+    "href": "posts/Big Mac/Big Mac.html#situação-do-brasil.",
+    "title": "Poder de Compra e Big Mac",
+    "section": "Situação do Brasil.",
+    "text": "Situação do Brasil.\n\nBr <- df |>  filter(name == \"Brazil\")\n#últimas 5 linhas\nBr|> \n  tail() |>  \n  select(1,4:8) |> \n  knitr::kable(col.names = \n                 c(\"Data\",\"País\",\n                   \"Preço Local\",\"Razão de Troca\",\n                   \"Preço Dolar\",\"Índice(dólar)\"),\"pipe\")\n\n\n\n\n\n\n\n\n\n\n\n\n\nData\nPaís\nPreço Local\nRazão de Troca\nPreço Dolar\nÍndice(dólar)\n\n\n\n32\n2020-01-14\nBrazil\n19.9\n4.14190\n4.804558\n-0.00320\n\n\n33\n2020-07-01\nBrazil\n20.9\n5.34045\n3.913528\n-0.18806\n\n\n34\n2021-01-01\nBrazil\n21.9\n5.50460\n3.978491\n-0.18640\n\n\n35\n2021-07-01\nBrazil\n22.9\n5.24865\n4.363027\n-0.11500\n\n\n36\n2022-01-01\nBrazil\n22.9\n5.31000\n4.312618\n-0.14432\n\n\n37\n2022-07-01\nBrazil\n22.9\n5.39175\n4.247230\n-0.17530\n\n\n\n\n\n\n#convertendo a coluna para data\nBr$date <- lubridate::as_date(Br$date)\n\nPodemos analisar a evolução temporal do preço.\n\nGrafico_base <- Br |> ggplot() +\n  geom_line(aes(x=date,y =local_price),\n            linewidth = 1.2,\n            color =\"#d10404\" ) +\n  \n  geom_line(aes(x=date,y = mean(local_price)),\n          linetype =2,\n          color ='#5c5a5a') +\n  geom_point(aes(x=max(date),y = max(local_price)),\n             color ='#d10404',\n             size = 3) \n\nMax_price <- Br |>  filter(date %in% max(date)) |> \n  mutate(label = glue::glue(\"R$ {round(local_price,2)}\"))\n\n\nGrafico_base +\n  \n  labs(y = 'Real',\n       x ='Ano',\n       title = \"Preço do Big Mac no Brasil\",\n       subtitle = \"2000-2022\",\n       caption = \"Mendes, Jorge L.,2023 \") +\n  \n  annotate('text',\n           x=min(Br$date),\n           y =13.2,\n           label = \"Média\",\n          colour = \"#5c5a5a\",\n          size = 3,\n          fontface = 'bold') +\n  \n  ggrepel::geom_text_repel(\n    data = Max_price,\n    aes(x = date,y = local_price,label = label),\n    size = 5,\n    color = \"#d10404\",\n    nudge_y = -5,\n    nudge_x = 0,\n    min.segment.length = 0) +\n  \n  \n  theme(\n    panel.grid.minor = element_blank(),\n    panel.grid.major = element_blank(),\n    plot.title = element_text(face = \"bold\",size = 14)) +\n  theme_economist()\n\n\n\n\nPodemos analizar o comportamento da razão de troca ao longo tempo.\n\nBr |> \n  ggplot(aes(x = date,y =dollar_ex)) + \n  geom_line(color = \"#218572\", linetype = 2, linewidth = 0.8) +\n  labs(title =\"Razão de troca\",\n       subtitle = \"Real Brasileiro/Dólar Americano 2000-2022\",\n       caption = \"Mendes, Jorge L,2023\",\n       x = \"Data\",\n       y = \"R$/$\") +\n  theme(\n    plot.title = element_text(face = \"bold\",size =14) \n  ) +\n  theme_economist_white()"
+  },
+  {
+    "objectID": "posts/Big Mac/Big Mac.html#ver-também",
+    "href": "posts/Big Mac/Big Mac.html#ver-também",
+    "title": "Poder de Compra e Big Mac",
+    "section": "Ver também",
+    "text": "Ver também\n\nCurso R\nDicionário Financeiro\nTemas\nGGplot"
+  },
+  {
+    "objectID": "posts/Otimização/Otimização.html",
+    "href": "posts/Otimização/Otimização.html",
+    "title": "Otimização",
+    "section": "",
+    "text": "Na engenharia obtemos várias soluções para um determinado problemas. O desafio é encontrar uma solução ótima considerando todas as restrições. Tudo depende do objetivo almejado, seja maximizando o lucro ou minimizando o custo de uma operação por exemplo.\n\nfonte: https://atemporaledesign.com.br\nO lpSolve é um software gratuito para resolução de programação linear, Linear/inteira e entre outras que possui funções disponibilizadas para linguagem R.\n\n\n\n\n\n\nProgramação\n\n\n\n\n\nNa área de otimização Programação se relaciona com o tipo de problema a ser resolvido. Ela é do tipo linear quando a função a ser otimizada e suas restrições são lineares. Já a Linear inteira é quando algumas ou todas as variáveis são inteiras.\nExistem também problemas de designação que lida com transporte.\n\n\n\nDocumentação"
+  },
+  {
+    "objectID": "posts/Otimização/Otimização.html#problema",
+    "href": "posts/Otimização/Otimização.html#problema",
+    "title": "Otimização",
+    "section": "Problema",
+    "text": "Problema\nExemplo 15.1 do Chapra1.\n\n\n\n\nVariáveis:\n\\[\nx_1 \\Rightarrow Regular \\\\\nx_2 \\Rightarrow Premium\n\\]\nFunção objetivo:\n\\[\nMaximize\\, Z= 150  x_1 +\\, 175x_2\n\\]\nRestrições:\n\\[\n7x_1\\,+11x_2\\, \\leq 77\\,\\,\\,\\,(restrição\\,\\,de\\,\\,material)\n\\]\n\\[\n10x_1 \\,+8x_2\\,\\leq 80\\,\\,\\,\\,\\,(restrição\\,\\,de\\,\\,tempo)\n\\]\n\\[\nx_1 \\,\\leq 9\\,\\,\\,\\,\\,(restrição\\,\\,de\\,\\,armazenamento\\,\\,do\\,\\,tipo\\,\\,\"\nregular\")\n\\]\n\\[\nx_2 \\,\\leq 6\\,\\,\\,\\,\\,(restrição\\,\\,de\\,\\,armazenamento\\,\\,do\\,\\,tipo\\,\\,\"premium\")\n\\]\n\\[\nx_1,x_2\\, \\geq 0\\,\\,\\,\\,\\,(restrição\\,\\,de\\,\\,sinal)\n\\]"
+  },
+  {
+    "objectID": "posts/Otimização/Otimização.html#formulação-do-problema",
+    "href": "posts/Otimização/Otimização.html#formulação-do-problema",
+    "title": "Otimização",
+    "section": "Formulação do problema",
+    "text": "Formulação do problema\nPara resolução do problema será utilizado a estrura de matrizes com os coeficientes das equações.\n\nf.obj <- c(150,175) # Coeficientes da função objetiva\n\nf.con <- matrix(\n  c(7,11,\n    10,8,\n    1,0,\n    0,1,\n    1,0,\n    0,1),\n  nrow=6, byrow=TRUE) # Coeficientes das equações de restrições\n\nf.dir <- c(\"<=\",\"<=\",\"<=\",\"<=\",\">=\",\">=\") #Direção das equações de restrições\nf.rhs <- c(77,80,9,6,0,0) # Valores das restrições\n\nmodelo <- lp(\"max\", f.obj, f.con, f.dir, f.rhs) \n\nDetalhes do problema:\n\npaste(\"Funão objetiva =\", modelo$objective[1],\"x1 +\",modelo$objective[2],\"x2\")\n\n[1] \"Funão objetiva = 150 x1 + 175 x2\"\n\n\nPodemos verificar o status do modelo.\n\nif (modelo$status == 0) {\n  paste(\"Foi encontrada uma solução viável\")\n}else{\n  paste(\"Não foi encontrada uma solução viável\") \n}\n\n[1] \"Foi encontrada uma solução viável\"\n\n\nA resposta é um valor numérico sendo 0 indica que foi encontrada uma solução viável e 2 indica que não foi encontrada uma solução viável.\nVerificar o objetivo da otimização:\n\nif (modelo$direction == 1) {\n  paste(\"maximizar a função\")\n}else{\n  paste(\"minimizar a função\")\n}\n\n[1] \"maximizar a função\"\n\n\nO valor da função maximizada:\n\npaste(\"O lucro máximo é \",round(modelo$objval,2),\"/semana\")\n\n[1] \"O lucro máximo é  1413.89 /semana\"\n\n\nA solução otimizada:\n\npaste(\"Gás Regular:\",round(modelo$solution[1],2),\"ton/semana\")\n\n[1] \"Gás Regular: 4.89 ton/semana\"\n\npaste(\"Gás Premium:\",round(modelo$solution[2],2),\"ton/semana\") \n\n[1] \"Gás Premium: 3.89 ton/semana\""
+  },
+  {
+    "objectID": "posts/Otimização/Otimização.html#ver-também",
+    "href": "posts/Otimização/Otimização.html#ver-também",
+    "title": "Otimização",
+    "section": "Ver também",
+    "text": "Ver também\n\nSupply Chain Data Analytics"
+  },
+  {
+    "objectID": "posts/Otimização/Otimização.html#bibliotecas",
+    "href": "posts/Otimização/Otimização.html#bibliotecas",
+    "title": "Otimização",
+    "section": "Bibliotecas",
+    "text": "Bibliotecas\n\nlibrary(lpSolve)"
   }
 ]

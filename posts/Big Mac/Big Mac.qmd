@@ -1,0 +1,203 @@
+---
+title: "Poder de Compra e Big Mac"
+author: "Jorge Luiz Mendes"
+editor: visual
+date: "2023-02-27"
+image: "Big_Mac.png"
+description: "O big mac é um dos pratos mais famosos do mcdonalds e virou uma ferramenta de estudos econômicos"
+categories: [Economics, ggplot,dplyr]
+bibliography: references.bib
+---
+
+## História
+
+A revista britânica ***The Economics*** em 1986 criou o índice Big Mac (ou Big Mac Index). Seu objetivo era comparar o poder de compra de cada país utilizando o preço de um big mac .
+
+[![](Big_Mac.png){fig-align="center"}](https://www.mcdonalds.com.br/cardapio/mc-oferta/big-mac)
+
+O índice pode ser calculado pela seguinte fórmula:
+
+$$
+ Índice\,Big\,Mac = \frac{Preço\, Big\, Mac\, no\, país}{
+Preço\, Big\, Mac\, no\, EUA*taxa\, de\, câmbio }\, -1
+$$
+
+Um valor positivo significa que a moeda naquele momento está valorizada frente ao dólar americano, já um valor negativo indica que a moeda está subvalorizada. Os Estados Unidos da América recebe o valor de zero para seu índice, pois é a base de estudo.
+
+::: {.callout-note collapse="true"}
+## Curiosidade!!!
+
+Nesse post a moeda estudada foi o Dólar Americano, entretanto já existe dados comparando as outras moedas como o Euro, Libra Esterlina, yuan chinês, e entre outras moedas.
+:::
+
+Esse índice permite também calcular a razão de troca ou paridade do poder de compra:
+
+$$
+ Razão\,de\,troca = \frac{Preço\,Big\,Mac\,no\,país}{Preço\,em\, dolar}
+$$
+
+Gostaria de mostrar uma biblioteca que conheci recentemente ,[@ggthemes], ela da uma embelezada no seus gráficos.
+
+## Bibliotecas
+
+```{r,message=FALSE}
+library(dplyr) # tratamento de dados
+library(knitr) # formatação de tabela
+library(ggplot2) # gráficos
+library(ggthemes) # temas de gráficos
+library(lubridate) # tratamento de datas
+library(glue) # colar textos
+
+```
+
+## Carregando os dados
+
+Os dados podem ser encontrados no [kaggle](https://www.kaggle.com/datasets/paultimothymooney/the-economists-big-mac-index).
+
+```{r,message=FALSE}
+df <- read.csv("big_mac.csv")
+```
+
+```{r}
+glimpse(df)
+```
+
+## No Mundo
+
+Atualmente que países possuim um índice positivo, ou seja, que possuim uma moeda valorizada em relação ao dólar americano?
+
+```{r,collapse=TRUE}
+df |> filter(USD_raw > 0, date %in% max(date)) |>
+  ggplot(aes(x =reorder(name,USD_raw),y = USD_raw)) + 
+  geom_col(fill = "#236fa8") +
+  labs(title = "Países com moeda valorizada",
+       subtitle = "índices positivos em relação ao dólar em 01/07/2022",
+       x = "",
+       y = "índice Big Mac",
+       caption = "Mendes, Jorge L.,2023") +
+  theme(
+    plot.title = element_text(face = "bold",size = 14),
+    axis.text.x = element_text(angle = 45)
+    
+  )
+```
+
+Quais países possuem o menor índice?
+
+```{r}
+df |> filter( date %in% max(date)) |>
+  arrange(desc(-USD_raw)) |> head() |> 
+  ggplot(aes(x =reorder(name,USD_raw),y = USD_raw)) + 
+  geom_col(fill = "#db6d1f") +
+  labs(title = "Países com moeda subvalorizada",
+       subtitle = "índices positivos em relação ao dólar em 01/07/2022",
+       x = "",
+       y = "índice Big Mac",
+       caption = "Mendes, Jorge L.,2023") +
+  theme(
+    plot.title = element_text(face = "bold",
+                              size = 14),
+    axis.text.x = element_text(angle = 45)
+    
+  )+
+  theme_solarized(base_size = 15, light = FALSE)
+```
+
+## Situação do Brasil.
+
+```{r}
+Br <- df |>  filter(name == "Brazil")
+#últimas 5 linhas
+Br|> 
+  tail() |>  
+  select(1,4:8) |> 
+  knitr::kable(col.names = 
+                 c("Data","País",
+                   "Preço Local","Razão de Troca",
+                   "Preço Dolar","Índice(dólar)"),"pipe")
+```
+
+```{r}
+#convertendo a coluna para data
+Br$date <- lubridate::as_date(Br$date)
+```
+
+Podemos analisar a evolução temporal do preço.
+
+```{r}
+Grafico_base <- Br |> ggplot() +
+  geom_line(aes(x=date,y =local_price),
+            linewidth = 1.2,
+            color ="#d10404" ) +
+  
+  geom_line(aes(x=date,y = mean(local_price)),
+          linetype =2,
+          color ='#5c5a5a') +
+  geom_point(aes(x=max(date),y = max(local_price)),
+             color ='#d10404',
+             size = 3) 
+
+Max_price <- Br |>  filter(date %in% max(date)) |> 
+  mutate(label = glue::glue("R$ {round(local_price,2)}"))
+
+
+Grafico_base +
+  
+  labs(y = 'Real',
+       x ='Ano',
+       title = "Preço do Big Mac no Brasil",
+       subtitle = "2000-2022",
+       caption = "Mendes, Jorge L.,2023 ") +
+  
+  annotate('text',
+           x=min(Br$date),
+           y =13.2,
+           label = "Média",
+          colour = "#5c5a5a",
+          size = 3,
+          fontface = 'bold') +
+  
+  ggrepel::geom_text_repel(
+    data = Max_price,
+    aes(x = date,y = local_price,label = label),
+    size = 5,
+    color = "#d10404",
+    nudge_y = -5,
+    nudge_x = 0,
+    min.segment.length = 0) +
+  
+  
+  theme(
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_blank(),
+    plot.title = element_text(face = "bold",size = 14)) +
+  theme_economist()
+```
+
+Podemos analizar o comportamento da razão de troca ao longo tempo.
+
+```{r}
+Br |> 
+  ggplot(aes(x = date,y =dollar_ex)) + 
+  geom_line(color = "#218572", linetype = 2, linewidth = 0.8) +
+  labs(title ="Razão de troca",
+       subtitle = "Real Brasileiro/Dólar Americano 2000-2022",
+       caption = "Mendes, Jorge L,2023",
+       x = "Data",
+       y = "R$/$") +
+  theme(
+    plot.title = element_text(face = "bold",size =14) 
+  ) +
+  theme_economist_white()
+  
+```
+
+## Ver também
+
+-   [Curso R](https://blog.curso-r.com)
+
+-   [Dicionário Financeiro](https://www.dicionariofinanceiro.com/big-mac-index/)
+
+-   [Temas](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/)
+
+-   [GGplot](https://ggplot2-book.org)
