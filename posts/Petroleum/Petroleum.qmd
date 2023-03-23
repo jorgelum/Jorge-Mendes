@@ -7,6 +7,14 @@ image: "image1.png"
 description: "Panorama a respeito do petróleo e biblioteca ggplot"
 ---
 
+------------------------------------------------------------------------
+
+Atualizado[^1] : 23/03/2023
+
+[^1]: Troquei a paleta de cores e utilizei o pacote de glue para melhorar a vizualização.
+
+------------------------------------------------------------------------
+
 # Introdução
 
 O petróleo é um recurso extremamente necessário, presente em diversos setores da economia (indústria, agricultura, combustíveis, e etc).
@@ -28,8 +36,7 @@ library(magrittr)
 library(plyr)
 library(knitr)
 library(geobr)
-
-
+library(glue)
 ```
 
 ::: callout-note
@@ -66,15 +73,18 @@ Plotando o Gráfico.
 Reserva_internacional %>% filter(ANO ==2020) %>% 
   arrange(desc(`VALOR DA RESERVA`)) %>% slice(1:10) %>% 
     ggplot() +
-        aes(x =`VALOR DA RESERVA`,y =reorder(PAÍS,`VALOR DA RESERVA`),
-            fill = BLOCO,label =`VALOR DA RESERVA` ) +
-    geom_col() +
-          scale_fill_manual(values = c("orange","seagreen3")) +
-          labs(x ="Bilhões de Barris", y = "") +
-          
-          ggtitle("As 10 Maiores Reservas de Petróleo em 2020") +
-          geom_label(size =3)
-        
+    geom_col(aes(x =`VALOR DA RESERVA`,y =reorder(PAÍS,`VALOR DA RESERVA`),
+            fill = BLOCO) ) +
+          scale_fill_manual(values = c("#de6d04","#0f7a38")) +
+          labs(x ="Bilhões de Barris", y = "",
+               title ="As 10 Maiores Reservas de Petróleo",
+               subtitle ="em 2020" ,
+               caption = "Mendes,Jorge L.") +
+  
+         
+    theme(plot.title = element_text(face = "bold"))
+    
+
 ```
 
 A OPEP (Organização dos Países Exportadores de Petróleo) é uma organização que tem por objetivo regular a produção do petróleo para dar estabilidade no mercado internacionall.
@@ -86,25 +96,32 @@ Carregando os dados.
 ```{r,message=FALSE}
 Producao_internacional <- readr::read_csv2("https://www.gov.br/anp/pt-br/centrais-de-conteudo/publicacoes/anuario-estatistico/arquivos-anuario-estatistico-2021-metadados-pdf-e-dados-abertos-csv/secao-1-panorama-internacional/dados-abertos-csv/anuario-2021-dados_abertos-tabela1-2.csv")
 
-
+Producao_internacional$PRODUÇÃO <- round(Producao_internacional$PRODUÇÃO,2)
 ```
 
-Plotando o Gráfico.
+Plotando o Gráfico adicionando labels.
 
 ```{r}
  Producao_internacional %>% filter(ANO == 2020) %>% 
-  arrange(desc(PRODUÇÃO)) %>% slice(1:10) %>%   
+  arrange(desc(PRODUÇÃO)) %>% 
+   slice(1:10) %>% 
+   mutate(label = glue::glue("{round(PRODUÇÃO/1000,2)}k")) %>%  
   ggplot() +
-      aes(x =PRODUÇÃO ,y =reorder(PAÍS,PRODUÇÃO),fill=BLOCO, label = PRODUÇÃO) +
-        
-      geom_col() +
-           scale_fill_manual(values = c("orange","seagreen3")) +
-          labs(x ="Milhares de Barris por Dia", y = "") +
-          
-          ggtitle("Os 10 Maiores Produtores de Petróleo em 2020") +
-          geom_label(size = 3)
-        
-        
+   aes(x =PRODUÇÃO ,y =reorder(PAÍS,PRODUÇÃO),
+                fill=BLOCO, label =label) +
+   geom_col() +
+        scale_fill_manual(values = c("#de6d04","#0f7a38")) +
+         labs(x ="Milhares de Barris por Dia", y = "",
+              title = "Os 10 Maiores Produtores de Petróleo",
+              subtitle ="em 2020",
+              caption = "Mendes,Jorge L.") +
+        geom_label(size = 3) +
+    scale_x_continuous(limits = c(0,17000),
+                       labels = function(x){
+                       glue::glue("{x/1000}k")}) +
+   
+    theme(plot.title = element_text(face = "bold"))
+    
 ```
 
 Embora o Brasil não tenha as maiores reservas de petróleo, ele pertence ao grupo dos maiores produtores.
@@ -118,32 +135,45 @@ Texto <- paste(
           20),
   collapse = "\n")
 
+ano_destacado <- Producao_internacional %>% 
+  filter(ANO == 2015,PAÍS == "Brasil") %>%
+  mutate(label = glue::glue("{PRODUÇÃO}"))
+
+
 Producao_internacional %>% filter(PAÍS =="Brasil") %>% 
   ggplot() +
-   aes(x = ANO,y=PRODUÇÃO) +
+   aes(x = ANO,y=round(PRODUÇÃO,2)) +
  
   geom_line(size =1.2,colour = "grey" ) +
     scale_x_continuous(
-      breaks =c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020)) +
-  labs(y = "Milhares de Barris por dia") +
+      breaks =c(2011:2020)) +
+  labs(y = "Milhares de Barris por dia",x ="Ano",
+       title = "",
+       subtitle = "",
+       caption = "Mendes, Jorge L.") +
   
-  geom_point(size = 3, colour = "black") +
+  geom_point(size = 3, 
+             colour = "grey") +
+  
+  
   
   #Textos
-  annotate("text",x = 2012 ,y =2800,size = 6,
-           label = "BRASIL", fontface = "bold",colour = "green") +
-  annotate("text",x = 2018 ,y =2300,size = 5,
-           label = Texto, fontface = "bold",colour = "red") +
+  annotate("text",x = 2012 ,y =3000,size = 6,
+           label = "BRASIL", fontface = "bold",colour = "#36674e") +
+  annotate("text",x = 2016 ,y =2300,size= 4,
+           label = Texto, fontface = "bold",colour = "#243bd4") +
    
   #destacar um ponto
-  gghighlight(
-    ANO ==2015,
-    label_key = PRODUÇÃO,
-    #unhighlighted_colour = "grey",
-    label_params = list(size = 3.5,
-                        face = "bold",
-                        fill = "red"))
-  
+  ggrepel::geom_text_repel(
+    data = ano_destacado,
+    aes(x =ANO,y = PRODUÇÃO,label =label),
+    nudge_x = -0.5,
+    nudge_y = 50,
+    color = "#243bd4",
+    size = 5,
+    arrow = NULL
+  )
+
   
   
 
@@ -210,7 +240,7 @@ A biblioteca geobr nos force uma malha de pontos que podemos usar para construir
 
 Carregando os dados de 2017.
 
-```{r,message=FALSE}
+```{r,message=FALSE,results='hide'}
 Mapa <-geobr::read_state(year = 2017)
 ```
 
@@ -242,8 +272,8 @@ Plotando o Gráfico.
     geom_sf(aes(fill=Total), color= "black", size=.15) +
       labs(subtitle="Reservas Totais Estimadas em 2020", size=8) +
       scale_fill_distiller(palette = "Oranges",direction=1, 
-                           name="Milhões de Barris") +
-      theme_minimal() 
+                           name="Milhões de Barris")
+    
      
 ```
 

@@ -18,7 +18,7 @@ fonte: https://atemporaledesign.com.br
 O lpSolve é um software gratuito para resolução de programação linear, Linear/inteira e entre outras que possui funções disponibilizadas para linguagem R.
 
 ::: {.callout-tip collapse="true"}
-## Programação 
+## Programação
 
 Na área de otimização Programação se relaciona com o tipo de problema a ser resolvido. Ela é do tipo linear quando a função a ser otimizada e suas restrições são lineares. Já a Linear inteira é quando algumas ou todas as variáveis são inteiras.
 
@@ -38,7 +38,8 @@ Exemplo 15.1 do **Chapra**[^1].
 Variáveis:
 
 $$
-x_1 \Rightarrow Regular \\
+x_1 \Rightarrow Regular 
+$$ $$
 x_2 \Rightarrow Premium
 $$
 
