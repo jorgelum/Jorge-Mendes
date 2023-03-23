@@ -307,13 +307,7 @@
     "section": "",
     "text": "A revista britânica The Economics em 1986 criou o índice Big Mac (ou Big Mac Index). Seu objetivo era comparar o poder de compra de cada país utilizando o preço de um big mac .\n\n\n\n\nO índice pode ser calculado pela seguinte fórmula:\n\\[\nÍndice\\,Big\\,Mac = \\frac{Preço\\, Big\\, Mac\\, no\\, país}{\nPreço\\, Big\\, Mac\\, no\\, EUA*taxa\\, de\\, câmbio }\\, -1\n\\]\nUm valor positivo significa que a moeda naquele momento está valorizada frente ao dólar americano, já um valor negativo indica que a moeda está subvalorizada. Os Estados Unidos da América recebe o valor de zero para seu índice, pois é a base de estudo.\n\n\n\n\n\n\nCuriosidade!!!\n\n\n\n\n\nNesse post a moeda estudada foi o Dólar Americano, entretanto já existe dados comparando as outras moedas como o Euro, Libra Esterlina, yuan chinês, e entre outras moedas.\n\n\n\nEsse índice permite também calcular a razão de troca ou paridade do poder de compra:\n\\[\nRazão\\,de\\,troca = \\frac{Preço\\,Big\\,Mac\\,no\\,país}{Preço\\,em\\, dolar}\n\\]\nGostaria de mostrar uma biblioteca que conheci recentemente ,(Arnold 2021), ela da uma embelezada no seus gráficos."
   },
-  {
-    "objectID": "posts/Eleição/eleicao_2022.html",
-    "href": "posts/Eleição/eleicao_2022.html",
-    "title": "Mapa Eleitoral",
-    "section": "",
-    "text": "A eleição de 2022 foi acirrada"
-  },
+ 
   {
     "objectID": "posts/Big Mac/Big Mac.html#bibliotecas",
     "href": "posts/Big Mac/Big Mac.html#bibliotecas",
