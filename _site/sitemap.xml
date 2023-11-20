@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://jormendes.com/about.html</loc>
-    <lastmod>2022-10-11T18:54:14.304Z</lastmod>
+    <lastmod>2023-10-20T19:54:20.365Z</lastmod>
   </url>
   <url>
     <loc>https://jormendes.com/index.html</loc>
-    <lastmod>2023-04-22T04:01:23.457Z</lastmod>
+    <lastmod>2023-11-19T18:19:00.984Z</lastmod>
   </url>
   <url>
     <loc>https://jormendes.com/posts/Governos do Reino Unido/Web Scraping.html</loc>
@@ -30,6 +30,14 @@
   </url>
   <url>
     <loc>https://jormendes.com/posts/Equações Diferenciais Ordinárias/R para Modelagem.html</loc>
-    <lastmod>2023-04-22T04:02:18.176Z</lastmod>
+    <lastmod>2023-11-19T18:18:33.546Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jormendes.com/posts/Xgboost/xgboost.html</loc>
+    <lastmod>2023-11-15T22:45:00.618Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jormendes.com/posts/Campeonato Brasileiro/Campeonato Brasileiro.html</loc>
+    <lastmod>2023-10-25T15:30:37.165Z</lastmod>
   </url>
 </urlset>

@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Xgboost/xgboost.html",
       "/posts/Equações Diferenciais Ordinárias/R para Modelagem.html",
       "/posts/Otimização/Otimização.html",
       "/posts/Big Mac/Big Mac.html",

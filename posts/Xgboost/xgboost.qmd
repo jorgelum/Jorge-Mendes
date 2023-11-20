@@ -1,0 +1,216 @@
+---
+title: "Como utilizar o xgboost no R"
+author: "Jorge Luiz Mendes"
+date: "2023-11-15"
+categories: [xgboost,classificação,Tree]
+image: "image.png"
+description: "O xgboost é uma biblioteca poderosa para criar modelos de previsão"
+bibliography: references.bib
+---
+
+## Introdução
+
+O XGBoost (Extreme Gradient Boosting)[@xgboost] é uma biblioteca de código aberto que fornece um algoritmo de aprendizado de máquina de aumento de gradiente para tarefas de classificação, regressão e outros tipos de previsão. Ele se baseia na técnica de ensemble learning, que combina vários modelos de aprendizado de máquina mais simples para criar um modelo mais poderoso.
+
+![Fonte: https://siliconvalley.basisindependent.com/](image.png){fig-align="center"}
+
+O XGBoost usa uma estratégia de aumento de gradiente para construir um modelo preditivo de forma iterativa, em que cada novo modelo é treinado para corrigir os erros cometidos pelos modelos anteriores. O algoritmo utiliza árvores de decisão como modelo base, que são combinadas usando um algoritmo de aumento de gradiente para produzir um modelo mais preciso e robusto.
+
+## Bibliotecas
+
+```{r, message=FALSE}
+library(dplyr) #tratamento de dados
+library(knitr) #tabelas
+library(xgboost) 
+library(caret)
+library(ggplot2) #gráficos
+library(echarts4r) #gráficos
+```
+
+## Carregando os dados
+
+Os dados podem ser encontrados no [kaggle](https://www.kaggle.com/datasets/uciml/german-credit).
+
+```{r, message =FALSE}
+df <- read.csv("GermanCredit.csv")
+df <- df |> select(2:11)
+df[df==""] <- NA
+df |> head() |> 
+  knitr::kable(col.names = c("Age","Sex","Job","Housing","Saving.accounts",
+                             "Checking.account","Credit.amount","Duration",
+                             "Purpose","Risk"))
+```
+
+Podemos ver o tipo de dado que estamos analisando:
+
+```{r}
+glimpse(df)
+```
+
+Podemos ver algumas estatísticas dos dados:
+
+```{r}
+summary(df)
+```
+
+Podemos ver quantidade de linhas vazias em cada coluna:
+
+```{r}
+for (i in colnames(df)){
+  v <- df[,i] |> is.na() |> sum()
+  print(paste("coluna:",i,"|Número de linhas vazias:",v))
+}
+```
+
+## Análise Exploratória
+
+Podemos ver a proporção de homens e mulheres.
+
+```{r}
+df |> group_by(Sex) |>  
+   summarise(count = n())  |> 
+   e_charts(Sex) |> 
+   e_pie(count,roseType ="radius") |> 
+   e_title("Proporção dos Sexos")
+
+```
+
+A distribuição de idade:
+
+```{r}
+df |> select(Age)|> ggplot(aes(x =Age)) +
+  geom_histogram(fill ="#454df8",bins = 30) +
+  labs(title = "Distribuição de Idades", y ="",x ="Idades",
+       caption = "Mendes, Jorge L.,2023")+
+  theme(plot.title = element_text(face = "bold",size = 14),
+        axis.text.x = element_text(face = "bold",colour = "#030202",size =10),
+        axis.text.y = element_text(face = "bold",colour = "#030202",size =10))
+```
+
+Podemos analisar a relação entre idade e quantia de crédito:
+
+```{r}
+df |> ggplot() +
+  geom_point(aes(x = Age, y = Credit.amount,color = Risk)) +
+  scale_color_manual(values =  c("#ed6002","#02db47")) +
+  labs(title = "Relação entre crédito e idade",
+       y = "Quantidade de Crédito", x= "Idade",
+       caption = "Mendes, Jorge L.,2023") +
+  theme(plot.title = element_text(face = "bold",colour = "#030202",size =15))
+```
+
+## Modelagem
+
+### Transformação
+
+Primeiro devemos transformar os dados categóricos em binários (0 e 1).
+
+```{r}
+df <- df |> mutate(SexBi =case_when(
+  Sex =="male"~ 0
+  ,Sex == "female"~ 1
+),
+RiskBi= case_when(Risk =="bad"~0,
+                  Risk =="good"~1))
+
+```
+
+::: {.callout-note collapse="true"}
+## Binário
+
+Se as variáveis forem binárias como bem e mal, arriscado e seguro, e etc basta fazer como foi mostrado no tópico Transformação. Caso tenha mais parâmetros (por exemplo fácil,moderado e difícil) é necesário criar novas colunas que serão chamadas de variáveis dummies preenche-las com 0 e 1 conforme a ausência ou presença.
+:::
+
+### Seleção
+
+Para abastecer o modelo é necessário definir quais serão as variáveis de entrada e de saída. Para nosso problema queremos criar um modelo que classifique o risco do empréstimo com base na idade, sexo, crédito e duração. E pela quantidade de dados podemos separar um conjunto de treino e um conjunto de teste de forma aleatória para podermos avaliar o modelo.
+
+```{r}
+set.seed(123)
+
+indice_treino <- sample(1:nrow(df),0.7*nrow(df),replace = FALSE)
+
+
+df_train <-df[indice_treino,]
+df_test <-df[-indice_treino,]
+
+X_train <- df_train |> select(Age,Credit.amount,SexBi,Duration)
+y_train <- df_train |> select(RiskBi)
+
+X_test <- df_test |> select(Age,Credit.amount,SexBi,Duration)
+y_test <- df_test |> select(RiskBi)
+```
+
+::: {.callout-tip collapse="true"}
+## Seleção
+
+Os dados a serem selecionados podem ser determinados com análises estatísticas mais profundas como correlações e pca, e também vai depender da natureza do problema e do custo computacional envolvido.
+
+É possível fazer uma limpeza dos dados, ou seja, descartar linhas que podem atrapalhar o desempenho do modelo, preecher linhas que possuem dados ausentes, remover outliers, e etc.
+:::
+
+### Modelo
+
+Com os dados separados podemos escolher os parâmetros do modelo para treina-lo. Podemos definir o algoritmo, a profundidade da árvore, o número de iterações e entre outros parâmetros.
+
+```{r}
+parametros <- list(objective = "binary:logistic", 
+                    eval_metric = "error"
+                   )
+modelo <- xgboost(data = as.matrix(X_train),
+                  label = as.matrix(y_train),
+                  nrounds = 1,
+                  eta =0.1,
+                  params = parametros)
+
+```
+
+Aqui podemos ver como fica a visualzação de apenas um árvore.
+
+```{r, message=FALSE}
+xgb.plot.tree(model = modelo, fsize = 8, margin = 30, 
+              ylim = c(0, 0.2), xlimits = c(0, 1),
+              show_info = TRUE, dpi = 150)
+```
+
+### Predição
+
+```{r,message=FALSE,results='hide'}
+parametros <- list(objective = "binary:logistic", 
+                    eval_metric = "error"
+                   )
+modelo <- xgboost(data = as.matrix(X_train),
+                  label = as.matrix(y_train),
+                  nrounds = 100,
+                  eta =0.1,
+                  params = parametros)
+
+```
+
+## Resultados
+
+```{r}
+R1 <- predict(modelo,newdata = data.matrix(X_test)) |>  
+  as_tibble() |> 
+  mutate(R = if_else(value >= 0.5,1,0))
+R1 |> head() |> 
+  knitr::kable(col.names = c("values","R"),align ="l")
+
+```
+
+Acurácia do modelo.
+
+```{r}
+Ac <- mean(R1$R == y_test$RiskBi)*100
+paste("A acurácia é de",Ac,"%")
+```
+
+## Conclusão
+
+Esse post é uma apresentação bem resumida sobre o tema de aprendizado de máquina. Existem difentes formas de se construir e avaliar um modelo de predição. Podemos melhorar a seleção de dados, a construção do modelo e escolher métricas mais adequadas , tudo isso vai depender da natureza do problema.
+
+## Ver também
+
+-   [Sigmoidal](https://sigmoidal.ai/xgboost-aprenda-algoritmo-de-machine-learning-em-python/)
+
+-   [Yukio Andre](https://github.com/yukioandre)
