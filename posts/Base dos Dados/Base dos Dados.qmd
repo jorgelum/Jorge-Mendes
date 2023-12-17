@@ -1,0 +1,90 @@
+---
+title: "Base dos Dados"
+author: "Jorge Luiz Mendes"
+date: "2023-12-17"
+categories: ["Dados"]
+image: "logo.png"
+description: "Um breve tutorial de como utilizar o pacote base dos dados."
+---
+
+## Introdução 
+
+A organização [Base dos Dados](https://basedosdados.org) fornece uma fonte riquissima dados públicos podendo ser acessados via python, R, SQL e Stata. Eles fornecessem tabelas tratadas de diferentes assuntos de forma gratuita e paga.
+
+## Mãos a obra
+
+### Google Cloud
+
+Tenha uma conta Google logada, acesse seu workspace do Google Cloud e crie um projeto.
+
+![](img/Capturar_BigQ.PNG){fig-align="center"}
+
+::: {.callout-caution collapse="true"}
+## Cuidado com a quantidade de projetos.
+
+Como qualquer serviço da Google existem planos gratuitos e pagos. Atente-se aos limites de números projetos e o tamanho da requisição que você pode fazer mensalmente.
+:::
+
+### RStudio
+
+No R instale e carregue a biblioteca.
+
+```{r, eval=FALSE}
+#install.packages("basedosdados")
+library("basedosdados")
+```
+
+Forneça o id do seu projeto.
+
+```{r, eval=FALSE}
+basedosdados::set_billing_id("Id do Projeto")
+
+```
+
+### Selecionando os dados
+
+Existem diferentes formas de fazer a requisição dos dados e esta disponível na [documentação](https://basedosdados.github.io/mais/access_data_packages/#primeiros-passos). A forma favorita é criando uma *query*, pois posso selecionar uma pequena amostra dos dados. Primeiro vá ao [datalake](https://console.cloud.google.com/bigquery?project=psyched-myth-408218&ws=!1m0) da base dos dados e copie o ID da tabela de interesse.
+
+![](img/Capturar_tabela.PNG){fig-align="center"}
+
+A query pode ser construida dessa forma (como se fosse uma requisição de dados no SQL).
+
+```{r, eval=FALSE}
+query <- "SELECT *
+FROM basedosdados.br_tse_eleicoes.resultados_candidato_municipio
+WHERE ano = 2022
+AND cargo = \'presidente\'
+AND sigla_uf = \'SP\'" # Cuidado com as strings
+# se quiser poder por "limit 10" no final para trazer uma pequena amostra 
+```
+
+::: {.callout-note collapse="true"}
+## Para quem não tem muita afinidade com SQL
+
+SELECT \* -\> Selecionar todas as colunas da tabela.
+
+FROM -\> Especificar qual a tabela
+
+WHERE -\> Filtros
+
+AND -\> Concatenar todos os filtros
+:::
+
+Agora você pode baixar os dados definindo um diretório e fomato.
+
+```{r,eval=FALSE}
+basedosdados::download(query = query,path = "Diretório\dados.csv")
+
+```
+
+Realize a autenticação
+
+![](img/Capturar_auth.PNG){fig-align="center"}
+
+::: {.callout-tip collapse="true"}
+## Permissões
+
+Certifiquisse de fornecer todas permissões
+:::
+
+Agora você tem os dados disponíveis no seu computador para realizar as análises. Reforço o cuidado com o volume de dados para evitar incovenientes de ter que trocar o email do seu projeto ou ter que esperar sua cota renovar.

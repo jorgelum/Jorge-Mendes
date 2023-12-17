@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Base dos Dados/Base dos Dados.html",
       "/posts/Xgboost/xgboost.html",
       "/posts/Equações Diferenciais Ordinárias/R para Modelagem.html",
       "/posts/Otimização/Otimização.html",
