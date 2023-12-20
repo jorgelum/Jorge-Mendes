@@ -7,7 +7,7 @@ image: "logo.png"
 description: "Um breve tutorial de como utilizar o pacote base dos dados."
 ---
 
-## Introdução 
+## Introdução
 
 A organização [Base dos Dados](https://basedosdados.org) fornece uma fonte riquissima dados públicos podendo ser acessados via python, R, SQL e Stata. Eles fornecessem tabelas tratadas de diferentes assuntos de forma gratuita e paga.
 

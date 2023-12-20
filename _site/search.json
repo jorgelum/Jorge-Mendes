@@ -438,7 +438,7 @@
     "href": "posts/Xgboost/xgboost.html#bibliotecas",
     "title": "Como utilizar o xgboost no R",
     "section": "Bibliotecas",
-    "text": "Bibliotecas\n\nlibrary(dplyr) #tratamento de dados\nlibrary(knitr) #tabelas\nlibrary(xgboost) \nlibrary(caret)\nlibrary(ggplot2) #gráficos\nlibrary(echarts4r) #gráficos"
+    "text": "Bibliotecas\n\nlibrary(dplyr) #tratamento de dados\nlibrary(knitr) #tabelas\nlibrary(xgboost) \nlibrary(caret)\nlibrary(ggplot2) #gráficos"
   },
   {
     "objectID": "posts/Xgboost/xgboost.html#carregando-os-dados",
@@ -452,7 +452,7 @@
     "href": "posts/Xgboost/xgboost.html#análise-exploratória",
     "title": "Como utilizar o xgboost no R",
     "section": "Análise Exploratória",
-    "text": "Análise Exploratória\nPodemos ver a proporção de homens e mulheres.\n\ndf |&gt; group_by(Sex) |&gt;  \n   summarise(count = n())  |&gt; \n   e_charts(Sex) |&gt; \n   e_pie(count,roseType =\"radius\") |&gt; \n   e_title(\"Proporção dos Sexos\")\n\n\n\n\n\nA distribuição de idade:\n\ndf |&gt; select(Age)|&gt; ggplot(aes(x =Age)) +\n  geom_histogram(fill =\"#454df8\",bins = 30) +\n  labs(title = \"Distribuição de Idades\", y =\"\",x =\"Idades\",\n       caption = \"Mendes, Jorge L.,2023\")+\n  theme(plot.title = element_text(face = \"bold\",size = 14),\n        axis.text.x = element_text(face = \"bold\",colour = \"#030202\",size =10),\n        axis.text.y = element_text(face = \"bold\",colour = \"#030202\",size =10))\n\n\n\n\nPodemos analisar a relação entre idade e quantia de crédito:\n\ndf |&gt; ggplot() +\n  geom_point(aes(x = Age, y = Credit.amount,color = Risk)) +\n  scale_color_manual(values =  c(\"#ed6002\",\"#02db47\")) +\n  labs(title = \"Relação entre crédito e idade\",\n       y = \"Quantidade de Crédito\", x= \"Idade\",\n       caption = \"Mendes, Jorge L.,2023\") +\n  theme(plot.title = element_text(face = \"bold\",colour = \"#030202\",size =15))"
+    "text": "Análise Exploratória\nPodemos ver a proporção de homens e mulheres.\n\ndata_s &lt;-df |&gt; group_by(Sex) |&gt;  \n   summarise(count = n())  \npie(data_s$count,labels = data_s$Sex,\nmain = \"Proporção de homens e mulheres\")\n\n\n\n\nA distribuição de idade:\n\ndf |&gt; select(Age)|&gt; ggplot(aes(x =Age)) +\n  geom_histogram(fill =\"#454df8\",bins = 30) +\n  labs(title = \"Distribuição de Idades\", y =\"\",x =\"Idades\",\n       caption = \"Mendes, Jorge L.,2023\")+\n  theme(plot.title = element_text(face = \"bold\",size = 14),\n        axis.text.x = element_text(face = \"bold\",colour = \"#030202\",size =10),\n        axis.text.y = element_text(face = \"bold\",colour = \"#030202\",size =10))\n\n\n\n\nPodemos analisar a relação entre idade e quantia de crédito:\n\ndf |&gt; ggplot() +\n  geom_point(aes(x = Age, y = Credit.amount,color = Risk)) +\n  scale_color_manual(values =  c(\"#ed6002\",\"#02db47\")) +\n  labs(title = \"Relação entre crédito e idade\",\n       y = \"Quantidade de Crédito\", x= \"Idade\",\n       caption = \"Mendes, Jorge L.,2023\") +\n  theme(plot.title = element_text(face = \"bold\",colour = \"#030202\",size =15))"
   },
   {
     "objectID": "posts/Xgboost/xgboost.html#modelagem",

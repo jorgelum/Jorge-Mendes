@@ -24,7 +24,6 @@ library(knitr) #tabelas
 library(xgboost) 
 library(caret)
 library(ggplot2) #gráficos
-library(echarts4r) #gráficos
 ```
 
 ## Carregando os dados
@@ -67,12 +66,10 @@ for (i in colnames(df)){
 Podemos ver a proporção de homens e mulheres.
 
 ```{r}
-df |> group_by(Sex) |>  
-   summarise(count = n())  |> 
-   e_charts(Sex) |> 
-   e_pie(count,roseType ="radius") |> 
-   e_title("Proporção dos Sexos")
-
+data_s <-df |> group_by(Sex) |>  
+   summarise(count = n())  
+pie(data_s$count,labels = data_s$Sex,
+main = "Proporção de homens e mulheres")
 ```
 
 A distribuição de idade:
