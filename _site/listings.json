@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Eleição 2022/Eleição 2022.html",
       "/posts/Base dos Dados/Base dos Dados.html",
       "/posts/Xgboost/xgboost.html",
       "/posts/Equações Diferenciais Ordinárias/R para Modelagem.html",

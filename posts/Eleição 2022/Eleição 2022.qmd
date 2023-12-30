@@ -1,0 +1,236 @@
+---
+title: "Eleição 2022"
+author: "Jorge Luiz Mendes"
+date: "2023/12/29"
+image: "image0.png"
+description: "As eleições de 2022 foram extremamente concorridas, sendo bem disputadas no primeiro e no segundo turno."
+categories: [governo,Dados,geobr,analytics,ggplot]
+---
+
+## Introdução
+
+As eleições de 2022 foram extremamente concorridas, sendo bem disputadas no primeiro e no segundo turno. Eu quero analisar a quantidade de votos em cada partido, em cada turno e obter outras informações relevantes.
+
+![Fonte: https://agenciabrasil.ebc.com.br/](image0.png){fig-align="center" width="579"}
+
+## Bibliotecas
+
+```{r, message= FALSE}
+library(dplyr) #tratamento de dados
+library(tidyr) #tratamento de dados
+library(ggplot2) #gráficos
+library(readr) #leitura de dados
+library(sf) #mapas
+library(geobr) #mapas
+library(knitr) #tabelas 
+library(kableExtra) #tabelas 
+library(glue) 
+```
+
+## Dados
+
+O estudo desse post diz respeito das eleições de 2022 com foco no estado de São Paulo. Os dados se tratam de votos válidos, não nulos e não brancos, ou seja, somente o resultado dos partidos. Eles foram obtidos do projeto Base dos Dados, deixo [aqui](https://jormendes.netlify.app/posts/base%20dos%20dados/base%20dos%20dados) um pequeno tutorial de como utiliza-lo.
+
+```{r, message=FALSE}
+dados <- readr::read_csv("dados.csv") 
+dados |> head() |> knitr::kable()
+```
+
+## Visão Geral
+
+**Qual o número total de votos que os partidos receberam do estado de São Paulo?**
+
+Primeiro vou agrupar a soma total dos votos por turnos.
+
+```{r}
+df <- dados |> 
+  dplyr::group_by(turno) |> 
+  dplyr::summarise(N_votos = sum(votos)) |> 
+  dplyr::mutate(turno =case_when(
+     turno == 1 ~"1°",
+     turno == 2 ~"2°"
+   ))
+dif_perc <-round(((df$N_votos[2] - df$N_votos[1])/df$N_votos[1])*100,2)
+
+```
+
+Agora posso plotar os dados com ggplot.
+
+```{r}
+df |> 
+  dplyr::mutate(N_votos = N_votos/1000000) |> 
+  ggplot2::ggplot(aes(x =turno,y =N_votos,fill =turno,label = round(N_votos,2))) +
+  geom_col(width = 0.5) + 
+  scale_fill_manual(values = c("#6cb898","#6c9cb8"),name = "Turno") + 
+  labs(title = "Número de votantes por turno no estado de SP",
+       subtitle = "eleições de 2022",
+       x= 'Turno', y= 'Número de votos(em milhões)',
+       legend = "Turno"
+       ) +
+  annotate("text",x=1.5,y =18, label = glue::glue('Aumento de\n{dif_perc}%')) +
+  geom_label(size = 4) +
+
+  theme(plot.title = element_text(face = "bold"))
+```
+
+::: {.callout-note collapse="true"}
+## Nota
+
+Houve um aumento de 80 mil votos em relação ao primeiro turno mostrando que ocorreu uma migração possívelmente dos votos nulos e brancos, ou aqueles que não participaram da votação do primeiro dia. Claro nem todos que votaram no votaram no segundo e vice versa.
+:::
+
+**Como foi o resultado do primeiro turno?**
+
+```{r}
+dados |> 
+  dplyr::filter(turno==1) |> 
+  dplyr::group_by(sigla_partido) |>
+  dplyr::summarise(votos = sum(votos)) |>
+  dplyr::arrange(desc(votos)) |> 
+  knitr::kable(col.names = c("Partido", "Votos"),
+               caption = "Resultado dos Partidos no Primeiro 1°",
+               align = 'cc')
+  
+```
+
+**Quem venceu em cada município no primeiro turno?**
+
+Posso plotar um mapa utilizando o pacote **geobr**.
+
+```{r, results='hide'}
+sp_mapa <- geobr::read_municipality(code_muni = 35, year=2018) |> 
+  dplyr::rename( id_municipio = code_muni )
+```
+
+Determinar os vencedores.
+
+```{r}
+sp_dados_1 <- dados |> 
+  dplyr::filter(turno==1) |> 
+  dplyr::group_by(id_municipio) |> 
+  dplyr::filter(votos == max(votos)) |> 
+  dplyr::left_join(sp_mapa,by ='id_municipio')
+```
+
+Plotando os dados.
+
+```{r}
+sp_dados_1 |> 
+  ggplot2::ggplot(ggplot2::aes(geometry = geom,fill = sigla_partido),
+                     color= "black") +
+  ggplot2::geom_sf() +
+  ggplot2::scale_fill_brewer(palette = "Set1",direction = -1,name = "Partido") +
+  labs(title = "Estado de São Paulo", subtitle = "Resultado do 1° turno (2022)") +
+  ggplot2::theme_void()
+```
+
+::: {.callout-tip collapse="true"}
+## Curiosidade
+
+Ocorreu um empate no município de Ribeirão do Sul com PT e PL ficaram cada um com 1452 votos.
+:::
+
+**Qual partido levou mais municípios no primeiro turno?**
+
+```{r}
+sp_dados_1 |>
+  dplyr::group_by(sigla_partido) |> 
+  dplyr::summarise(Contagem = n()) |> 
+  ggplot2::ggplot(aes(x = sigla_partido,y = Contagem)) +
+  ggplot2::geom_col(width = 0.5, fill = c('#295191','#c70c18')) +
+  labs(title = "Número de Vitórias por Município", subtitle =  "eleições de 2022(1°turno)",
+       y ="", x = "Partidos") +
+  theme(plot.title = element_text(face = "bold"))
+```
+
+**Como ficou a região do ABC?**
+
+```{r, warning=FALSE}
+listaABC = list(3548708, 3547809, 3529401, 3513801, 3548807, 3543303, 3544103)
+sp_dados_1 |> dplyr::filter(id_municipio %in% listaABC) |>  
+  ggplot2::ggplot(ggplot2::aes(geometry = geom,fill = sigla_partido),
+                     color= "black") +
+  ggplot2::geom_sf() +
+  ggplot2::scale_fill_brewer(palette = "Set1",direction = -1,name ="Partido") +
+  labs(title = "Região do Grande ABC",
+       subtitle = "Vencedores do primeiro 1°(2022)") +
+  geom_sf_label(aes(label = name_muni, colors='white')) +
+  ggplot2::theme_void()
+```
+
+## Segundo Turno
+
+Agora com 2 partidos fica mais fácil comparar resultados. Podemos comparar a diferença de votos entre os partidos em cada turno.
+
+**Qual a porcentagem de votos que eles ganharam no segundo turno?**
+
+```{r, message=FALSE}
+dados |> dplyr::filter(sigla_partido %in% c("PL","PT")) |> 
+  dplyr::group_by(turno,sigla_partido) |> 
+  dplyr::summarise(soma = sum(votos)) |> 
+  tidyr::spread(key = turno,value = soma) |> 
+  dplyr::rename(primeiro ='1',segundo = '2') |> 
+  dplyr::mutate(dif = round(100*(segundo - primeiro)/primeiro,2)) |> 
+  knitr::kable(col.names = c("Partido", "Primeiro","Segundo","Diferença de Votos (%)"),
+               caption = "Resultado dos Partidos nas Eleições de 2022",
+               align = 'cccc') |> 
+  kableExtra::add_header_above(c(" " = 1,"Turno" = 2, " " = 1))
+
+```
+
+**Quem venceu em cada município no segundo turno?**
+
+```{r}
+sp_dados_2 <- dados |> 
+  dplyr::filter(turno==2) |> 
+  dplyr::group_by(id_municipio) |> 
+  dplyr::filter(votos == max(votos)) |> 
+  dplyr::left_join(sp_mapa,by ='id_municipio')
+
+sp_dados_2 |> 
+  ggplot2::ggplot(ggplot2::aes(geometry = geom,fill = sigla_partido),
+                     color= "black") +
+  ggplot2::geom_sf() +
+  ggplot2::scale_fill_brewer(palette = "Set1",direction = -1,name ="Partido") +
+  labs(title = "Estado de São Paulo", subtitle = "Resultado do 2° turno (2022)") +
+  ggplot2::theme_void()
+
+
+```
+
+::: {.callout-note collapse="true"}
+## Curiosidade
+
+Ocorreu um empate no município de Guará com PT e PL ficaram cada um com 5529 votos.
+:::
+
+**Qual partido levou mais municípios no segundo turno?**
+
+```{r, message=FALSE}
+sp_dados_2 |>
+  dplyr::group_by(sigla_partido) |> 
+  dplyr::summarise(Contagem = n()) |> 
+  ggplot2::ggplot(aes(x = sigla_partido,y = Contagem)) +
+  ggplot2::geom_col(width = 0.5, fill = c('#295191','#c70c18')) +
+  labs(title = "Número de Vitórias por Município", subtitle =  "eleições de 2022 (2°turno)",
+       y ="", x = "Partidos") +
+  theme(plot.title = element_text(face = "bold"))
+```
+
+**Como ficou a região do ABC no segundo turno?**
+
+```{r,warning=FALSE}
+sp_dados_2 |> dplyr::filter(id_municipio %in% listaABC) |>  
+  ggplot2::ggplot(ggplot2::aes(geometry = geom,fill = sigla_partido),
+                     color= "black") +
+  ggplot2::geom_sf() +
+  ggplot2::scale_fill_brewer(palette = "Set1",direction = -1,name ="Partido") +
+  labs(title = "Região do Grande ABC",
+       subtitle = "Vencedores do primeiro 2°(2022)") +
+  geom_sf_label(aes(label = name_muni, colors='white')) +
+  ggplot2::theme_void()
+```
+
+## Conclusão
+
+Foi possível tirar muitas informações de um pequeno dataset. O projeto **Base dos Dados** possui mais tabelas com dados de perfil eleitoral, gastos, votos nulos e brancos., sendo possível realizar análises mais completas.
