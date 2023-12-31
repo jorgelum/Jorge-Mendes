@@ -153,7 +153,7 @@ sp_dados_1 |> dplyr::filter(id_municipio %in% listaABC) |>
   ggplot2::geom_sf() +
   ggplot2::scale_fill_brewer(palette = "Set1",direction = -1,name ="Partido") +
   labs(title = "Região do Grande ABC",
-       subtitle = "Vencedores do primeiro 1°(2022)") +
+       subtitle = "Vencedores do primeiro turno (2022)") +
   geom_sf_label(aes(label = name_muni, colors='white')) +
   ggplot2::theme_void()
 ```
@@ -212,7 +212,7 @@ sp_dados_2 |>
   dplyr::summarise(Contagem = n()) |> 
   ggplot2::ggplot(aes(x = sigla_partido,y = Contagem)) +
   ggplot2::geom_col(width = 0.5, fill = c('#295191','#c70c18')) +
-  labs(title = "Número de Vitórias por Município", subtitle =  "eleições de 2022 (2°turno)",
+  labs(title = "Número de Vitórias por Município", subtitle =  "Eleições de 2022 (2°turno)",
        y ="", x = "Partidos") +
   theme(plot.title = element_text(face = "bold"))
 ```
@@ -226,7 +226,7 @@ sp_dados_2 |> dplyr::filter(id_municipio %in% listaABC) |>
   ggplot2::geom_sf() +
   ggplot2::scale_fill_brewer(palette = "Set1",direction = -1,name ="Partido") +
   labs(title = "Região do Grande ABC",
-       subtitle = "Vencedores do primeiro 2°(2022)") +
+       subtitle = "Vencedores do segundo turno(2022)") +
   geom_sf_label(aes(label = name_muni, colors='white')) +
   ggplot2::theme_void()
 ```
