@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Arbitragem da PL/Arbitragem_PL.html",
       "/posts/Eleição 2022/Eleição 2022.html",
       "/posts/Base dos Dados/Base dos Dados.html",
       "/posts/Xgboost/xgboost.html",

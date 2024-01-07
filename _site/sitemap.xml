@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://jormendes.com/about.html</loc>
-    <lastmod>2023-10-20T19:54:20.365Z</lastmod>
+    <lastmod>2024-01-05T04:45:07.469Z</lastmod>
   </url>
   <url>
     <loc>https://jormendes.com/index.html</loc>
-    <lastmod>2023-12-31T13:28:25.820Z</lastmod>
+    <lastmod>2024-01-07T01:11:22.304Z</lastmod>
   </url>
   <url>
     <loc>https://jormendes.com/posts/Governos do Reino Unido/Web Scraping.html</loc>
@@ -47,5 +47,9 @@
   <url>
     <loc>https://jormendes.com/posts/Eleição 2022/Eleição 2022.html</loc>
     <lastmod>2023-12-31T13:30:33.832Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jormendes.com/posts/Arbitragem da PL/Arbitragem_PL.html</loc>
+    <lastmod>2024-01-07T01:12:41.435Z</lastmod>
   </url>
 </urlset>
